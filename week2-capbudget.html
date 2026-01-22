@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Practice Tool - Capital Budgeting</title>
+
+    <!-- KaTeX for LaTeX rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: #2C5282;
+            color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+
+        .header-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .back-link {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .progress-bar {
+            background-color: #E2E8F0;
+            height: 8px;
+            border-radius: 4px;
+            margin: 1.5rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background-color: #48BB78;
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        .problem-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .problem-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #E2E8F0;
+        }
+
+        .problem-meta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .badge-easy { background-color: #C6F6D5; color: #22543D; }
+        .badge-medium { background-color: #FEF3C7; color: #78350F; }
+        .badge-hard { background-color: #FED7D7; color: #742A2A; }
+
+        .problem-number {
+            font-size: 0.875rem;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        .problem-text {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            color: #2D3748;
+        }
+
+        .formula-box {
+            background-color: #F7FAFC;
+            border-left: 4px solid #2C5282;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+
+        .formula-label {
+            font-size: 0.875rem;
+            color: #4A5568;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .answer-section {
+            margin: 2rem 0;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        label {
+            font-weight: 500;
+            color: #2D3748;
+        }
+
+        input[type="number"] {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid #CBD5E0;
+            border-radius: 6px;
+            font-size: 1.125rem;
+            transition: border-color 0.2s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #2C5282;
+        }
+
+        button {
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #2C5282;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2A4365;
+        }
+
+        .btn-primary:disabled {
+            background-color: #CBD5E0;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background-color: #E2E8F0;
+            color: #2D3748;
+        }
+
+        .btn-secondary:hover {
+            background-color: #CBD5E0;
+        }
+
+        .feedback-box {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 2px solid;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-correct {
+            background-color: #F0FFF4;
+            border-color: #48BB78;
+            color: #22543D;
+        }
+
+        .feedback-incorrect {
+            background-color: #FFF5F5;
+            border-color: #F56565;
+            color: #742A2A;
+        }
+
+        .feedback-title {
+            font-weight: 600;
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .feedback-content {
+            margin-top: 1rem;
+            line-height: 1.8;
+        }
+
+        .hint-box {
+            background-color: #EBF8FF;
+            border-left: 4px solid #3182CE;
+            padding: 1rem 1.5rem;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+
+        .solution-steps {
+            margin-top: 1rem;
+        }
+
+        .solution-step {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        .solution-step:last-child {
+            border-bottom: none;
+        }
+
+        .step-number {
+            font-weight: 600;
+            color: #2C5282;
+        }
+
+        .navigation {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .navigation button {
+            flex: 1;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Calculator Styles */
+        .calculator-toolbar {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .calculator-toggle-btn {
+            background-color: #2C5282;
+            color: white;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .calculator-toggle-btn:hover {
+            background-color: #2A4365;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .calculator-container {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 320px;
+            background-color: #F7FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            display: none;
+        }
+
+        .calculator-container.active {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .calculator-display {
+            background-color: #2D3748;
+            color: #48BB78;
+            padding: 0.75rem;
+            border-radius: 6px;
+            margin-bottom: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 1.25rem;
+            text-align: right;
+            min-height: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .calculator-expression {
+            font-size: 0.875rem;
+            color: #CBD5E0;
+            margin-bottom: 0.25rem;
+        }
+
+        .calculator-result {
+            font-size: 1.25rem;
+            color: #48BB78;
+            font-weight: 600;
+        }
+
+        .calculator-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calc-btn {
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 1px solid #CBD5E0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background-color: white;
+            color: #2D3748;
+        }
+
+        .calc-btn:hover {
+            background-color: #EDF2F7;
+            transform: translateY(-1px);
+        }
+
+        .calc-btn:active {
+            transform: translateY(0);
+        }
+
+        .calc-btn-operator {
+            background-color: #2C5282;
+            color: white;
+            border-color: #2C5282;
+        }
+
+        .calc-btn-operator:hover {
+            background-color: #2A4365;
+        }
+
+        .calc-btn-equals {
+            background-color: #48BB78;
+            color: white;
+            border-color: #48BB78;
+        }
+
+        .calc-btn-equals:hover {
+            background-color: #38A169;
+        }
+
+        .calc-btn-clear {
+            background-color: #F56565;
+            color: white;
+            border-color: #F56565;
+        }
+
+        .calc-btn-clear:hover {
+            background-color: #E53E3E;
+        }
+
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .problem-card {
+                padding: 1.5rem;
+            }
+
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-nav">
+                <a href="index.html" class="back-link">← Back to Topics</a>
+            </div>
+            <h1>Capital Budgeting</h1>
+            <div class="subtitle">Week 2 - MGMT 408</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+            <div class="problem-number" id="progressText">Problem 1 of 10</div>
+        </header>
+
+        <div class="problem-card" id="problemCard">
+            <div class="problem-header">
+                <div class="problem-meta">
+                    <span class="badge" id="difficultyBadge">Easy</span>
+                    <span class="badge" style="background-color: #EBF8FF; color: #2C5282;" id="topicBadge">Topic</span>
+                </div>
+            </div>
+
+            <div class="problem-text" id="problemText">
+                Loading problem...
+            </div>
+
+            <div class="formula-box hidden" id="formulaBox">
+                <div class="formula-label">Formula:</div>
+                <div id="formulaText"></div>
+            </div>
+
+            <div class="answer-section">
+                <div class="input-group">
+                    <label for="answerInput">Your Answer:</label>
+                    <input type="number" id="answerInput" step="0.01" placeholder="Enter your answer">
+                    <button class="btn-primary" id="submitBtn" onclick="checkAnswer()">Submit</button>
+                </div>
+            </div>
+
+            <div id="feedbackBox" class="hidden"></div>
+
+            <div class="navigation">
+                <button class="btn-secondary" id="prevBtn" onclick="previousProblem()">Previous</button>
+                <button class="btn-secondary" id="nextBtn" onclick="nextProblem()">Next Problem</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Calculator Toolbar -->
+    <div class="calculator-toolbar">
+        <button class="calculator-toggle-btn" onclick="toggleCalculator()">
+            Calculator
+        </button>
+        <div class="calculator-container" id="calculatorContainer">
+            <div class="calculator-display">
+                <div class="calculator-expression" id="calcExpression">&nbsp;</div>
+                <div class="calculator-result" id="calcResult">0</div>
+            </div>
+            <div class="calculator-buttons">
+                <button class="calc-btn calc-btn-clear" onclick="calcClear()">AC</button>
+                <button class="calc-btn" onclick="calcBackspace()">Del</button>
+                <button class="calc-btn calc-btn-operator" onclick="calcAppend('^')">x^y</button>
+                <button class="calc-btn calc-btn-operator" onclick="calcAppend('/')">÷</button>
+
+                <button class="calc-btn" onclick="calcAppend('7')">7</button>
+                <button class="calc-btn" onclick="calcAppend('8')">8</button>
+                <button class="calc-btn" onclick="calcAppend('9')">9</button>
+                <button class="calc-btn calc-btn-operator" onclick="calcAppend('*')">x</button>
+
+                <button class="calc-btn" onclick="calcAppend('4')">4</button>
+                <button class="calc-btn" onclick="calcAppend('5')">5</button>
+                <button class="calc-btn" onclick="calcAppend('6')">6</button>
+                <button class="calc-btn calc-btn-operator" onclick="calcAppend('-')">-</button>
+
+                <button class="calc-btn" onclick="calcAppend('1')">1</button>
+                <button class="calc-btn" onclick="calcAppend('2')">2</button>
+                <button class="calc-btn" onclick="calcAppend('3')">3</button>
+                <button class="calc-btn calc-btn-operator" onclick="calcAppend('+')">+</button>
+
+                <button class="calc-btn" onclick="calcAppend('0')">0</button>
+                <button class="calc-btn" onclick="calcAppend('.')">.</button>
+                <button class="calc-btn" onclick="calcAppend('(')">(</button>
+                <button class="calc-btn" onclick="calcAppend(')')">)</button>
+
+                <button class="calc-btn calc-btn-equals" onclick="calcEquals()" style="grid-column: span 4;">=</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Calculator state
+        let calcCurrentExpression = '';
+        let calcCurrentResult = '0';
+        let calculatorOpen = false;
+
+        function toggleCalculator() {
+            calculatorOpen = !calculatorOpen;
+            const container = document.getElementById('calculatorContainer');
+            if (calculatorOpen) {
+                container.classList.add('active');
+            } else {
+                container.classList.remove('active');
+            }
+        }
+
+        function closeCalculator() {
+            if (calculatorOpen) {
+                calculatorOpen = false;
+                document.getElementById('calculatorContainer').classList.remove('active');
+            }
+        }
+
+        // Close calculator when clicking outside
+        document.addEventListener('click', (e) => {
+            const toolbar = document.querySelector('.calculator-toolbar');
+            const container = document.getElementById('calculatorContainer');
+
+            // If click is outside the calculator toolbar and container, close it
+            if (calculatorOpen && !toolbar.contains(e.target)) {
+                closeCalculator();
+            }
+        });
+
+        function calcAppend(value) {
+            calcCurrentExpression += value;
+            updateCalcDisplay();
+        }
+
+        function calcClear() {
+            calcCurrentExpression = '';
+            calcCurrentResult = '0';
+            updateCalcDisplay();
+        }
+
+        function calcBackspace() {
+            calcCurrentExpression = calcCurrentExpression.slice(0, -1);
+            updateCalcDisplay();
+        }
+
+        function calcEquals() {
+            if (!calcCurrentExpression) return;
+
+            try {
+                // Replace ^ with ** for JavaScript exponentiation
+                let expression = calcCurrentExpression.replace(/\^/g, '**');
+
+                // Evaluate the expression safely
+                let result = Function('"use strict"; return (' + expression + ')')();
+
+                // Round to 4 decimal places to avoid floating point issues
+                if (typeof result === 'number') {
+                    calcCurrentResult = Number(result.toFixed(4)).toString();
+                } else {
+                    calcCurrentResult = result.toString();
+                }
+            } catch (error) {
+                calcCurrentResult = 'Error';
+            }
+
+            updateCalcDisplay();
+        }
+
+        function updateCalcDisplay() {
+            document.getElementById('calcExpression').textContent = calcCurrentExpression || '\u00A0';
+            document.getElementById('calcResult').textContent = calcCurrentResult;
+        }
+
+        // Allow keyboard input for calculator (only when calculator is open)
+        document.addEventListener('keydown', (e) => {
+            if (document.activeElement.id === 'answerInput') return; // Don't interfere with answer input
+            if (!calculatorOpen) return; // Only work when calculator is open
+
+            if (e.key >= '0' && e.key <= '9') {
+                calcAppend(e.key);
+            } else if (e.key === '.') {
+                calcAppend('.');
+            } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+                calcAppend(e.key);
+            } else if (e.key === '^') {
+                calcAppend('^');
+            } else if (e.key === 'Enter' && calcCurrentExpression) {
+                calcEquals();
+            } else if (e.key === 'Backspace' && calcCurrentExpression) {
+                e.preventDefault();
+                calcBackspace();
+            } else if (e.key === 'Escape') {
+                calcClear();
+            } else if (e.key === '(' || e.key === ')') {
+                calcAppend(e.key);
+            }
+        });
+
+        // Capital Budgeting Problems based on Week 2 slides (with variations)
+        let problems = [
+            {
+                "id": "capbudget_001",
+                "topic": "NPV Calculation",
+                "difficulty": "easy",
+                "problem_text": "A project requires an initial investment of $200,000 today and will generate a single cash flow of $250,000 in one year. If the opportunity cost of capital is 15%, what is the NPV of this project?",
+                "given": {
+                    "initial_investment": 200000,
+                    "future_cash_flow": 250000,
+                    "discount_rate": 0.15
+                },
+                "formula": "NPV = -Initial Investment + Future Cash Flow / (1 + r)",
+                "solution_steps": [
+                    "Step 1: Identify cash flows: C₀ = -$200,000, C₁ = $250,000",
+                    "Step 2: Discount rate r = 15%",
+                    "Step 3: Calculate PV of future cash flow: $250,000 / 1.15 = $217,391",
+                    "Step 4: NPV = -$200,000 + $217,391",
+                    "Step 5: Final answer: NPV = $17,391"
+                ],
+                "correct_answer": 17391,
+                "hints": {
+                    "level_1": "NPV = Present Value of Benefits - Present Value of Costs",
+                    "level_2": "Discount the $250,000 back one year at 15%, then subtract the initial investment",
+                    "level_3": "NPV = -200,000 + 250,000/1.15"
+                }
+            },
+            {
+                "id": "capbudget_002",
+                "topic": "NPV with Multiple Cash Flows",
+                "difficulty": "medium",
+                "problem_text": "A project requires an investment of $150,000 today and the opportunity cost of your time worth $50,000 in present value. The project will pay $300,000 in one year. If the discount rate is 20%, what is the NPV?",
+                "given": {
+                    "initial_investment": 150000,
+                    "opportunity_cost": 50000,
+                    "future_cash_flow": 300000,
+                    "discount_rate": 0.20
+                },
+                "formula": "NPV = -Initial Investment - Opportunity Cost + PV(Future Cash Flow)",
+                "solution_steps": [
+                    "Step 1: Total costs today = $150,000 + $50,000 = $200,000",
+                    "Step 2: PV of benefits = $300,000 / 1.20 = $250,000",
+                    "Step 3: NPV = -$200,000 + $250,000",
+                    "Step 4: Final answer: NPV = $50,000"
+                ],
+                "correct_answer": 50000,
+                "hints": {
+                    "level_1": "Don't forget to include the opportunity cost of time as a cost",
+                    "level_2": "Total cost = investment + opportunity cost = $200,000",
+                    "level_3": "NPV = -200,000 + 300,000/1.20"
+                }
+            },
+            {
+                "id": "capbudget_003",
+                "topic": "Comparing Projects by NPV",
+                "difficulty": "medium",
+                "problem_text": "You have two mutually exclusive projects. Project A costs $100,000 today and pays $140,000 in one year. Project B costs $200,000 today and pays $270,000 in one year. If the discount rate is 12%, what is the NPV of Project B?",
+                "given": {
+                    "project_b_cost": 200000,
+                    "project_b_payoff": 270000,
+                    "discount_rate": 0.12
+                },
+                "formula": "NPV = -Cost + Payoff / (1 + r)",
+                "solution_steps": [
+                    "Step 1: Project B cash flows: C₀ = -$200,000, C₁ = $270,000",
+                    "Step 2: PV of Year 1 cash flow: $270,000 / 1.12 = $241,071",
+                    "Step 3: NPV = -$200,000 + $241,071",
+                    "Step 4: Final answer: NPV of Project B = $41,071"
+                ],
+                "correct_answer": 41071,
+                "hints": {
+                    "level_1": "Calculate NPV for Project B using the standard formula",
+                    "level_2": "Discount $270,000 by one year at 12%",
+                    "level_3": "NPV = -200,000 + 270,000/1.12"
+                }
+            },
+            {
+                "id": "capbudget_004",
+                "topic": "Profitability Index",
+                "difficulty": "easy",
+                "problem_text": "A project has an NPV of $25 million and requires an initial investment of $20 million. What is the profitability index?",
+                "given": {
+                    "npv": 25,
+                    "initial_investment": 20
+                },
+                "formula": "Profitability Index = NPV / Resource Consumed",
+                "solution_steps": [
+                    "Step 1: NPV = $25 million",
+                    "Step 2: Initial Investment = $20 million",
+                    "Step 3: Profitability Index = NPV / Initial Investment",
+                    "Step 4: PI = 25 / 20 = 1.25",
+                    "Step 5: Final answer: Profitability Index = 1.25"
+                ],
+                "correct_answer": 1.25,
+                "hints": {
+                    "level_1": "Profitability Index measures value created per dollar invested",
+                    "level_2": "PI = NPV / Investment",
+                    "level_3": "PI = 25 / 20"
+                }
+            },
+            {
+                "id": "capbudget_005",
+                "topic": "Profitability Index - Project Selection",
+                "difficulty": "medium",
+                "problem_text": "You have $50 million to invest. Project A has NPV of $15M and costs $20M. Project B has NPV of $12M and costs $15M. Project C has NPV of $20M and costs $25M. Using the profitability index, what is the maximum total NPV you can achieve?",
+                "given": {
+                    "budget": 50,
+                    "project_a": {"npv": 15, "cost": 20, "pi": 0.75},
+                    "project_b": {"npv": 12, "cost": 15, "pi": 0.80},
+                    "project_c": {"npv": 20, "cost": 25, "pi": 0.80}
+                },
+                "formula": "Rank by PI = NPV/Cost, then select projects until budget exhausted",
+                "solution_steps": [
+                    "Step 1: Calculate PI for each project:",
+                    "  - Project A: 15/20 = 0.75",
+                    "  - Project B: 12/15 = 0.80",
+                    "  - Project C: 20/25 = 0.80",
+                    "Step 2: Rank by PI: B and C tied at 0.80, then A at 0.75",
+                    "Step 3: Select B ($15M) + C ($25M) = $40M invested, leaves $10M",
+                    "Step 4: Can't fit A ($20M) in remaining $10M",
+                    "Step 5: Total NPV = $12M + $20M = $32M"
+                ],
+                "correct_answer": 32,
+                "hints": {
+                    "level_1": "Calculate PI for each project, then rank them",
+                    "level_2": "PI: A=0.75, B=0.80, C=0.80. Start with highest PI projects",
+                    "level_3": "B+C costs $40M and gives NPV of $32M. A doesn't fit in remaining $10M"
+                }
+            },
+            {
+                "id": "capbudget_006",
+                "topic": "IRR Calculation",
+                "difficulty": "medium",
+                "problem_text": "A project has the following cash flows: invest $4,000 today, receive $1,500 at the end of each of the next 3 years. The IRR of this project is approximately 6.1%. If your opportunity cost of capital is 5%, what is the NPV of this project (to the nearest dollar)?",
+                "given": {
+                    "initial_investment": 4000,
+                    "annual_cash_flow": 1500,
+                    "years": 3,
+                    "discount_rate": 0.05
+                },
+                "formula": "NPV = -C₀ + C₁/(1+r) + C₂/(1+r)² + C₃/(1+r)³",
+                "solution_steps": [
+                    "Step 1: Cash flows: C₀ = -$4,000, C₁ = C₂ = C₃ = $1,500",
+                    "Step 2: Discount rate = 5%",
+                    "Step 3: PV of Year 1: 1500/1.05 = $1,428.57",
+                    "Step 4: PV of Year 2: 1500/1.05² = $1,360.54",
+                    "Step 5: PV of Year 3: 1500/1.05³ = $1,295.76",
+                    "Step 6: NPV = -4000 + 1428.57 + 1360.54 + 1295.76 = $84.87",
+                    "Step 7: Final answer: NPV ≈ $85"
+                ],
+                "correct_answer": 85,
+                "hints": {
+                    "level_1": "Since IRR (6.1%) > cost of capital (5%), NPV should be positive",
+                    "level_2": "Discount each $1,500 payment at 5%",
+                    "level_3": "NPV = -4000 + 1500/1.05 + 1500/1.05² + 1500/1.05³"
+                }
+            },
+            {
+                "id": "capbudget_007",
+                "topic": "IRR Decision Rule",
+                "difficulty": "easy",
+                "problem_text": "A project has an IRR of 18%. Your company's hurdle rate (opportunity cost of capital) is 12%. Based on the IRR rule, should you accept this project? Enter 1 for Yes, 0 for No.",
+                "given": {
+                    "irr": 0.18,
+                    "hurdle_rate": 0.12
+                },
+                "formula": "Accept if IRR > Hurdle Rate",
+                "solution_steps": [
+                    "Step 1: IRR = 18%",
+                    "Step 2: Hurdle Rate = 12%",
+                    "Step 3: Compare: 18% > 12%",
+                    "Step 4: Since IRR exceeds the hurdle rate, accept the project",
+                    "Step 5: Final answer: Yes (1)"
+                ],
+                "correct_answer": 1,
+                "hints": {
+                    "level_1": "The IRR rule says to accept if IRR exceeds the opportunity cost of capital",
+                    "level_2": "Compare 18% to 12%",
+                    "level_3": "18% > 12%, so accept"
+                }
+            },
+            {
+                "id": "capbudget_008",
+                "topic": "Payback Period",
+                "difficulty": "easy",
+                "problem_text": "A project requires an initial investment of $80 million and generates $20 million per year in free cash flow. What is the payback period in years?",
+                "given": {
+                    "initial_investment": 80,
+                    "annual_cash_flow": 20
+                },
+                "formula": "Payback Period = Initial Investment / Annual Cash Flow",
+                "solution_steps": [
+                    "Step 1: Initial Investment = $80 million",
+                    "Step 2: Annual Cash Flow = $20 million",
+                    "Step 3: Payback Period = Investment / Annual Cash Flow",
+                    "Step 4: Payback = 80 / 20 = 4 years",
+                    "Step 5: Final answer: 4 years"
+                ],
+                "correct_answer": 4,
+                "hints": {
+                    "level_1": "Payback period is how long it takes to recover your initial investment",
+                    "level_2": "Divide initial investment by annual cash flow",
+                    "level_3": "80 / 20 = 4 years"
+                }
+            },
+            {
+                "id": "capbudget_009",
+                "topic": "NPV vs Payback",
+                "difficulty": "medium",
+                "problem_text": "A project requires $60 million today and generates $12 million per year for 8 years. Your company has a 5-year payback rule and uses an 8% discount rate. What is the NPV of this project (in millions)?",
+                "given": {
+                    "initial_investment": 60,
+                    "annual_cash_flow": 12,
+                    "years": 8,
+                    "discount_rate": 0.08
+                },
+                "formula": "NPV = -C₀ + C × [1 - 1/(1+r)^n] / r",
+                "solution_steps": [
+                    "Step 1: This is an annuity: $12M per year for 8 years",
+                    "Step 2: PV of annuity = 12 × [1 - 1/(1.08)^8] / 0.08",
+                    "Step 3: = 12 × [1 - 0.5403] / 0.08",
+                    "Step 4: = 12 × 5.7466 = $68.96M",
+                    "Step 5: NPV = -60 + 68.96 = $8.96M",
+                    "Step 6: Final answer: NPV ≈ $9 million"
+                ],
+                "correct_answer": 9,
+                "hints": {
+                    "level_1": "Use the annuity formula to find PV of the 8 years of cash flows",
+                    "level_2": "PV = 12 × annuity factor for 8 years at 8%",
+                    "level_3": "Annuity factor = 5.7466, so PV = $68.96M, NPV = -60 + 68.96"
+                }
+            },
+            {
+                "id": "capbudget_010",
+                "topic": "Free Cash Flow",
+                "difficulty": "hard",
+                "problem_text": "A project has revenues of $500,000, costs of $300,000, and depreciation of $50,000. The tax rate is 25%. There is no change in NWC and no CapEx this year. What is the Free Cash Flow?",
+                "given": {
+                    "revenues": 500000,
+                    "costs": 300000,
+                    "depreciation": 50000,
+                    "tax_rate": 0.25
+                },
+                "formula": "FCF = (Rev - Costs - Dep)(1 - τ) + Dep - CapEx - ΔNWC",
+                "solution_steps": [
+                    "Step 1: Calculate EBIT = Revenue - Costs - Depreciation",
+                    "Step 2: EBIT = 500,000 - 300,000 - 50,000 = $150,000",
+                    "Step 3: Taxes = EBIT × tax rate = 150,000 × 0.25 = $37,500",
+                    "Step 4: Unlevered Net Income = EBIT - Taxes = 150,000 - 37,500 = $112,500",
+                    "Step 5: FCF = UNI + Depreciation - CapEx - ΔNWC",
+                    "Step 6: FCF = 112,500 + 50,000 - 0 - 0 = $162,500"
+                ],
+                "correct_answer": 162500,
+                "hints": {
+                    "level_1": "FCF = Unlevered Net Income + Depreciation (add back non-cash expense)",
+                    "level_2": "First calculate EBIT, then taxes, then add back depreciation",
+                    "level_3": "EBIT = $150K, Taxes = $37.5K, UNI = $112.5K, FCF = $112.5K + $50K"
+                }
+            }
+        ];
+
+        let currentProblemIndex = 0;
+        let attemptCount = 0;
+        let completedProblems = new Set();
+
+        // Load problems on page load
+        function loadProblems() {
+            displayProblem();
+        }
+
+        function displayProblem() {
+            if (problems.length === 0) return;
+
+            const problem = problems[currentProblemIndex];
+            attemptCount = 0;
+
+            // Update progress
+            const progress = ((currentProblemIndex) / problems.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent =
+                `Problem ${currentProblemIndex + 1} of ${problems.length}`;
+
+            // Update difficulty badge
+            const difficultyBadge = document.getElementById('difficultyBadge');
+            difficultyBadge.textContent = problem.difficulty.charAt(0).toUpperCase() + problem.difficulty.slice(1);
+            difficultyBadge.className = 'badge badge-' + problem.difficulty;
+
+            // Update topic badge
+            document.getElementById('topicBadge').textContent = problem.topic;
+
+            // Update problem text
+            document.getElementById('problemText').textContent = problem.problem_text;
+
+            // Update formula (but keep it hidden initially)
+            document.getElementById('formulaText').textContent = problem.formula;
+            document.getElementById('formulaBox').classList.add('hidden');
+
+            // Clear answer input and feedback
+            document.getElementById('answerInput').value = '';
+            document.getElementById('feedbackBox').className = 'hidden';
+            document.getElementById('submitBtn').disabled = false;
+
+            // Render LaTeX
+            renderMath();
+
+            // Update navigation buttons
+            document.getElementById('prevBtn').disabled = currentProblemIndex === 0;
+            document.getElementById('nextBtn').textContent =
+                currentProblemIndex === problems.length - 1 ? 'Finish' : 'Next Problem';
+        }
+
+        function checkAnswer() {
+            const problem = problems[currentProblemIndex];
+            const userAnswer = parseFloat(document.getElementById('answerInput').value);
+
+            if (isNaN(userAnswer)) {
+                showFeedback('Please enter a valid number', 'incorrect');
+                return;
+            }
+
+            // Smart tolerance: 0.5% of correct answer OR $1 (or appropriate minimum), whichever is larger
+            const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
+            let minTolerance;
+            if (problem.correct_answer >= 1000) {
+                minTolerance = Math.max(1, problem.correct_answer * 0.01); // 1% for large numbers
+            } else if (problem.correct_answer < 10) {
+                minTolerance = 0.05; // Small tolerance for small numbers like PI
+            } else {
+                minTolerance = 1;
+            }
+            const tolerance = Math.max(percentTolerance, minTolerance);
+
+            const isCorrect = Math.abs(userAnswer - problem.correct_answer) <= tolerance;
+
+            attemptCount++;
+
+            if (isCorrect) {
+                completedProblems.add(currentProblemIndex);
+                showCorrectFeedback();
+            } else {
+                showIncorrectFeedback();
+            }
+        }
+
+        function formatAnswer(problem) {
+            if (problem.correct_answer >= 1000000) {
+                return '$' + (problem.correct_answer / 1000000).toFixed(2) + ' million';
+            } else if (problem.correct_answer >= 1000) {
+                return '$' + problem.correct_answer.toLocaleString();
+            } else if (problem.correct_answer < 10 && problem.correct_answer > 0) {
+                return problem.correct_answer.toFixed(2);
+            } else {
+                return '$' + problem.correct_answer.toLocaleString();
+            }
+        }
+
+        function showCorrectFeedback() {
+            const problem = problems[currentProblemIndex];
+            const feedbackBox = document.getElementById('feedbackBox');
+
+            let html = `
+                <div class="feedback-title">
+                    Correct!
+                </div>
+                <div class="feedback-content">
+                    Great job! The correct answer is ${formatAnswer(problem)}.
+                </div>
+            `;
+
+            feedbackBox.className = 'feedback-box feedback-correct';
+            feedbackBox.innerHTML = html;
+
+            document.getElementById('submitBtn').disabled = true;
+        }
+
+        function showIncorrectFeedback() {
+            const problem = problems[currentProblemIndex];
+            const feedbackBox = document.getElementById('feedbackBox');
+
+            let html = `
+                <div class="feedback-title">
+                    Not quite right
+                </div>
+            `;
+
+            // Adaptive feedback based on attempt count
+            if (attemptCount === 1) {
+                html += `
+                    <div class="hint-box">
+                        <strong>Hint:</strong> ${problem.hints.level_1}
+                    </div>
+                `;
+            } else if (attemptCount === 2) {
+                // Show formula on second attempt
+                document.getElementById('formulaBox').classList.remove('hidden');
+                html += `
+                    <div class="hint-box">
+                        <strong>Formula revealed above.</strong> ${problem.hints.level_2}
+                    </div>
+                `;
+            } else if (attemptCount === 3) {
+                // Keep formula visible
+                document.getElementById('formulaBox').classList.remove('hidden');
+                html += `
+                    <div class="hint-box">
+                        <strong>Detailed hint:</strong> ${problem.hints.level_3}
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <button class="btn-secondary" onclick="showFullSolution()">Show Full Solution</button>
+                    </div>
+                `;
+            } else {
+                // After 3 attempts, show full solution automatically
+                showFullSolution();
+                return;
+            }
+
+            feedbackBox.className = 'feedback-box feedback-incorrect';
+            feedbackBox.innerHTML = html;
+        }
+
+        function showFullSolution() {
+            const problem = problems[currentProblemIndex];
+            const feedbackBox = document.getElementById('feedbackBox');
+
+            let html = `
+                <div class="feedback-title">
+                    Solution
+                </div>
+                <div class="solution-steps">
+            `;
+
+            problem.solution_steps.forEach((step, index) => {
+                html += `
+                    <div class="solution-step">
+                        ${step}
+                    </div>
+                `;
+            });
+
+            html += `
+                </div>
+                <div class="feedback-content" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #E2E8F0;">
+                    <strong>Final Answer:</strong> ${formatAnswer(problem)}
+                </div>
+            `;
+
+            feedbackBox.className = 'feedback-box feedback-correct';
+            feedbackBox.innerHTML = html;
+
+            document.getElementById('submitBtn').disabled = true;
+            renderMath();
+        }
+
+        function nextProblem() {
+            if (currentProblemIndex < problems.length - 1) {
+                currentProblemIndex++;
+                displayProblem();
+            } else {
+                showSummary();
+            }
+        }
+
+        function previousProblem() {
+            if (currentProblemIndex > 0) {
+                currentProblemIndex--;
+                displayProblem();
+            }
+        }
+
+        function showSummary() {
+            const problemCard = document.getElementById('problemCard');
+            const completed = completedProblems.size;
+            const total = problems.length;
+            const percentage = Math.round((completed / total) * 100);
+
+            problemCard.innerHTML = `
+                <div style="text-align: center; padding: 3rem;">
+                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Practice Session Complete!</h2>
+                    <div style="font-size: 3rem; font-weight: bold; color: #2C5282; margin: 2rem 0;">
+                        ${completed} / ${total}
+                    </div>
+                    <div style="font-size: 1.25rem; color: #4A5568; margin-bottom: 2rem;">
+                        You got ${percentage}% of problems correct on the first try!
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn-primary" onclick="location.reload()">Practice Again</button>
+                        <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderMath() {
+            // Simple rendering - for more complex math, we'd use KaTeX's auto-render
+            setTimeout(() => {
+                const elements = document.querySelectorAll('.problem-text, .formula-box, .solution-step, .hint-box');
+                elements.forEach(element => {
+                    // Replace common LaTeX patterns with rendered math
+                    // This is a simplified version - full KaTeX auto-render would be more robust
+                });
+            }, 100);
+        }
+
+        // Allow Enter key to submit
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('answerInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !document.getElementById('submitBtn').disabled) {
+                    checkAnswer();
+                }
+            });
+            loadProblems();
+        });
+    </script>
+</body>
+</html>

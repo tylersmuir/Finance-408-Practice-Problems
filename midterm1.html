@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practice Midterm 1 - MGMT 408</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #f7fafc;
+            color: #1a1a1a;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: #2C5282;
+            color: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: #2C5282;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .progress-bar {
+            background-color: #E2E8F0;
+            border-radius: 8px;
+            height: 8px;
+            margin-bottom: 2rem;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background-color: #48BB78;
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            margin-bottom: 1rem;
+            color: #4A5568;
+            font-size: 0.9rem;
+        }
+
+        .question-card {
+            background: white;
+            border: 2px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .question-number {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #2C5282;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .question-status {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+
+        .status-unanswered {
+            background-color: #FED7D7;
+            color: #C53030;
+        }
+
+        .status-answered {
+            background-color: #C6F6D5;
+            color: #276749;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            color: #2D3748;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .question-context {
+            background-color: #F7FAFC;
+            border-left: 4px solid #2C5282;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: #4A5568;
+        }
+
+        .options-list {
+            list-style: none;
+        }
+
+        .option-item {
+            margin-bottom: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            border-color: #2C5282;
+            background-color: #EBF8FF;
+        }
+
+        .option-label.selected {
+            border-color: #2C5282;
+            background-color: #EBF8FF;
+        }
+
+        .option-label.correct {
+            border-color: #48BB78;
+            background-color: #C6F6D5;
+        }
+
+        .option-label.incorrect {
+            border-color: #FC8181;
+            background-color: #FED7D7;
+        }
+
+        .option-radio {
+            display: none;
+        }
+
+        .option-marker {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #CBD5E0;
+            border-radius: 50%;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #718096;
+            flex-shrink: 0;
+        }
+
+        .option-label.selected .option-marker {
+            border-color: #2C5282;
+            background-color: #2C5282;
+            color: white;
+        }
+
+        .option-label.correct .option-marker {
+            border-color: #48BB78;
+            background-color: #48BB78;
+            color: white;
+        }
+
+        .option-label.incorrect .option-marker {
+            border-color: #FC8181;
+            background-color: #FC8181;
+            color: white;
+        }
+
+        .option-text {
+            font-size: 1rem;
+            color: #2D3748;
+        }
+
+        .solution-box {
+            display: none;
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background-color: #F0FFF4;
+            border: 1px solid #9AE6B4;
+            border-radius: 8px;
+        }
+
+        .solution-box.show {
+            display: block;
+        }
+
+        .solution-title {
+            font-weight: 600;
+            color: #276749;
+            margin-bottom: 0.75rem;
+        }
+
+        .solution-content {
+            color: #2D3748;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .solution-formula {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-top: 0.75rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #E2E8F0;
+        }
+
+        .submit-btn {
+            background-color: #2C5282;
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background-color: #2A4365;
+        }
+
+        .submit-btn:disabled {
+            background-color: #A0AEC0;
+            cursor: not-allowed;
+        }
+
+        .results-box {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            border: 2px solid #E2E8F0;
+            margin-top: 2rem;
+        }
+
+        .results-box.show {
+            display: block;
+        }
+
+        .results-score {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2C5282;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-text {
+            font-size: 1.1rem;
+            color: #4A5568;
+            margin-bottom: 1.5rem;
+        }
+
+        .results-breakdown {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .breakdown-item {
+            text-align: center;
+        }
+
+        .breakdown-number {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .breakdown-label {
+            font-size: 0.875rem;
+            color: #718096;
+        }
+
+        .correct-color {
+            color: #48BB78;
+        }
+
+        .incorrect-color {
+            color: #FC8181;
+        }
+
+        .retry-btn {
+            background-color: #48BB78;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+
+        .retry-btn:hover {
+            background-color: #38A169;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            padding: 2rem;
+            color: #718096;
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .question-card {
+                padding: 1.5rem;
+            }
+
+            .option-label {
+                padding: 0.75rem;
+            }
+
+            .results-breakdown {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="midterm.html" class="back-link">&larr; Back to Practice Midterms</a>
+
+        <header>
+            <h1>Practice Midterm 1</h1>
+            <div class="subtitle">20 Multiple Choice Questions</div>
+        </header>
+
+        <div class="progress-text">
+            <span id="answered-count">0</span> of 20 questions answered
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+        </div>
+
+        <div id="questions-container"></div>
+
+        <div class="submit-section" id="submit-section">
+            <p style="margin-bottom: 1rem; color: #4A5568;">Answer all questions, then submit to see your results.</p>
+            <button class="submit-btn" id="submit-btn" onclick="submitExam()">Submit Exam</button>
+        </div>
+
+        <div class="results-box" id="results-box">
+            <div class="results-score" id="results-score">0%</div>
+            <div class="results-text" id="results-text">You got 0 out of 20 correct</div>
+            <div class="results-breakdown">
+                <div class="breakdown-item">
+                    <div class="breakdown-number correct-color" id="correct-count">0</div>
+                    <div class="breakdown-label">Correct</div>
+                </div>
+                <div class="breakdown-item">
+                    <div class="breakdown-number incorrect-color" id="incorrect-count">0</div>
+                    <div class="breakdown-label">Incorrect</div>
+                </div>
+            </div>
+            <button class="retry-btn" onclick="location.reload()">Try Again</button>
+            <a href="midterm.html" class="retry-btn" style="text-decoration: none; display: inline-block;">Back to Midterms</a>
+        </div>
+
+        <footer>
+            UCLA Anderson School of Management
+        </footer>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                context: null,
+                question: "At an annual interest rate of 7%, the present value of $5,000 received in five years is closest to:",
+                options: [
+                    { label: "a", text: "$7,015" },
+                    { label: "b", text: "$6,750" },
+                    { label: "c", text: "$3,565" },
+                    { label: "d", text: "$7,035" }
+                ],
+                correctAnswer: "c",
+                solution: "PV = FV / (1 + r)^n = $5,000 / (1.07)^5 = $3,564.93",
+                formula: "PV = 5,000 / (1.07)^5 = 3,564.93"
+            },
+            {
+                id: 2,
+                context: "Your great aunt Matilda put some money in an account for you on the day you were born. This account pays 8% interest per year. On your 21st birthday the account balance was $5,033.83.",
+                question: "The amount of money that your great aunt Matilda originally put in the account is closest to:",
+                options: [
+                    { label: "a", text: "$800" },
+                    { label: "b", text: "$600" },
+                    { label: "c", text: "$1,200" },
+                    { label: "d", text: "$1,000" }
+                ],
+                correctAnswer: "d",
+                solution: "PV = FV / (1 + r)^n = $5,033.83 / (1.08)^21 = $1,000.00",
+                formula: "PV = 5,033.83 / (1.08)^21 = 1,000.00"
+            },
+            {
+                id: 3,
+                context: "Consider the following timeline:\n\nDate:      0       1       2       3\nCash:    $500   $500   $500     ?",
+                question: "If the current market rate of interest is 7%, then the future value of this timeline as of year 3 is closest to:",
+                options: [
+                    { label: "a", text: "$1,500" },
+                    { label: "b", text: "$1,720" },
+                    { label: "c", text: "$1,404" },
+                    { label: "d", text: "$1,717" }
+                ],
+                correctAnswer: "d",
+                solution: "FV = 500(1.07)^3 + 500(1.07)^2 + 500(1.07)^1 = $1,717.97",
+                formula: "FV = 500(1.07)^3 + 500(1.07)^2 + 500(1.07)^1 = 1,717.97"
+            },
+            {
+                id: 4,
+                context: null,
+                question: "Which of the following statements regarding perpetuities is FALSE?",
+                options: [
+                    { label: "a", text: "One example of a perpetuity is the British government bond called a consol." },
+                    { label: "b", text: "PV of a perpetuity = r/C" },
+                    { label: "c", text: "To find the value of a perpetuity one cash flow at a time would take forever." },
+                    { label: "d", text: "A perpetuity is a stream of equal cash flows that occurs at regular intervals and lasts forever." }
+                ],
+                correctAnswer: "b",
+                solution: "The correct formula for PV of a perpetuity is PV = C/r, not r/C. Option (b) has the formula inverted.",
+                formula: "Correct formula: PV = C/r"
+            },
+            {
+                id: 5,
+                context: null,
+                question: "If the current rate of interest is 8%, then the future value 20 years from now of an investment that pays $1,000 per year and lasts 20 years is closest to:",
+                options: [
+                    { label: "a", text: "$36,725" },
+                    { label: "b", text: "$93,219" },
+                    { label: "c", text: "$45,762" },
+                    { label: "d", text: "$9,818" }
+                ],
+                correctAnswer: "c",
+                solution: "First calculate PV of annuity, then find FV:\nPV = (1000/0.08)[1 - 1/(1.08)^20] = $9,818.15\nFV = $9,818.15 × (1.08)^20 = $45,761.96",
+                formula: "FV = [1000/0.08 × (1 - 1/1.08^20)] × (1.08)^20 = 45,761.96"
+            },
+            {
+                id: 6,
+                context: null,
+                question: "Your son starts kindergarten at a private school in one year. Next year, the annual tuition will be $12,000, payable at the start of the school year. You expect annual tuition increases to average 6% per year over the next 13 years. Assuming that your son remains in this private school through high school and that your current interest rate is 7%, then the present value of your son's private school education is closest to:",
+                options: [
+                    { label: "a", text: "$156,000" },
+                    { label: "b", text: "$332,300" },
+                    { label: "c", text: "$155,800" },
+                    { label: "d", text: "$137,900" }
+                ],
+                correctAnswer: "d",
+                solution: "This is a growing annuity. Using the growing annuity formula:\nPV = [12,000 / (0.07 - 0.06)] × [1 - (1.06/1.07)^13] = $137,892.72",
+                formula: "PV = [12,000 / (0.07 - 0.06)] × [1 - (1.06/1.07)^13] = 137,892.72"
+            },
+            {
+                id: 7,
+                context: null,
+                question: "If the appropriate interest rate is 8%, then the present value of $500 paid at the beginning of each of the next 40 years, starting this year, is closest to:",
+                options: [
+                    { label: "a", text: "$5,962" },
+                    { label: "b", text: "$23" },
+                    { label: "c", text: "$20,000" },
+                    { label: "d", text: "$6,439" }
+                ],
+                correctAnswer: "d",
+                solution: "This is an annuity due (payments at the beginning). PV = 500 + (500/0.08)[1 - 1/(1.08)^39] = $6,439.29",
+                formula: "PV = 500 + (500/0.08)[1 - 1/(1.08)^39] = 6,439.29"
+            },
+            {
+                id: 8,
+                context: null,
+                question: "You work for a pharmaceutical company that has developed a new drug. The patent on the drug will last for 17 years. You expect that the drug will produce cash flows of $10 million in its first year and that this amount will grow at a rate of 4% per year for the next 17 years. Once the patent expires, other pharmaceutical companies will be able to produce generic equivalents of your drug and competition will drive any future profits to zero. If the interest rate is 12% per year, then the present value of producing this drug is closest to:",
+                options: [
+                    { label: "a", text: "$170 million" },
+                    { label: "b", text: "$71 million" },
+                    { label: "c", text: "$105 million" },
+                    { label: "d", text: "$90 million" }
+                ],
+                correctAnswer: "d",
+                solution: "This is a growing annuity:\nPV = [10 / (0.12 - 0.04)] × [1 - (1.04/1.12)^17] = $89.54 million ≈ $90 million",
+                formula: "PV = [10 / (0.12 - 0.04)] × [1 - (1.04/1.12)^17] = 89.54 million"
+            },
+            {
+                id: 9,
+                context: null,
+                question: "You are saving for retirement. To live comfortably, you decide that you will need $2.5 million dollars by the time you are 65. If today is your 30th birthday, and you decide, starting today, and on every birthday up to and including your 65th birthday, that you will deposit the same amount into your savings account. Assuming the interest rate is 5%, the amount that you must set aside each and every year on your birthday is closest to:",
+                options: [
+                    { label: "a", text: "$27,680" },
+                    { label: "b", text: "$26,100" },
+                    { label: "c", text: "$71,430" },
+                    { label: "d", text: "$26,260" }
+                ],
+                correctAnswer: "b",
+                solution: "First find PV of $2.5M: PV = 2.5M / (1.05)^35 = $0.45M\nThen solve for PMT in annuity due: x + (x/0.05)[1 - 1/(1.05)^35] = 0.45M\nx = $26,086 ≈ $26,100",
+                formula: "PV of goal = 2.5M / (1.05)^35 = 0.45M\nPMT = 26,086"
+            },
+            {
+                id: 10,
+                context: "Larry the Cucumber has been offered $14 million to star in the lead role of the next three Larry Boy adventure movies. If Larry takes this offer, he will have to forgo acting in other Veggie movies that would pay him $5 million at the end of each of the next three years. Assume Larry's personal cost of capital is 10% per year.",
+                question: "The NPV of Larry's three movie Larry Boy offer is closest to:",
+                options: [
+                    { label: "a", text: "3.5 million" },
+                    { label: "b", text: "-1.0 million" },
+                    { label: "c", text: "1.6 million" },
+                    { label: "d", text: "-1.6 million" }
+                ],
+                correctAnswer: "c",
+                solution: "PV of opportunity cost = (5/0.10)[1 - 1/(1.10)^3] = $12.4 million\nNPV = $14M - $12.4M = $1.6 million",
+                formula: "PV of foregone = (5/0.10)[1 - 1/(1.10)^3] = 12.4M\nNPV = 14 - 12.4 = 1.6 million"
+            },
+            {
+                id: 11,
+                context: "You are considering investing in a start up project at a cost of $100,000. You expect the project to return $500,000 to you in seven years. Given the risk of this project, your cost of capital is 20%.",
+                question: "The NPV for this project is closest to:",
+                options: [
+                    { label: "a", text: "$29,200" },
+                    { label: "b", text: "$129,200" },
+                    { label: "c", text: "$139,500" },
+                    { label: "d", text: "$39,500" }
+                ],
+                correctAnswer: "d",
+                solution: "NPV = -100,000 + 500,000/(1.20)^7 = -100,000 + 139,541 = $39,541 ≈ $39,500",
+                formula: "NPV = -100,000 + 500,000/(1.20)^7 = 39,541"
+            },
+            {
+                id: 12,
+                context: null,
+                question: "Which of the following statements are true?\n\nI) The inverse of the price-earnings (P/E) ratio for a stock is always an accurate measure of the expected rate of return demanded by investors.\n\nII) The value of a share equals the present value of earnings per share assuming that the firm does not grow, plus the present value of future growth opportunities.\n\nIII) The value of a share equals the discounted stream of future dividends per share.",
+                options: [
+                    { label: "a", text: "I and II" },
+                    { label: "b", text: "I and III" },
+                    { label: "c", text: "II and III" },
+                    { label: "d", text: "I, II, and III" },
+                    { label: "e", text: "Less than 2 statements are true." }
+                ],
+                correctAnswer: "c",
+                solution: "I is FALSE - P/E ratio depends on both discount rate and growth rate, so its inverse is not always an accurate measure of expected return.\nII is TRUE - Stock value = No-growth value + PVGO\nIII is TRUE - This is the dividend discount model.",
+                formula: "Statements II and III are correct"
+            },
+            {
+                id: 13,
+                context: null,
+                question: "You are running a hot Internet company. Analysts predict that your company's free cash flows will be $7 million at the end of this year, and that they will grow at 40% per year for the subsequent two years. After that, as competition increases, free cash flow growth is expected to slow to 4% per year and continue to grow at that rate forever. What is the present value of all future free cash flow if the interest rate is 9%? Assume all cash flows occur at the end of the year.",
+                options: [
+                    { label: "a", text: "$225.5 Million" },
+                    { label: "b", text: "$202.9 Million" },
+                    { label: "c", text: "$193.2 Million" },
+                    { label: "d", text: "$245.6 Million" },
+                    { label: "e", text: "$174.0 Million" }
+                ],
+                correctAnswer: "d",
+                solution: "Year 1 CF = 7, Year 2 CF = 7(1.40) = 9.8, Year 3 CF = 7(1.40)^2 = 13.72\nTerminal value at Year 3 = 13.72(1.04)/(0.09-0.04) = 285.57\nPV = 7/1.09 + 9.8/1.09^2 + 13.72/1.09^3 + 285.57/1.09^3 = $245.63 million",
+                formula: "PV = 7/1.09 + 9.8/1.09^2 + (13.72 + 285.57)/1.09^3 = 245.63M"
+            },
+            {
+                id: 14,
+                context: null,
+                question: "Your bond broker offers to sell you a zero-coupon bond at a price of $90.9. If the bond matures in one year and has a face value of $100, what is its yield-to-maturity?",
+                options: [
+                    { label: "a", text: "0.12" },
+                    { label: "b", text: "You don't have enough information." },
+                    { label: "c", text: "0.10" },
+                    { label: "d", text: "0.09" },
+                    { label: "e", text: "0.14" }
+                ],
+                correctAnswer: "c",
+                solution: "YTM = (Face Value / Price) - 1 = (100 / 90.9) - 1 = 0.1001 ≈ 10%",
+                formula: "YTM = (100 / 90.9) - 1 = 0.10 or 10%"
+            },
+            {
+                id: 15,
+                context: "The Sisyphean Company is planning on investing in a new project. This will involve the purchase of some new machinery costing $450,000. The Sisyphean Company expects cash inflows from this project as detailed below:\n\nYear One: $200,000\nYear Two: $225,000\nYear Three: $275,000\nYear Four: $200,000\n\nThe appropriate discount rate for this project is 16%.",
+                question: "The profitability index for this project is closest to:",
+                options: [
+                    { label: "a", text: "0.34" },
+                    { label: "b", text: "0.39" },
+                    { label: "c", text: "0.26" },
+                    { label: "d", text: "0.44" }
+                ],
+                correctAnswer: "b",
+                solution: "PV of inflows = 200/1.16 + 225/1.16^2 + 275/1.16^3 + 200/1.16^4 = $626,000\nPI = (626,000 - 450,000) / 450,000 = 0.392 ≈ 0.39",
+                formula: "PV = 200/1.16 + 225/1.16^2 + 275/1.16^3 + 200/1.16^4 = 626\nPI = (626 - 450)/450 = 0.39"
+            },
+            {
+                id: 16,
+                context: null,
+                question: "Wyatt Oil presently pays no dividend. You anticipate Wyatt Oil will pay an annual dividend of $0.56 per share two years from today and you expect dividends to grow by 4% per year thereafter. If Wyatt Oil's equity cost of capital is 12%, then the value of a share of Wyatt Oil today is:",
+                options: [
+                    { label: "a", text: "$4.67" },
+                    { label: "b", text: "$7.00" },
+                    { label: "c", text: "$5.00" },
+                    { label: "d", text: "$6.25" }
+                ],
+                correctAnswer: "d",
+                solution: "Value at Year 1 = D2/(r-g) = 0.56/(0.12-0.04) = $7.00\nValue today = 7.00/1.12 = $6.25",
+                formula: "P1 = 0.56/(0.12-0.04) = 7.00\nP0 = 7.00/1.12 = 6.25"
+            },
+            {
+                id: 17,
+                context: null,
+                question: "Nielson Motors has a share price of $25 today. If Nielson Motors is expected to pay a dividend of $0.75 this year, and its stock price is expected to grow to $26.75 at the end of the year, then Nielson's dividend yield and equity cost of capital are:",
+                options: [
+                    { label: "a", text: "4.0% and 6.0% respectively." },
+                    { label: "b", text: "4.0% and 10.0% respectively." },
+                    { label: "c", text: "3.0% and 7.0% respectively." },
+                    { label: "d", text: "3.0% and 10.0% respectively." }
+                ],
+                correctAnswer: "d",
+                solution: "Dividend Yield = D1/P0 = 0.75/25 = 3.0%\nCapital Gains Yield = (P1-P0)/P0 = (26.75-25)/25 = 7.0%\nEquity Cost of Capital = 3.0% + 7.0% = 10.0%",
+                formula: "Div Yield = 0.75/25 = 3.0%\nTotal Return = (26.75 + 0.75 - 25)/25 = 10.0%"
+            },
+            {
+                id: 18,
+                context: "Von Bora Corporation is expected to pay a dividend of $1.40 per share at the end of this year and a $1.50 per share at the end of the second year. You expect Von Bora's stock price to be $25.00 at the end of two years. Von Bora's equity cost of capital is 10%.",
+                question: "The price you would be willing to pay today for a share of Von Bora stock, if you plan to hold the stock for two years is closest to:",
+                options: [
+                    { label: "a", text: "$21.90" },
+                    { label: "b", text: "$20.65" },
+                    { label: "c", text: "$23.17" },
+                    { label: "d", text: "$21.95" }
+                ],
+                correctAnswer: "c",
+                solution: "P0 = D1/(1+r) + (D2 + P2)/(1+r)^2\nP0 = 1.40/1.10 + (1.50 + 25.00)/1.10^2 = 1.27 + 21.90 = $23.17",
+                formula: "P0 = 1.40/1.10 + (1.50 + 25.00)/1.10^2 = 23.17"
+            },
+            {
+                id: 19,
+                context: null,
+                question: "When doing a cash flow pro forma analysis for capital budgeting, Net Present Value (NPV) is equal to the present value of incremental benefits minus the present value of incremental costs of a project. Incremental costs and benefits are best measured by:",
+                options: [
+                    { label: "a", text: "Net Income" },
+                    { label: "b", text: "Unlevered Net Income" },
+                    { label: "c", text: "EBIT" },
+                    { label: "d", text: "Free Cash Flow" }
+                ],
+                correctAnswer: "d",
+                solution: "Free Cash Flow is the appropriate measure of incremental costs and benefits for NPV calculation. Net Income includes non-cash expenses, and EBIT overstates FCF because it includes taxes.",
+                formula: "Free Cash Flow = EBIT(1-t) + Depreciation - CapEx - Change in NWC"
+            },
+            {
+                id: 20,
+                context: "Consider the following two projects:\n\nProject A: Year 0 CF = -100, Year 1 CF = 40, Year 2 CF = 50, Year 3 CF = 60, Discount Rate = 15%\nProject B: Year 0 CF = -73, Year 1 CF = 30, Year 2 CF = 30, Year 3 CF = 30, Year 4 CF = 30, Discount Rate = 15%",
+                question: "The NPV of project A is closest to:",
+                options: [
+                    { label: "a", text: "12.0" },
+                    { label: "b", text: "15.0" },
+                    { label: "c", text: "12.6" },
+                    { label: "d", text: "42.9" }
+                ],
+                correctAnswer: "a",
+                solution: "NPV(A) = -100 + 40/1.15 + 50/1.15^2 + 60/1.15^3\nNPV(A) = -100 + 34.78 + 37.81 + 39.45 = $12.04 ≈ 12.0",
+                formula: "NPV = -100 + 40/1.15 + 50/1.15^2 + 60/1.15^3 = 12.0"
+            }
+        ];
+
+        let userAnswers = {};
+        let examSubmitted = false;
+
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `question-${q.id}`;
+
+                let contextHTML = '';
+                if (q.context) {
+                    contextHTML = `<div class="question-context">${q.context.replace(/\n/g, '<br>')}</div>`;
+                }
+
+                let optionsHTML = q.options.map(opt => `
+                    <li class="option-item">
+                        <label class="option-label" id="option-${q.id}-${opt.label}" onclick="selectAnswer(${q.id}, '${opt.label}')">
+                            <input type="radio" name="q${q.id}" value="${opt.label}" class="option-radio">
+                            <span class="option-marker">${opt.label.toUpperCase()}</span>
+                            <span class="option-text">${opt.text}</span>
+                        </label>
+                    </li>
+                `).join('');
+
+                card.innerHTML = `
+                    <div class="question-header">
+                        <span class="question-number">Question ${q.id}</span>
+                        <span class="question-status status-unanswered" id="status-${q.id}">Unanswered</span>
+                    </div>
+                    ${contextHTML}
+                    <div class="question-text">${q.question.replace(/\n/g, '<br>')}</div>
+                    <ul class="options-list">
+                        ${optionsHTML}
+                    </ul>
+                    <div class="solution-box" id="solution-${q.id}">
+                        <div class="solution-title">Solution</div>
+                        <div class="solution-content">${q.solution}</div>
+                        <div class="solution-formula">${q.formula}</div>
+                    </div>
+                `;
+
+                container.appendChild(card);
+            });
+        }
+
+        function selectAnswer(questionId, answer) {
+            if (examSubmitted) return;
+
+            userAnswers[questionId] = answer;
+
+            // Update visual selection
+            questions.find(q => q.id === questionId).options.forEach(opt => {
+                const label = document.getElementById(`option-${questionId}-${opt.label}`);
+                label.classList.remove('selected');
+            });
+            document.getElementById(`option-${questionId}-${answer}`).classList.add('selected');
+
+            // Update status
+            const status = document.getElementById(`status-${questionId}`);
+            status.textContent = 'Answered';
+            status.className = 'question-status status-answered';
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const answeredCount = Object.keys(userAnswers).length;
+            document.getElementById('answered-count').textContent = answeredCount;
+            document.getElementById('progress-fill').style.width = `${(answeredCount / questions.length) * 100}%`;
+        }
+
+        function submitExam() {
+            examSubmitted = true;
+            let correctCount = 0;
+
+            questions.forEach(q => {
+                const userAnswer = userAnswers[q.id];
+                const isCorrect = userAnswer === q.correctAnswer;
+
+                if (isCorrect) correctCount++;
+
+                // Show correct/incorrect styling
+                q.options.forEach(opt => {
+                    const label = document.getElementById(`option-${q.id}-${opt.label}`);
+                    label.classList.remove('selected');
+
+                    if (opt.label === q.correctAnswer) {
+                        label.classList.add('correct');
+                    } else if (opt.label === userAnswer && !isCorrect) {
+                        label.classList.add('incorrect');
+                    }
+                });
+
+                // Show solution
+                document.getElementById(`solution-${q.id}`).classList.add('show');
+            });
+
+            // Show results
+            const percentage = Math.round((correctCount / questions.length) * 100);
+            document.getElementById('results-score').textContent = `${percentage}%`;
+            document.getElementById('results-text').textContent = `You got ${correctCount} out of ${questions.length} correct`;
+            document.getElementById('correct-count').textContent = correctCount;
+            document.getElementById('incorrect-count').textContent = questions.length - correctCount;
+            document.getElementById('results-box').classList.add('show');
+            document.getElementById('submit-section').style.display = 'none';
+
+            // Scroll to results
+            document.getElementById('results-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize
+        renderQuestions();
+    </script>
+</body>
+</html>
