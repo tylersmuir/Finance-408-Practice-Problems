@@ -329,9 +329,86 @@
             </a>
         </div>
 
+        <!-- Review Section - Shows only if there are missed problems -->
+        <div id="review-section" style="display: none; margin-top: 3rem;">
+            <h2 style="font-size: 1.5rem; color: #2D3748; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <span style="color: #DD6B20;">📝</span> Problems to Review
+            </h2>
+            <p style="color: #4A5568; margin-bottom: 1.5rem;">
+                These are problems you've struggled with. Reviewing them will help reinforce the concepts.
+            </p>
+            <div id="review-cards" style="display: flex; flex-wrap: wrap; gap: 1rem;"></div>
+        </div>
+
         <footer>
             UCLA Anderson School of Management
         </footer>
     </div>
+
+    <script>
+        // Check for missed problems in localStorage and display review section
+        const topics = [
+            { key: 'tvm', name: 'Time Value of Money', url: 'week1-tvm.html' },
+            { key: 'capbudget', name: 'Capital Budgeting', url: 'week2-capbudget.html' },
+            { key: 'stocks', name: 'Stock Valuation', url: 'week3-stocks.html' },
+            { key: 'bonds', name: 'Bond Valuation', url: 'week4-bonds.html' }
+        ];
+
+        function checkForMissedProblems() {
+            const reviewSection = document.getElementById('review-section');
+            const reviewCards = document.getElementById('review-cards');
+            let hasMissedProblems = false;
+
+            topics.forEach(topic => {
+                const missedKey = 'finance_missed_' + topic.key;
+                const stored = localStorage.getItem(missedKey);
+                if (stored) {
+                    const missed = JSON.parse(stored);
+                    const count = Object.keys(missed).length;
+                    if (count > 0) {
+                        hasMissedProblems = true;
+                        const card = document.createElement('a');
+                        card.href = topic.url + '?review=true';
+                        card.style.cssText = `
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                            padding: 1rem 1.5rem;
+                            background-color: #FFFAF0;
+                            border: 2px solid #DD6B20;
+                            border-radius: 8px;
+                            text-decoration: none;
+                            color: #744210;
+                            font-weight: 500;
+                            transition: all 0.2s;
+                        `;
+                        card.onmouseover = () => {
+                            card.style.backgroundColor = '#FEEBC8';
+                            card.style.transform = 'translateY(-2px)';
+                        };
+                        card.onmouseout = () => {
+                            card.style.backgroundColor = '#FFFAF0';
+                            card.style.transform = 'translateY(0)';
+                        };
+                        card.innerHTML = `
+                            <span style="font-size: 1.5rem;">🔄</span>
+                            <span>
+                                <strong>${topic.name}</strong><br>
+                                <span style="font-size: 0.875rem; color: #975A16;">${count} problem${count > 1 ? 's' : ''} to review</span>
+                            </span>
+                        `;
+                        reviewCards.appendChild(card);
+                    }
+                }
+            });
+
+            if (hasMissedProblems) {
+                reviewSection.style.display = 'block';
+            }
+        }
+
+        // Run on page load
+        document.addEventListener('DOMContentLoaded', checkForMissedProblems);
+    </script>
 </body>
 </html>
