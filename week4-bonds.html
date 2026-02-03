@@ -10,455 +10,7 @@
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background-color: #ffffff;
-            color: #1a1a1a;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-
-        header {
-            background-color: #2C5282;
-            color: white;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-        }
-
-        .header-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .back-link {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            font-size: 0.875rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .back-link:hover {
-            color: white;
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .subtitle {
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-
-        .progress-bar {
-            background-color: #E2E8F0;
-            height: 8px;
-            border-radius: 4px;
-            margin: 1.5rem 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            background-color: #48BB78;
-            height: 100%;
-            transition: width 0.3s ease;
-        }
-
-        .problem-card {
-            background: white;
-            border: 2px solid #E2E8F0;
-            border-radius: 8px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .problem-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #E2E8F0;
-        }
-
-        .problem-meta {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .badge {
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .badge-easy { background-color: #C6F6D5; color: #22543D; }
-        .badge-medium { background-color: #FEF3C7; color: #78350F; }
-        .badge-hard { background-color: #FED7D7; color: #742A2A; }
-
-        .problem-number {
-            font-size: 0.875rem;
-            color: #718096;
-            font-weight: 500;
-        }
-
-        .problem-text {
-            font-size: 1.125rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            color: #2D3748;
-        }
-
-        .formula-box {
-            background-color: #F7FAFC;
-            border-left: 4px solid #2C5282;
-            padding: 1rem 1.5rem;
-            margin: 1.5rem 0;
-            border-radius: 4px;
-        }
-
-        .formula-label {
-            font-size: 0.875rem;
-            color: #4A5568;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .answer-section {
-            margin: 2rem 0;
-        }
-
-        .input-group {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        label {
-            font-weight: 500;
-            color: #2D3748;
-        }
-
-        input[type="number"] {
-            flex: 1;
-            padding: 0.75rem 1rem;
-            border: 2px solid #CBD5E0;
-            border-radius: 6px;
-            font-size: 1.125rem;
-            transition: border-color 0.2s;
-        }
-
-        input[type="number"]:focus {
-            outline: none;
-            border-color: #2C5282;
-        }
-
-        button {
-            padding: 0.75rem 2rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-primary {
-            background-color: #2C5282;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #2A4365;
-        }
-
-        .btn-primary:disabled {
-            background-color: #CBD5E0;
-            cursor: not-allowed;
-        }
-
-        .btn-secondary {
-            background-color: #E2E8F0;
-            color: #2D3748;
-        }
-
-        .btn-secondary:hover {
-            background-color: #CBD5E0;
-        }
-
-        .feedback-box {
-            margin-top: 1.5rem;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 2px solid;
-            animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .feedback-correct {
-            background-color: #F0FFF4;
-            border-color: #48BB78;
-            color: #22543D;
-        }
-
-        .feedback-incorrect {
-            background-color: #FFF5F5;
-            border-color: #F56565;
-            color: #742A2A;
-        }
-
-        .feedback-title {
-            font-weight: 600;
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .feedback-content {
-            margin-top: 1rem;
-            line-height: 1.8;
-        }
-
-        .hint-box {
-            background-color: #EBF8FF;
-            border-left: 4px solid #3182CE;
-            padding: 1rem 1.5rem;
-            margin-top: 1rem;
-            border-radius: 4px;
-        }
-
-        .solution-steps {
-            margin-top: 1rem;
-        }
-
-        .solution-step {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #E2E8F0;
-        }
-
-        .solution-step:last-child {
-            border-bottom: none;
-        }
-
-        .step-number {
-            font-weight: 600;
-            color: #2C5282;
-        }
-
-        .navigation {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .navigation button {
-            flex: 1;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* Calculator Styles */
-        .calculator-toolbar {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-        }
-
-        .calculator-toggle-btn {
-            background-color: #2C5282;
-            color: white;
-            padding: 1rem 1.5rem;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.125rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .calculator-toggle-btn:hover {
-            background-color: #2A4365;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-
-        .calculator-container {
-            position: absolute;
-            bottom: 70px;
-            right: 0;
-            width: 320px;
-            background-color: #F7FAFC;
-            border: 2px solid #E2E8F0;
-            border-radius: 12px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            padding: 1rem;
-            display: none;
-        }
-
-        .calculator-container.active {
-            display: block;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .calculator-display {
-            background-color: #2D3748;
-            color: #48BB78;
-            padding: 0.75rem;
-            border-radius: 6px;
-            margin-bottom: 0.5rem;
-            font-family: 'Courier New', monospace;
-            font-size: 1.25rem;
-            text-align: right;
-            min-height: 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .calculator-expression {
-            font-size: 0.875rem;
-            color: #CBD5E0;
-            margin-bottom: 0.25rem;
-        }
-
-        .calculator-result {
-            font-size: 1.25rem;
-            color: #48BB78;
-            font-weight: 600;
-        }
-
-        .calculator-buttons {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.5rem;
-        }
-
-        .calc-btn {
-            padding: 0.75rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border: 1px solid #CBD5E0;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            background-color: white;
-            color: #2D3748;
-        }
-
-        .calc-btn:hover {
-            background-color: #EDF2F7;
-            transform: translateY(-1px);
-        }
-
-        .calc-btn:active {
-            transform: translateY(0);
-        }
-
-        .calc-btn-operator {
-            background-color: #2C5282;
-            color: white;
-            border-color: #2C5282;
-        }
-
-        .calc-btn-operator:hover {
-            background-color: #2A4365;
-        }
-
-        .calc-btn-equals {
-            background-color: #48BB78;
-            color: white;
-            border-color: #48BB78;
-        }
-
-        .calc-btn-equals:hover {
-            background-color: #38A169;
-        }
-
-        .calc-btn-clear {
-            background-color: #F56565;
-            color: white;
-            border-color: #F56565;
-        }
-
-        .calc-btn-clear:hover {
-            background-color: #E53E3E;
-        }
-
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .container {
-                padding: 1rem;
-            }
-
-            h1 {
-                font-size: 1.5rem;
-            }
-
-            .problem-card {
-                padding: 1.5rem;
-            }
-
-            .input-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .navigation {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="practice.css">
 </head>
 <body>
     <div class="container">
@@ -550,121 +102,15 @@
     </div>
 
     <script>
-        // Calculator state
-        let calcCurrentExpression = '';
-        let calcCurrentResult = '0';
-        let calculatorOpen = false;
+        window.pageConfig = { topicKey: 'bonds' };
 
-        function toggleCalculator() {
-            calculatorOpen = !calculatorOpen;
-            const container = document.getElementById('calculatorContainer');
-            if (calculatorOpen) {
-                container.classList.add('active');
-            } else {
-                container.classList.remove('active');
-            }
-        }
-
-        function closeCalculator() {
-            if (calculatorOpen) {
-                calculatorOpen = false;
-                document.getElementById('calculatorContainer').classList.remove('active');
-            }
-        }
-
-        // Close calculator when clicking outside
-        document.addEventListener('click', (e) => {
-            const toolbar = document.querySelector('.calculator-toolbar');
-            const container = document.getElementById('calculatorContainer');
-
-            // If click is outside the calculator toolbar and container, close it
-            if (calculatorOpen && !toolbar.contains(e.target)) {
-                closeCalculator();
-            }
-        });
-
-        function calcAppend(value) {
-            calcCurrentExpression += value;
-            updateCalcDisplay();
-        }
-
-        function calcClear() {
-            calcCurrentExpression = '';
-            calcCurrentResult = '0';
-            updateCalcDisplay();
-        }
-
-        function calcBackspace() {
-            calcCurrentExpression = calcCurrentExpression.slice(0, -1);
-            updateCalcDisplay();
-        }
-
-        function calcEquals() {
-            if (!calcCurrentExpression) return;
-
-            try {
-                // Replace ^ with ** for JavaScript exponentiation
-                let expression = calcCurrentExpression.replace(/\^/g, '**');
-
-                // Evaluate the expression safely
-                let result = Function('"use strict"; return (' + expression + ')')();
-
-                // Round to 4 decimal places to avoid floating point issues
-                if (typeof result === 'number') {
-                    calcCurrentResult = Number(result.toFixed(4)).toString();
-                } else {
-                    calcCurrentResult = result.toString();
-                }
-            } catch (error) {
-                calcCurrentResult = 'Error';
-            }
-
-            updateCalcDisplay();
-        }
-
-        function updateCalcDisplay() {
-            document.getElementById('calcExpression').textContent = calcCurrentExpression || '\u00A0';
-            document.getElementById('calcResult').textContent = calcCurrentResult;
-        }
-
-        // Allow keyboard input for calculator (only when calculator is open)
-        document.addEventListener('keydown', (e) => {
-            if (document.activeElement.id === 'answerInput') return; // Don't interfere with answer input
-            if (!calculatorOpen) return; // Only work when calculator is open
-
-            if (e.key >= '0' && e.key <= '9') {
-                calcAppend(e.key);
-            } else if (e.key === '.') {
-                calcAppend('.');
-            } else if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
-                calcAppend(e.key);
-            } else if (e.key === '^') {
-                calcAppend('^');
-            } else if (e.key === 'Enter' && calcCurrentExpression) {
-                calcEquals();
-            } else if (e.key === 'Backspace' && calcCurrentExpression) {
-                e.preventDefault();
-                calcBackspace();
-            } else if (e.key === 'Escape') {
-                calcClear();
-            } else if (e.key === '(' || e.key === ')') {
-                calcAppend(e.key);
-            }
-        });
-
-        // Bond Valuation Problems based on Week 4 slides (with variations)
-        let problems = [
+        var problems = [
             {
                 "id": "bond_001",
                 "topic": "Coupon Payment Calculation",
                 "difficulty": "easy",
                 "problem_text": "A corporate bond has a face value of $1,000 and a coupon rate of 6%. The bond pays coupons semiannually. What is the amount of each coupon payment?",
-                "given": {
-                    "face_value": 1000,
-                    "coupon_rate": 0.06,
-                    "payments_per_year": 2
-                },
-                "formula": "C = (F × Coupon Rate) / m",
+                "formula": "C = \\frac{F \\times \\text{Coupon Rate}}{m}",
                 "solution_steps": [
                     "Step 1: Identify the variables: F = $1,000, Coupon Rate = 6%, m = 2 (semiannual)",
                     "Step 2: Apply the coupon payment formula: C = (F × Coupon Rate) / m",
@@ -684,13 +130,7 @@
                 "topic": "Bond Price from Yield",
                 "difficulty": "medium",
                 "problem_text": "You are given a bond with face value of $100, maturity of 4 years, annual coupon rate of 7%, and a yield to maturity of 8.5%. What is the price of this bond?",
-                "given": {
-                    "face_value": 100,
-                    "maturity": 4,
-                    "coupon_rate": 0.07,
-                    "yield": 0.085
-                },
-                "formula": "P = C/(1+y) + C/(1+y)² + C/(1+y)³ + (C+F)/(1+y)⁴",
+                "formula": "P = \\frac{C}{1+y} + \\frac{C}{(1+y)^2} + \\frac{C}{(1+y)^3} + \\frac{C+F}{(1+y)^4}",
                 "solution_steps": [
                     "Step 1: Calculate coupon: C = $100 × 7% = $7",
                     "Step 2: Set up the PV calculation with yield y = 8.5%",
@@ -710,13 +150,7 @@
                 "topic": "Bond Yield from Price",
                 "difficulty": "medium",
                 "problem_text": "A 3-year bond has a face value of $100, pays an annual coupon of 8%, and is currently selling for $97.50. What is the approximate yield to maturity?",
-                "given": {
-                    "face_value": 100,
-                    "maturity": 3,
-                    "coupon_rate": 0.08,
-                    "price": 97.50
-                },
-                "formula": "P = C/(1+y) + C/(1+y)² + (C+F)/(1+y)³",
+                "formula": "P = \\frac{C}{1+y} + \\frac{C}{(1+y)^2} + \\frac{C+F}{(1+y)^3}",
                 "solution_steps": [
                     "Step 1: The price $97.50 is very close to $97.47 (which corresponds to y = 9%)",
                     "Step 2: Compare: At y = 8.5%, P = $98.71 (too high)",
@@ -737,13 +171,7 @@
                 "topic": "Premium vs Discount Bonds",
                 "difficulty": "easy",
                 "problem_text": "A bond has a coupon rate of 5% and a yield to maturity of 4%. Is this bond trading at a premium, par, or discount? If the face value is $1,000, and the bond is trading at $1,037, what is the dollar amount of the premium?",
-                "given": {
-                    "coupon_rate": 0.05,
-                    "yield": 0.04,
-                    "face_value": 1000,
-                    "price": 1037
-                },
-                "formula": "Premium = Price - Face Value (when Coupon Rate > Yield)",
+                "formula": "\\text{Premium} = P - F \\quad (\\text{when Coupon Rate} > \\text{Yield})",
                 "solution_steps": [
                     "Step 1: Compare coupon rate (5%) to yield (4%)",
                     "Step 2: Since Coupon Rate > Yield, the bond trades at a premium",
@@ -763,14 +191,7 @@
                 "topic": "Term Structure - Bond Pricing",
                 "difficulty": "hard",
                 "problem_text": "The term structure shows: r₁ = 4.5%, r₂ = 4.8%, r₃ = 5.0%. A 3-year bond pays annual coupons of $60 and has a face value of $1,000. Using the term structure (spot rates), what is the bond's price?",
-                "given": {
-                    "r1": 0.045,
-                    "r2": 0.048,
-                    "r3": 0.050,
-                    "coupon": 60,
-                    "face_value": 1000
-                },
-                "formula": "P = C/(1+r₁) + C/(1+r₂)² + (C+F)/(1+r₃)³",
+                "formula": "P = \\frac{C}{1+r_1} + \\frac{C}{(1+r_2)^2} + \\frac{C+F}{(1+r_3)^3}",
                 "solution_steps": [
                     "Step 1: Use different spot rates for each cash flow",
                     "Step 2: PV of Year 1 coupon: 60/(1.045) = $57.42",
@@ -791,15 +212,7 @@
                 "topic": "Treasury Pricing - Semiannual",
                 "difficulty": "hard",
                 "problem_text": "A T-note has 2 years to maturity, a coupon rate of 6%, semiannual coupons, and face value of $100. The term structure (EAR) is: r₀.₅ = 3.5%, r₁ = 3.8%, r₁.₅ = 4.0%, r₂ = 4.2%. What is the price?",
-                "given": {
-                    "face_value": 100,
-                    "coupon_rate": 0.06,
-                    "r_05": 0.035,
-                    "r_1": 0.038,
-                    "r_15": 0.040,
-                    "r_2": 0.042
-                },
-                "formula": "P = C/(1+r₀.₅)^0.5 + C/(1+r₁)^1 + C/(1+r₁.₅)^1.5 + (C+F)/(1+r₂)^2",
+                "formula": "P = \\frac{C}{(1+r_{0.5})^{0.5}} + \\frac{C}{(1+r_1)^1} + \\frac{C}{(1+r_{1.5})^{1.5}} + \\frac{C+F}{(1+r_2)^2}",
                 "solution_steps": [
                     "Step 1: Semiannual coupon = $100 × 6% / 2 = $3",
                     "Step 2: PV at 0.5yr: 3/(1.035)^0.5 = $2.95",
@@ -821,11 +234,7 @@
                 "topic": "Forward Rates",
                 "difficulty": "hard",
                 "problem_text": "The 1-year spot rate is 3.0% and the 2-year spot rate is 3.5%. What is the one-year forward rate (the rate for borrowing from year 1 to year 2)?",
-                "given": {
-                    "r1": 0.03,
-                    "r2": 0.035
-                },
-                "formula": "f₁₁ = (1+r₂)²/(1+r₁) - 1",
+                "formula": "f_{1,1} = \\frac{(1+r_2)^2}{1+r_1} - 1",
                 "solution_steps": [
                     "Step 1: The forward rate makes borrowing long-term equivalent to rolling over short-term",
                     "Step 2: Apply the formula: f₁₁ = (1+r₂)²/(1+r₁) - 1",
@@ -847,13 +256,7 @@
                 "topic": "Bond Price Change - Interest Rates",
                 "difficulty": "medium",
                 "problem_text": "A 20-year zero-coupon bond with face value $100 has a yield of 5%. What is the percentage change in price if the yield increases to 6%?",
-                "given": {
-                    "face_value": 100,
-                    "maturity": 20,
-                    "initial_yield": 0.05,
-                    "new_yield": 0.06
-                },
-                "formula": "% Change = (P_new - P_old) / P_old × 100",
+                "formula": "\\%\\Delta = \\frac{P_{new} - P_{old}}{P_{old}} \\times 100",
                 "solution_steps": [
                     "Step 1: Calculate initial price: P₀ = 100/(1.05)²⁰ = $37.69",
                     "Step 2: Calculate new price: P₁ = 100/(1.06)²⁰ = $31.18",
@@ -875,12 +278,7 @@
                 "topic": "Zero-Coupon Bond Price Over Time",
                 "difficulty": "easy",
                 "problem_text": "A 25-year zero-coupon bond has a face value of $100 and a yield to maturity of 4%. What is the current price of this bond?",
-                "given": {
-                    "face_value": 100,
-                    "maturity": 25,
-                    "yield": 0.04
-                },
-                "formula": "P = F / (1+y)^T",
+                "formula": "P = \\frac{F}{(1+y)^T}",
                 "solution_steps": [
                     "Step 1: For a zero-coupon bond, price = PV of face value only",
                     "Step 2: Apply the formula: P = F / (1+y)^T",
@@ -901,11 +299,7 @@
                 "topic": "Credit Spread",
                 "difficulty": "easy",
                 "problem_text": "A corporate bond has a yield to maturity of 6.5%. A Treasury bond with the same maturity has a yield of 4.2%. What is the credit spread in basis points? (1 basis point = 0.01%)",
-                "given": {
-                    "corporate_yield": 0.065,
-                    "treasury_yield": 0.042
-                },
-                "formula": "Credit Spread = Corporate Yield - Treasury Yield",
+                "formula": "\\text{Credit Spread} = y_{\\text{corporate}} - y_{\\text{treasury}}",
                 "solution_steps": [
                     "Step 1: The credit spread is the difference in yields between corporate and Treasury bonds",
                     "Step 2: Credit Spread = 6.5% - 4.2% = 2.3%",
@@ -921,259 +315,7 @@
                 }
             }
         ];
-
-        let currentProblemIndex = 0;
-        let attemptCount = 0;
-        let completedProblems = new Set();
-
-        // Load problems on page load
-        function loadProblems() {
-            displayProblem();
-        }
-
-        function displayProblem() {
-            if (problems.length === 0) return;
-
-            const problem = problems[currentProblemIndex];
-            attemptCount = 0;
-
-            // Update progress
-            const progress = ((currentProblemIndex) / problems.length) * 100;
-            document.getElementById('progressBar').style.width = progress + '%';
-            document.getElementById('progressText').textContent =
-                `Problem ${currentProblemIndex + 1} of ${problems.length}`;
-
-            // Update difficulty badge
-            const difficultyBadge = document.getElementById('difficultyBadge');
-            difficultyBadge.textContent = problem.difficulty.charAt(0).toUpperCase() + problem.difficulty.slice(1);
-            difficultyBadge.className = 'badge badge-' + problem.difficulty;
-
-            // Update topic badge
-            document.getElementById('topicBadge').textContent = problem.topic;
-
-            // Update problem text
-            document.getElementById('problemText').textContent = problem.problem_text;
-
-            // Update formula (but keep it hidden initially)
-            document.getElementById('formulaText').textContent = problem.formula;
-            document.getElementById('formulaBox').classList.add('hidden');
-
-            // Clear answer input and feedback
-            document.getElementById('answerInput').value = '';
-            document.getElementById('feedbackBox').className = 'hidden';
-            document.getElementById('submitBtn').disabled = false;
-
-            // Render LaTeX
-            renderMath();
-
-            // Update navigation buttons
-            document.getElementById('prevBtn').disabled = currentProblemIndex === 0;
-            document.getElementById('nextBtn').textContent =
-                currentProblemIndex === problems.length - 1 ? 'Finish' : 'Next Problem';
-        }
-
-        function checkAnswer() {
-            const problem = problems[currentProblemIndex];
-            const userAnswer = parseFloat(document.getElementById('answerInput').value);
-
-            if (isNaN(userAnswer)) {
-                showFeedback('Please enter a valid number', 'incorrect');
-                return;
-            }
-
-            // Smart tolerance: 0.5% of correct answer OR $1 (or appropriate minimum), whichever is larger
-            const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
-            let minTolerance;
-            if (problem.unit === 'percent') {
-                minTolerance = 0.1; // 0.1 percentage points for percentages
-            } else if (problem.unit === 'bps') {
-                minTolerance = 5; // 5 basis points
-            } else {
-                minTolerance = 1; // $1 for dollar amounts
-            }
-            const tolerance = Math.max(percentTolerance, minTolerance);
-
-            const isCorrect = Math.abs(userAnswer - problem.correct_answer) <= tolerance;
-
-            attemptCount++;
-
-            if (isCorrect) {
-                completedProblems.add(currentProblemIndex);
-                showCorrectFeedback();
-            } else {
-                showIncorrectFeedback();
-            }
-        }
-
-        function formatAnswer(problem) {
-            if (problem.unit === 'percent') {
-                return problem.correct_answer.toFixed(1) + '%';
-            } else if (problem.unit === 'bps') {
-                return problem.correct_answer.toFixed(0) + ' basis points';
-            } else if (problem.correct_answer >= 1000) {
-                return '$' + problem.correct_answer.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            } else {
-                return '$' + problem.correct_answer.toFixed(2);
-            }
-        }
-
-        function showCorrectFeedback() {
-            const problem = problems[currentProblemIndex];
-            const feedbackBox = document.getElementById('feedbackBox');
-
-            let html = `
-                <div class="feedback-title">
-                    Correct!
-                </div>
-                <div class="feedback-content">
-                    Great job! The correct answer is ${formatAnswer(problem)}.
-                </div>
-            `;
-
-            feedbackBox.className = 'feedback-box feedback-correct';
-            feedbackBox.innerHTML = html;
-
-            document.getElementById('submitBtn').disabled = true;
-        }
-
-        function showIncorrectFeedback() {
-            const problem = problems[currentProblemIndex];
-            const feedbackBox = document.getElementById('feedbackBox');
-
-            let html = `
-                <div class="feedback-title">
-                    Not quite right
-                </div>
-            `;
-
-            // Adaptive feedback based on attempt count
-            if (attemptCount === 1) {
-                html += `
-                    <div class="hint-box">
-                        <strong>Hint:</strong> ${problem.hints.level_1}
-                    </div>
-                `;
-            } else if (attemptCount === 2) {
-                // Show formula on second attempt
-                document.getElementById('formulaBox').classList.remove('hidden');
-                html += `
-                    <div class="hint-box">
-                        <strong>Formula revealed above.</strong> ${problem.hints.level_2}
-                    </div>
-                `;
-            } else if (attemptCount === 3) {
-                // Keep formula visible
-                document.getElementById('formulaBox').classList.remove('hidden');
-                html += `
-                    <div class="hint-box">
-                        <strong>Detailed hint:</strong> ${problem.hints.level_3}
-                    </div>
-                    <div style="margin-top: 1rem;">
-                        <button class="btn-secondary" onclick="showFullSolution()">Show Full Solution</button>
-                    </div>
-                `;
-            } else {
-                // After 3 attempts, show full solution automatically
-                showFullSolution();
-                return;
-            }
-
-            feedbackBox.className = 'feedback-box feedback-incorrect';
-            feedbackBox.innerHTML = html;
-        }
-
-        function showFullSolution() {
-            const problem = problems[currentProblemIndex];
-            const feedbackBox = document.getElementById('feedbackBox');
-
-            let html = `
-                <div class="feedback-title">
-                    Solution
-                </div>
-                <div class="solution-steps">
-            `;
-
-            problem.solution_steps.forEach((step, index) => {
-                html += `
-                    <div class="solution-step">
-                        ${step}
-                    </div>
-                `;
-            });
-
-            html += `
-                </div>
-                <div class="feedback-content" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #E2E8F0;">
-                    <strong>Final Answer:</strong> ${formatAnswer(problem)}
-                </div>
-            `;
-
-            feedbackBox.className = 'feedback-box feedback-correct';
-            feedbackBox.innerHTML = html;
-
-            document.getElementById('submitBtn').disabled = true;
-            renderMath();
-        }
-
-        function nextProblem() {
-            if (currentProblemIndex < problems.length - 1) {
-                currentProblemIndex++;
-                displayProblem();
-            } else {
-                showSummary();
-            }
-        }
-
-        function previousProblem() {
-            if (currentProblemIndex > 0) {
-                currentProblemIndex--;
-                displayProblem();
-            }
-        }
-
-        function showSummary() {
-            const problemCard = document.getElementById('problemCard');
-            const completed = completedProblems.size;
-            const total = problems.length;
-            const percentage = Math.round((completed / total) * 100);
-
-            problemCard.innerHTML = `
-                <div style="text-align: center; padding: 3rem;">
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Practice Session Complete!</h2>
-                    <div style="font-size: 3rem; font-weight: bold; color: #2C5282; margin: 2rem 0;">
-                        ${completed} / ${total}
-                    </div>
-                    <div style="font-size: 1.25rem; color: #4A5568; margin-bottom: 2rem;">
-                        You got ${percentage}% of problems correct on the first try!
-                    </div>
-                    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn-primary" onclick="location.reload()">Practice Again</button>
-                        <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderMath() {
-            // Simple rendering - for more complex math, we'd use KaTeX's auto-render
-            setTimeout(() => {
-                const elements = document.querySelectorAll('.problem-text, .formula-box, .solution-step, .hint-box');
-                elements.forEach(element => {
-                    // Replace common LaTeX patterns with rendered math
-                    // This is a simplified version - full KaTeX auto-render would be more robust
-                });
-            }, 100);
-        }
-
-        // Allow Enter key to submit
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('answerInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !document.getElementById('submitBtn').disabled) {
-                    checkAnswer();
-                }
-            });
-            loadProblems();
-        });
     </script>
+    <script src="practice.js"></script>
 </body>
 </html>
