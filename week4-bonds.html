@@ -435,6 +435,52 @@
         }
 
 
+        /* Worked Example Toggle Styles */
+        .worked-example-toggle {
+            background: linear-gradient(135deg, #EBF8FF 0%, #E6FFFA 100%);
+            border: 2px solid #3182CE;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .worked-example-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .worked-example-header:hover { background-color: rgba(49, 130, 206, 0.1); }
+        .worked-example-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: #2C5282;
+        }
+        .worked-example-title .icon { font-size: 1.25rem; }
+        .worked-example-subtitle { font-size: 0.85rem; color: #4A5568; font-weight: 400; }
+        .toggle-indicator { display: flex; align-items: center; gap: 0.5rem; color: #3182CE; font-size: 0.875rem; font-weight: 500; }
+        .toggle-arrow { transition: transform 0.3s ease; font-size: 1.25rem; }
+        .worked-example-toggle.expanded .toggle-arrow { transform: rotate(180deg); }
+        .worked-example-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background-color: #F7FAFC; }
+        .worked-example-toggle.expanded .worked-example-content { max-height: 2000px; padding: 1.5rem; border-top: 1px solid #BEE3F8; }
+        .example-problem { background: white; border-radius: 6px; padding: 1.25rem; margin-bottom: 1rem; border-left: 4px solid #3182CE; }
+        .example-label { font-size: 0.75rem; font-weight: 600; color: #3182CE; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .example-text { color: #2D3748; font-size: 0.95rem; line-height: 1.6; }
+        .example-solution { background: white; border-radius: 6px; padding: 1.25rem; }
+        .example-step { display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid #E2E8F0; }
+        .example-step:last-child { border-bottom: none; }
+        .example-step-number { background-color: #3182CE; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
+        .example-step-content { flex: 1; }
+        .example-step-explanation { color: #4A5568; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .example-step-calculation { font-family: 'SF Mono', Monaco, 'Courier New', monospace; background-color: #EDF2F7; padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.9rem; color: #2D3748; }
+        .example-final-answer { background: linear-gradient(135deg, #48BB78 0%, #38A169 100%); color: white; padding: 1rem; border-radius: 6px; margin-top: 1rem; text-align: center; }
+        .example-final-answer-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
+        .example-final-answer-value { font-size: 1.5rem; font-weight: 700; }
+        .now-try-badge { background-color: #48BB78; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.875rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .container {
@@ -481,6 +527,26 @@
                     <span class="badge" style="background-color: #EBF8FF; color: #2C5282;" id="topicBadge">Topic</span>
                 </div>
             </div>
+
+            <!-- Worked Example Toggle -->
+            <div class="worked-example-toggle" id="workedExampleToggle">
+                <div class="worked-example-header" onclick="toggleWorkedExample()">
+                    <div class="worked-example-title">
+                        <span class="icon">📖</span>
+                        <span>
+                            See Worked Example
+                            <div class="worked-example-subtitle">Similar problem with step-by-step solution</div>
+                        </span>
+                    </div>
+                    <div class="toggle-indicator">
+                        <span class="toggle-text" id="toggleText">Show</span>
+                        <span class="toggle-arrow">▼</span>
+                    </div>
+                </div>
+                <div class="worked-example-content" id="workedExampleContent"></div>
+            </div>
+
+            <div class="now-try-badge">✏️ Now You Try</div>
 
             <div class="problem-text" id="problemText">
                 Loading problem...
@@ -550,6 +616,57 @@
     </div>
 
     <script>
+        // Spaced repetition tracking
+        const TOPIC_KEY = 'bonds';
+        const MISSED_PROBLEMS_KEY = 'finance_missed_' + TOPIC_KEY;
+        const MASTERED_PROBLEMS_KEY = 'finance_mastered_' + TOPIC_KEY;
+
+        // Check if we're in review mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const reviewMode = urlParams.get('review') === 'true';
+
+        function getMissedProblems() {
+            const stored = localStorage.getItem(MISSED_PROBLEMS_KEY);
+            return stored ? JSON.parse(stored) : {};
+        }
+
+        function getMasteredProblems() {
+            const stored = localStorage.getItem(MASTERED_PROBLEMS_KEY);
+            return stored ? JSON.parse(stored) : {};
+        }
+
+        function saveMissedProblem(problemId) {
+            const missed = getMissedProblems();
+            missed[problemId] = {
+                count: (missed[problemId]?.count || 0) + 1,
+                lastMissed: new Date().toISOString()
+            };
+            localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+        }
+
+        function markProblemMastered(problemId) {
+            // Remove from missed
+            const missed = getMissedProblems();
+            delete missed[problemId];
+            localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+
+            // Add to mastered
+            const mastered = getMasteredProblems();
+            mastered[problemId] = { masteredOn: new Date().toISOString() };
+            localStorage.setItem(MASTERED_PROBLEMS_KEY, JSON.stringify(mastered));
+        }
+
+        function filterProblemsForReview() {
+            if (!reviewMode) return problems;
+
+            const missed = getMissedProblems();
+            const missedIds = Object.keys(missed);
+
+            if (missedIds.length === 0) return [];
+
+            return problems.filter(p => missedIds.includes(p.id));
+        }
+
         // Calculator state
         let calcCurrentExpression = '';
         let calcCurrentResult = '0';
@@ -651,6 +768,101 @@
                 calcAppend(e.key);
             }
         });
+
+        // Worked examples for each problem type
+        const workedExamples = {
+            "bond_001": {
+                problem: "A bond has face value $1,000, 8% coupon rate, paid annually. What is the annual coupon payment?",
+                steps: [
+                    { explanation: "Identify values:", calculation: "Face Value = $1,000, Coupon Rate = 8%, Payments/year = 1" },
+                    { explanation: "Apply coupon formula:", calculation: "Coupon = Face Value × Coupon Rate" },
+                    { explanation: "Calculate:", calculation: "Coupon = $1,000 × 0.08 = $80" }
+                ],
+                answer: "$80"
+            },
+            "bond_002": {
+                problem: "A 3-year bond has face value $100, 5% annual coupon, YTM of 6%. What is the price?",
+                steps: [
+                    { explanation: "Calculate annual coupon:", calculation: "C = $100 × 5% = $5" },
+                    { explanation: "Discount each cash flow at 6%:", calculation: "P = $5/1.06 + $5/1.06² + $105/1.06³" },
+                    { explanation: "Calculate each term:", calculation: "$4.72 + $4.45 + $88.17 = $97.33" }
+                ],
+                answer: "$97.33"
+            },
+            "bond_003": {
+                problem: "A 2-year bond, $100 face, 6% coupon, price $99. Approximate the YTM.",
+                steps: [
+                    { explanation: "Price below par means YTM > coupon rate:", calculation: "YTM > 6%" },
+                    { explanation: "Try 6.5%:", calculation: "P = $6/1.065 + $106/1.065² = $99.09 (close!)" },
+                    { explanation: "Since $99.09 ≈ $99:", calculation: "YTM ≈ 6.5%" }
+                ],
+                answer: "6.5%"
+            },
+            "bond_004": {
+                problem: "Bond has 4% coupon, 5% yield, face $1,000, trades at $980. What is the discount amount?",
+                steps: [
+                    { explanation: "Compare coupon to yield:", calculation: "4% < 5%, so bond trades at discount" },
+                    { explanation: "Calculate discount:", calculation: "Discount = Face Value - Price" },
+                    { explanation: "Calculate:", calculation: "Discount = $1,000 - $980 = $20" }
+                ],
+                answer: "$20 discount"
+            },
+            "bond_005": {
+                problem: "Zero-coupon bond, face $1,000, 5 years to maturity, YTM 4%. What is the price?",
+                steps: [
+                    { explanation: "Zero-coupon means only payment is face value at maturity:", calculation: "No coupons" },
+                    { explanation: "Discount face value:", calculation: "P = $1,000 / (1.04)⁵" },
+                    { explanation: "Calculate:", calculation: "P = $1,000 / 1.2167 = $821.93" }
+                ],
+                answer: "$821.93"
+            },
+            "bond_006": {
+                problem: "Bond pays $40 semiannual coupon, YTM 10% (annual), 3 years to maturity, face $1,000. Price?",
+                steps: [
+                    { explanation: "Convert to semiannual:", calculation: "y = 10%/2 = 5%, n = 3×2 = 6 periods" },
+                    { explanation: "PV of coupons (annuity):", calculation: "PV = $40 × [1 - 1/1.05⁶] / 0.05 = $203.04" },
+                    { explanation: "PV of face value:", calculation: "PV = $1,000 / 1.05⁶ = $746.22" },
+                    { explanation: "Total price:", calculation: "P = $203.04 + $746.22 = $949.26" }
+                ],
+                answer: "$949.26"
+            },
+            "bond_007": {
+                problem: "Bond A has duration 5 years. Yields rise 1%. What is the approximate % price change?",
+                steps: [
+                    { explanation: "Duration measures sensitivity:", calculation: "% Change ≈ -Duration × Δy" },
+                    { explanation: "Plug in values:", calculation: "% Change ≈ -5 × 0.01" },
+                    { explanation: "Calculate:", calculation: "% Change ≈ -5% (price falls)" }
+                ],
+                answer: "-5%"
+            },
+            "bond_008": {
+                problem: "Current 1-year rate is 3%, 2-year rate is 4%. What's the expected 1-year rate next year?",
+                steps: [
+                    { explanation: "Use expectations hypothesis:", calculation: "(1 + r₂)² = (1 + r₁)(1 + f₁,₂)" },
+                    { explanation: "Solve for forward rate:", calculation: "f₁,₂ = (1.04)² / (1.03) - 1" },
+                    { explanation: "Calculate:", calculation: "f₁,₂ = 1.0816 / 1.03 - 1 = 5.01%" }
+                ],
+                answer: "5.01%"
+            },
+            "bond_009": {
+                problem: "Bond price $950, face $1,000, 6% coupon, 10 years. What's the current yield?",
+                steps: [
+                    { explanation: "Calculate annual coupon:", calculation: "Coupon = $1,000 × 6% = $60" },
+                    { explanation: "Current yield formula:", calculation: "Current Yield = Annual Coupon / Price" },
+                    { explanation: "Calculate:", calculation: "Current Yield = $60 / $950 = 6.32%" }
+                ],
+                answer: "6.32%"
+            },
+            "bond_010": {
+                problem: "A 10-year bond has modified duration of 8. Price is $1,000. If yields fall 0.5%, estimate new price.",
+                steps: [
+                    { explanation: "Price change formula:", calculation: "ΔP/P ≈ -Duration × Δy" },
+                    { explanation: "Calculate % change:", calculation: "ΔP/P ≈ -8 × (-0.005) = +4%" },
+                    { explanation: "Calculate new price:", calculation: "New Price = $1,000 × 1.04 = $1,040" }
+                ],
+                answer: "$1,040"
+            }
+        };
 
         // Bond Valuation Problems based on Week 4 slides (with variations)
         let problems = [
@@ -928,7 +1140,75 @@
 
         // Load problems on page load
         function loadProblems() {
+            // Filter for review mode if needed
+            problems = filterProblemsForReview();
+
+            if (problems.length === 0 && reviewMode) {
+                // No problems to review
+                document.getElementById('problemCard').innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #48BB78;">All Caught Up!</h2>
+                        <div style="font-size: 1.25rem; color: #4A5568; margin-bottom: 2rem;">
+                            You've mastered all the previously missed Bond Valuation problems.
+                        </div>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <a href="week4-bonds.html" class="btn-primary" style="text-decoration: none; display: inline-block;">Practice All Problems</a>
+                            <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Update header for review mode
+            if (reviewMode) {
+                document.querySelector('h1').textContent = 'Bond Valuation - Review Mode';
+                document.querySelector('.subtitle').textContent = 'Reviewing previously missed problems';
+            }
+
             displayProblem();
+        }
+
+        // Toggle worked example visibility
+        function toggleWorkedExample() {
+            const toggle = document.getElementById('workedExampleToggle');
+            const toggleText = document.getElementById('toggleText');
+            toggle.classList.toggle('expanded');
+            toggleText.textContent = toggle.classList.contains('expanded') ? 'Hide' : 'Show';
+        }
+
+        // Populate worked example content
+        function displayWorkedExample(problemId) {
+            const example = workedExamples[problemId];
+            const container = document.getElementById('workedExampleContent');
+            const toggle = document.getElementById('workedExampleToggle');
+            toggle.classList.remove('expanded');
+            document.getElementById('toggleText').textContent = 'Show';
+            if (!example) { toggle.style.display = 'none'; return; }
+            toggle.style.display = 'block';
+            let stepsHtml = example.steps.map((step, index) => `
+                <div class="example-step">
+                    <span class="example-step-number">${index + 1}</span>
+                    <div class="example-step-content">
+                        <div class="example-step-explanation">${step.explanation}</div>
+                        <div class="example-step-calculation">${step.calculation}</div>
+                    </div>
+                </div>
+            `).join('');
+            container.innerHTML = `
+                <div class="example-problem">
+                    <div class="example-label">Example Problem</div>
+                    <div class="example-text">${example.problem}</div>
+                </div>
+                <div class="example-solution">
+                    <div class="example-label">Step-by-Step Solution</div>
+                    ${stepsHtml}
+                    <div class="example-final-answer">
+                        <div class="example-final-answer-label">Final Answer</div>
+                        <div class="example-final-answer-value">${example.answer}</div>
+                    </div>
+                </div>
+            `;
         }
 
         function displayProblem() {
@@ -950,6 +1230,9 @@
 
             // Update topic badge
             document.getElementById('topicBadge').textContent = problem.topic;
+
+            // Display worked example for this problem
+            displayWorkedExample(problem.id);
 
             // Update problem text
             document.getElementById('problemText').textContent = problem.problem_text;
@@ -999,8 +1282,14 @@
 
             if (isCorrect) {
                 completedProblems.add(currentProblemIndex);
+                // Mark as mastered if correct on first attempt
+                if (attemptCount === 1) {
+                    markProblemMastered(problem.id);
+                }
                 showCorrectFeedback();
             } else {
+                // Track missed problem
+                saveMissedProblem(problem.id);
                 showIncorrectFeedback();
             }
         }
@@ -1034,6 +1323,7 @@
             feedbackBox.innerHTML = html;
 
             document.getElementById('submitBtn').disabled = true;
+            renderMath();
         }
 
         function showIncorrectFeedback() {
@@ -1080,6 +1370,7 @@
 
             feedbackBox.className = 'feedback-box feedback-incorrect';
             feedbackBox.innerHTML = html;
+            renderMath();
         }
 
         function showFullSolution() {
@@ -1137,9 +1428,32 @@
             const total = problems.length;
             const percentage = Math.round((completed / total) * 100);
 
+            // Check if there are missed problems to review
+            const missed = getMissedProblems();
+            const missedCount = Object.keys(missed).length;
+
+            let reviewButton = '';
+            if (missedCount > 0 && !reviewMode) {
+                reviewButton = `
+                    <a href="week4-bonds.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">
+                        Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}
+                    </a>
+                `;
+            }
+
+            let celebrationMessage = '';
+            if (reviewMode && percentage === 100) {
+                celebrationMessage = `
+                    <div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        Excellent! You've mastered all the problems you previously missed!
+                    </div>
+                `;
+            }
+
             problemCard.innerHTML = `
                 <div style="text-align: center; padding: 3rem;">
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Practice Session Complete!</h2>
+                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">${reviewMode ? 'Review Session' : 'Practice Session'} Complete!</h2>
+                    ${celebrationMessage}
                     <div style="font-size: 3rem; font-weight: bold; color: #2C5282; margin: 2rem 0;">
                         ${completed} / ${total}
                     </div>
@@ -1147,6 +1461,7 @@
                         You got ${percentage}% of problems correct on the first try!
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        ${reviewButton}
                         <button class="btn-primary" onclick="location.reload()">Practice Again</button>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
                     </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Practice Tool - Capital Budgeting</title>
+    <title>Finance Practice Tool - Risk and Return</title>
 
     <!-- KaTeX for LaTeX rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -465,8 +465,15 @@
             color: #2C5282;
         }
 
-        .worked-example-title .icon { font-size: 1.25rem; }
-        .worked-example-subtitle { font-size: 0.85rem; color: #4A5568; font-weight: 400; }
+        .worked-example-title .icon {
+            font-size: 1.25rem;
+        }
+
+        .worked-example-subtitle {
+            font-size: 0.85rem;
+            color: #4A5568;
+            font-weight: 400;
+        }
 
         .toggle-indicator {
             display: flex;
@@ -477,8 +484,14 @@
             font-weight: 500;
         }
 
-        .toggle-arrow { transition: transform 0.3s ease; font-size: 1.25rem; }
-        .worked-example-toggle.expanded .toggle-arrow { transform: rotate(180deg); }
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.25rem;
+        }
+
+        .worked-example-toggle.expanded .toggle-arrow {
+            transform: rotate(180deg);
+        }
 
         .worked-example-content {
             max-height: 0;
@@ -510,8 +523,17 @@
             margin-bottom: 0.5rem;
         }
 
-        .example-text { color: #2D3748; font-size: 0.95rem; line-height: 1.6; }
-        .example-solution { background: white; border-radius: 6px; padding: 1.25rem; }
+        .example-text {
+            color: #2D3748;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .example-solution {
+            background: white;
+            border-radius: 6px;
+            padding: 1.25rem;
+        }
 
         .example-step {
             display: flex;
@@ -520,7 +542,9 @@
             border-bottom: 1px solid #E2E8F0;
         }
 
-        .example-step:last-child { border-bottom: none; }
+        .example-step:last-child {
+            border-bottom: none;
+        }
 
         .example-step-number {
             background-color: #3182CE;
@@ -536,8 +560,15 @@
             flex-shrink: 0;
         }
 
-        .example-step-content { flex: 1; }
-        .example-step-explanation { color: #4A5568; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .example-step-content {
+            flex: 1;
+        }
+
+        .example-step-explanation {
+            color: #4A5568;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
 
         .example-step-calculation {
             font-family: 'SF Mono', Monaco, 'Courier New', monospace;
@@ -557,8 +588,17 @@
             text-align: center;
         }
 
-        .example-final-answer-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
-        .example-final-answer-value { font-size: 1.5rem; font-weight: 700; }
+        .example-final-answer-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+
+        .example-final-answer-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
 
         .now-try-badge {
             background-color: #48BB78;
@@ -604,8 +644,8 @@
             <div class="header-nav">
                 <a href="index.html" class="back-link">← Back to Topics</a>
             </div>
-            <h1>Capital Budgeting</h1>
-            <div class="subtitle">Week 2 - MGMT 408</div>
+            <h1>Risk and Return</h1>
+            <div class="subtitle">Week 6 - MGMT 408</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar" style="width: 0%"></div>
             </div>
@@ -635,7 +675,9 @@
                         <span class="toggle-arrow">▼</span>
                     </div>
                 </div>
-                <div class="worked-example-content" id="workedExampleContent"></div>
+                <div class="worked-example-content" id="workedExampleContent">
+                    <!-- Content populated by JavaScript -->
+                </div>
             </div>
 
             <div class="now-try-badge">✏️ Now You Try</div>
@@ -810,361 +852,336 @@
             }
         });
 
+        // Format answer based on unit type
+        function formatAnswer(value, unit) {
+            if (unit === 'dollars') return '$' + value.toLocaleString();
+            if (unit === 'percent') return value + '%';
+            if (unit === 'choice') return 'Option ' + value;
+            return value.toString();
+        }
+
         // Worked examples for each problem type
         const workedExamples = {
-            "capbudget_001": {
-                problem: "A project requires an initial investment of $100,000 today and will generate a single cash flow of $120,000 in one year. If the opportunity cost of capital is 10%, what is the NPV?",
+            "riskreturn_001": {
+                problem: "XYZ stock has the following return distribution: 30% return with probability 20%, 15% return with probability 60%, and -10% return with probability 20%. What is the expected return?",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$100,000 (outflow today), C₁ = $120,000 (inflow in 1 year)" },
-                    { explanation: "Calculate PV of future cash flow:", calculation: "PV = $120,000 / (1 + 0.10) = $120,000 / 1.10 = $109,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$100,000 + $109,091 = $9,091" }
+                    { explanation: "Identify the returns and their probabilities:", calculation: "\\(R_1 = 30\\%,\\ P_1 = 0.20;\\ R_2 = 15\\%,\\ P_2 = 0.60;\\ R_3 = -10\\%,\\ P_3 = 0.20\\)" },
+                    { explanation: "Apply the expected return formula:", calculation: "\\(E[R] = P_1 \\times R_1 + P_2 \\times R_2 + P_3 \\times R_3\\)" },
+                    { explanation: "Plug in the values:", calculation: "\\(E[R] = 0.20 \\times 30\\% + 0.60 \\times 15\\% + 0.20 \\times (-10\\%)\\)" },
+                    { explanation: "Calculate each term:", calculation: "\\(= 6\\% + 9\\% + (-2\\%) = 13\\%\\)" }
                 ],
-                answer: "$9,091"
+                answer: "13%"
             },
-            "capbudget_002": {
-                problem: "A project costs $100,000 to start plus $25,000 of your time (in PV). It pays $180,000 in one year. At 15% discount rate, what is the NPV?",
+            "riskreturn_002": {
+                problem: "XYZ stock has returns of 30%, 15%, and -10% with probabilities 20%, 60%, and 20%. The expected return is 13%. Calculate the variance of returns.",
                 steps: [
-                    { explanation: "Calculate total costs:", calculation: "Total Cost = $100,000 + $25,000 = $125,000" },
-                    { explanation: "Calculate PV of benefits:", calculation: "PV = $180,000 / 1.15 = $156,522" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$125,000 + $156,522 = $31,522" }
+                    { explanation: "Use the variance formula:", calculation: "\\(\\text{Var}(R) = \\sum P_i \\times (R_i - E[R])^2\\)" },
+                    { explanation: "Calculate each squared deviation:", calculation: "\\((0.30 - 0.13)^2 = (0.17)^2 = 0.0289\\)" },
+                    { explanation: "Second squared deviation:", calculation: "\\((0.15 - 0.13)^2 = (0.02)^2 = 0.0004\\)" },
+                    { explanation: "Third squared deviation:", calculation: "\\((-0.10 - 0.13)^2 = (-0.23)^2 = 0.0529\\)" },
+                    { explanation: "Multiply by probabilities and sum:", calculation: "\\(\\text{Var} = 0.20(0.0289) + 0.60(0.0004) + 0.20(0.0529)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\text{Var} = 0.00578 + 0.00024 + 0.01058 = 0.0166\\)" }
                 ],
-                answer: "$31,522"
+                answer: "0.0166"
             },
-            "capbudget_003": {
-                problem: "Project X costs $50,000 today and pays $65,000 in one year. At 10% discount rate, what is the NPV?",
+            "riskreturn_003": {
+                problem: "XYZ stock has a variance of returns equal to 0.0166. What is the standard deviation (volatility) of returns in percent?",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$50,000, C₁ = $65,000" },
-                    { explanation: "Calculate PV of Year 1 cash flow:", calculation: "PV = $65,000 / 1.10 = $59,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$50,000 + $59,091 = $9,091" }
+                    { explanation: "Standard deviation is the square root of variance:", calculation: "\\(SD(R) = \\sqrt{\\text{Var}(R)}\\)" },
+                    { explanation: "Take the square root:", calculation: "\\(SD(R) = \\sqrt{0.0166} = 0.1288\\)" },
+                    { explanation: "Convert to percentage:", calculation: "\\(SD(R) = 0.1288 \\times 100 = 12.88\\%\\)" }
                 ],
-                answer: "$9,091"
+                answer: "12.88%"
             },
-            "capbudget_004": {
-                problem: "A project has NPV of $15 million and requires an investment of $10 million. What is the profitability index?",
+            "riskreturn_004": {
+                problem: "DEF stock has returns of 30% and -20%, each with probability 50%. Calculate the expected return.",
                 steps: [
-                    { explanation: "Identify the values:", calculation: "NPV = $15M, Investment = $10M" },
-                    { explanation: "Apply the PI formula:", calculation: "PI = NPV / Investment" },
-                    { explanation: "Calculate:", calculation: "PI = $15M / $10M = 1.50" }
+                    { explanation: "Identify the returns and probabilities:", calculation: "\\(R_1 = 30\\%,\\ P_1 = 0.50;\\ R_2 = -20\\%,\\ P_2 = 0.50\\)" },
+                    { explanation: "Apply the expected return formula:", calculation: "\\(E[R] = P_1 \\times R_1 + P_2 \\times R_2\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(E[R] = 0.50 \\times 30\\% + 0.50 \\times (-20\\%)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(E[R] = 15\\% + (-10\\%) = 5\\%\\)" }
                 ],
-                answer: "1.50"
+                answer: "5%"
             },
-            "capbudget_005": {
-                problem: "Budget: $30M. Project A: NPV=$8M, Cost=$10M. Project B: NPV=$10M, Cost=$20M. Using PI, what's the max total NPV?",
+            "riskreturn_005": {
+                problem: "DEF stock has returns of 30% and -20%, each with probability 50%, and E[R] = 5%. Calculate the variance of returns.",
                 steps: [
-                    { explanation: "Calculate PI for each:", calculation: "PI(A) = 8/10 = 0.80, PI(B) = 10/20 = 0.50" },
-                    { explanation: "Rank by PI:", calculation: "A (0.80) > B (0.50)" },
-                    { explanation: "Select A first ($10M), then B ($20M):", calculation: "Total cost = $30M (fits budget)" },
-                    { explanation: "Total NPV:", calculation: "$8M + $10M = $18M" }
+                    { explanation: "Use the variance formula:", calculation: "\\(\\text{Var}(R) = \\sum P_i \\times (R_i - E[R])^2\\)" },
+                    { explanation: "Calculate first squared deviation:", calculation: "\\((0.30 - 0.05)^2 = (0.25)^2 = 0.0625\\)" },
+                    { explanation: "Calculate second squared deviation:", calculation: "\\((-0.20 - 0.05)^2 = (-0.25)^2 = 0.0625\\)" },
+                    { explanation: "Multiply by probabilities and sum:", calculation: "\\(\\text{Var} = 0.50(0.0625) + 0.50(0.0625)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\text{Var} = 0.03125 + 0.03125 = 0.0625\\)" }
                 ],
-                answer: "$18 million"
+                answer: "0.0625"
             },
-            "capbudget_006": {
-                problem: "Invest $3,000 today, receive $1,200/year for 3 years. At 8% discount rate, what is the NPV?",
+            "riskreturn_006": {
+                problem: "DEF stock has a variance of 0.0625. Calculate the standard deviation (volatility) in percent.",
                 steps: [
-                    { explanation: "Calculate PV of Year 1:", calculation: "$1,200 / 1.08 = $1,111" },
-                    { explanation: "Calculate PV of Year 2:", calculation: "$1,200 / 1.08² = $1,029" },
-                    { explanation: "Calculate PV of Year 3:", calculation: "$1,200 / 1.08³ = $953" },
-                    { explanation: "Sum and subtract initial investment:", calculation: "NPV = -$3,000 + $1,111 + $1,029 + $953 = $93" }
+                    { explanation: "Standard deviation is the square root of variance:", calculation: "\\(SD(R) = \\sqrt{\\text{Var}(R)}\\)" },
+                    { explanation: "Take the square root:", calculation: "\\(SD(R) = \\sqrt{0.0625} = 0.25\\)" },
+                    { explanation: "Convert to percentage:", calculation: "\\(SD(R) = 0.25 \\times 100 = 25\\%\\)" }
                 ],
-                answer: "$93"
+                answer: "25%"
             },
-            "capbudget_007": {
-                problem: "A project has IRR of 15%. The hurdle rate is 18%. Should you accept? (1=Yes, 0=No)",
+            "riskreturn_007": {
+                problem: "You invest $20 in Stock X and $80 in Stock Y. Stock X returns 15% and Stock Y returns 5%. What is the portfolio return?",
                 steps: [
-                    { explanation: "Compare IRR to hurdle rate:", calculation: "IRR = 15%, Hurdle = 18%" },
-                    { explanation: "Apply decision rule:", calculation: "Accept if IRR > Hurdle Rate" },
-                    { explanation: "15% < 18%, so reject:", calculation: "Answer: No (0)" }
+                    { explanation: "Calculate the portfolio weights:", calculation: "\\(w_X = 20/100 = 0.20,\\ w_Y = 80/100 = 0.80\\)" },
+                    { explanation: "Apply the portfolio return formula:", calculation: "\\(R_P = w_X \\times R_X + w_Y \\times R_Y\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(R_P = 0.20 \\times 15\\% + 0.80 \\times 5\\%\\)" },
+                    { explanation: "Calculate:", calculation: "\\(R_P = 3\\% + 4\\% = 7\\%\\)" }
                 ],
-                answer: "0 (No - Reject)"
+                answer: "7%"
             },
-            "capbudget_008": {
-                problem: "A project costs $60 million and generates $15 million per year. What is the payback period?",
+            "riskreturn_008": {
+                problem: "Stocks C and D have SD(R_C) = 25%, SD(R_D) = 35%, and correlation of 0.4. What is the standard deviation of an equally weighted portfolio?",
                 steps: [
-                    { explanation: "Identify values:", calculation: "Investment = $60M, Annual CF = $15M" },
-                    { explanation: "Apply payback formula:", calculation: "Payback = Investment / Annual CF" },
-                    { explanation: "Calculate:", calculation: "Payback = $60M / $15M = 4 years" }
+                    { explanation: "For an equally weighted portfolio (w = 0.5 each):", calculation: "\\(\\text{Var}_P = w_C^2 \\times SD_C^2 + w_D^2 \\times SD_D^2 + 2 \\times w_C \\times w_D \\times \\rho \\times SD_C \\times SD_D\\)" },
+                    { explanation: "Calculate each term:", calculation: "\\(= (0.5)^2(0.25)^2 + (0.5)^2(0.35)^2 + 2(0.5)(0.5)(0.4)(0.25)(0.35)\\)" },
+                    { explanation: "Simplify:", calculation: "\\(= 0.25 \\times 0.0625 + 0.25 \\times 0.1225 + 0.2 \\times 0.0875\\)" },
+                    { explanation: "Calculate:", calculation: "\\(= 0.015625 + 0.030625 + 0.0175 = 0.06375\\)" },
+                    { explanation: "Take the square root:", calculation: "\\(SD_P = \\sqrt{0.06375} = 0.2525 = 25.25\\%\\)" }
                 ],
-                answer: "4 years"
+                answer: "25.25%"
             },
-            "capbudget_009": {
-                problem: "Invest $40M, receive $10M/year for 6 years at 10% discount rate. What is the NPV?",
+            "riskreturn_009": {
+                problem: "Which of the following is true about systematic risk?<br>(1) It can be eliminated through diversification<br>(2) It affects only a single company<br>(3) It is also called market risk<br>(4) It is measured by standard deviation",
                 steps: [
-                    { explanation: "Use annuity formula:", calculation: "PV = $10M × [1 - 1/(1.10)⁶] / 0.10" },
-                    { explanation: "Calculate annuity factor:", calculation: "[1 - 0.5645] / 0.10 = 4.355" },
-                    { explanation: "Calculate PV of cash flows:", calculation: "$10M × 4.355 = $43.55M" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$40M + $43.55M = $3.55M" }
+                    { explanation: "Consider each option:", calculation: "Option 1: Diversification eliminates idiosyncratic risk, not systematic risk" },
+                    { explanation: "Evaluate option 2:", calculation: "Option 2: Single-company risk is idiosyncratic, not systematic" },
+                    { explanation: "Evaluate option 3:", calculation: "Option 3: Systematic risk IS market risk - it affects all stocks" },
+                    { explanation: "Evaluate option 4:", calculation: "Option 4: Standard deviation measures total risk, not just systematic risk" }
                 ],
-                answer: "$3.55 million"
+                answer: "Option 3"
             },
-            "capbudget_010": {
-                problem: "Revenue $400K, Costs $250K, Depreciation $40K, Tax rate 30%, no CapEx or NWC change. What is FCF?",
+            "riskreturn_010": {
+                problem: "If two stocks have a correlation of -1 (perfectly negatively correlated) and equal standard deviations, the standard deviation of an equally weighted portfolio is:<br>(1) Equal to the standard deviation of each stock<br>(2) Greater than the standard deviation of each stock<br>(3) Half the standard deviation of each stock<br>(4) Zero",
                 steps: [
-                    { explanation: "Calculate EBIT:", calculation: "$400K - $250K - $40K = $110K" },
-                    { explanation: "Calculate Taxes:", calculation: "$110K × 0.30 = $33K" },
-                    { explanation: "Calculate Unlevered Net Income:", calculation: "$110K - $33K = $77K" },
-                    { explanation: "Add back depreciation:", calculation: "FCF = $77K + $40K = $117K" }
+                    { explanation: "For equally weighted portfolio with \\(\\rho = -1\\):", calculation: "\\(\\text{Var}_P = (0.5)^2 SD^2 + (0.5)^2 SD^2 + 2(0.5)(0.5)(-1)(SD)(SD)\\)" },
+                    { explanation: "Simplify:", calculation: "\\(= 0.25 \\times SD^2 + 0.25 \\times SD^2 - 0.5 \\times SD^2\\)" },
+                    { explanation: "Combine terms:", calculation: "\\(= 0.5 \\times SD^2 - 0.5 \\times SD^2 = 0\\)" },
+                    { explanation: "Take the square root:", calculation: "\\(SD_P = \\sqrt{0} = 0\\)" }
                 ],
-                answer: "$117,000"
+                answer: "Option 4"
             }
         };
 
-        // Capital Budgeting Problems based on Week 2 slides (with variations)
+        // Problems data embedded directly to avoid CORS issues
         let problems = [
             {
-                "id": "capbudget_001",
-                "topic": "NPV Calculation",
+                "id": "riskreturn_001",
+                "topic": "Expected Return",
                 "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $200,000 today and will generate a single cash flow of $250,000 in one year. If the opportunity cost of capital is 15%, what is the NPV of this project?",
-                "given": {
-                    "initial_investment": 200000,
-                    "future_cash_flow": 250000,
-                    "discount_rate": 0.15
-                },
-                "formula": "NPV = -Initial Investment + Future Cash Flow / (1 + r)",
+                "problem_text": "NTX stock has the following return distribution: 30% return with probability 20%, 15% return with probability 60%, and -10% return with probability 20%. Calculate the expected return (in percent).",
+                "formula": "\\(E[R] = \\sum P_i \\times R_i\\)",
                 "solution_steps": [
-                    "Step 1: Identify cash flows: C₀ = -$200,000, C₁ = $250,000",
-                    "Step 2: Discount rate r = 15%",
-                    "Step 3: Calculate PV of future cash flow: $250,000 / 1.15 = $217,391",
-                    "Step 4: NPV = -$200,000 + $217,391",
-                    "Step 5: Final answer: NPV = $17,391"
+                    "Step 1: Identify returns and probabilities: \\(R_1=30\\%\\), \\(P_1=0.20\\); \\(R_2=15\\%\\), \\(P_2=0.60\\); \\(R_3=-10\\%\\), \\(P_3=0.20\\)",
+                    "Step 2: Apply \\(E[R] = P_1 \\times R_1 + P_2 \\times R_2 + P_3 \\times R_3\\)",
+                    "Step 3: \\(E[R] = 0.20 \\times 30\\% + 0.60 \\times 15\\% + 0.20 \\times (-10\\%)\\)",
+                    "Step 4: \\(E[R] = 6\\% + 9\\% + (-2\\%)\\)",
+                    "Step 5: \\(E[R] = 13\\%\\)"
                 ],
-                "correct_answer": 17391,
+                "correct_answer": 13,
+                "tolerance": 0.5,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "NPV = Present Value of Benefits - Present Value of Costs",
-                    "level_2": "Discount the $250,000 back one year at 15%, then subtract the initial investment",
-                    "level_3": "NPV = -200,000 + 250,000/1.15"
+                    "level_1": "Multiply each return by its probability and add them up",
+                    "level_2": "\\(E[R] = 0.20 \\times 30 + 0.60 \\times 15 + 0.20 \\times (-10)\\)",
+                    "level_3": "Calculate: \\(6 + 9 + (-2) = 13\\%\\)"
                 }
             },
             {
-                "id": "capbudget_002",
-                "topic": "NPV with Multiple Cash Flows",
+                "id": "riskreturn_002",
+                "topic": "Variance of Returns",
                 "difficulty": "medium",
-                "problem_text": "A project requires an investment of $150,000 today and the opportunity cost of your time worth $50,000 in present value. The project will pay $300,000 in one year. If the discount rate is 20%, what is the NPV?",
-                "given": {
-                    "initial_investment": 150000,
-                    "opportunity_cost": 50000,
-                    "future_cash_flow": 300000,
-                    "discount_rate": 0.20
-                },
-                "formula": "NPV = -Initial Investment - Opportunity Cost + PV(Future Cash Flow)",
+                "problem_text": "NTX stock has returns of 30%, 15%, and -10% with probabilities 20%, 60%, and 20%. The expected return is 13%. Calculate the variance of returns. (Express as a decimal, e.g., 0.045)",
+                "formula": "\\(\\text{Var}(R) = \\sum P_i \\times (R_i - E[R])^2\\)",
                 "solution_steps": [
-                    "Step 1: Total costs today = $150,000 + $50,000 = $200,000",
-                    "Step 2: PV of benefits = $300,000 / 1.20 = $250,000",
-                    "Step 3: NPV = -$200,000 + $250,000",
-                    "Step 4: Final answer: NPV = $50,000"
+                    "Step 1: \\(E[R] = 13\\% = 0.13\\)",
+                    "Step 2: Deviations: \\(0.30-0.13=0.17\\), \\(0.15-0.13=0.02\\), \\(-0.10-0.13=-0.23\\)",
+                    "Step 3: Squared deviations: \\((0.17)^2=0.0289\\), \\((0.02)^2=0.0004\\), \\((-0.23)^2=0.0529\\)",
+                    "Step 4: Weighted sum: \\(0.20 \\times 0.0289 + 0.60 \\times 0.0004 + 0.20 \\times 0.0529\\)",
+                    "Step 5: \\(\\text{Var} = 0.00578 + 0.00024 + 0.01058 = 0.0166\\)"
                 ],
-                "correct_answer": 50000,
+                "correct_answer": 0.0166,
+                "tolerance": 0.002,
+                "unit": "decimal",
                 "hints": {
-                    "level_1": "Don't forget to include the opportunity cost of time as a cost",
-                    "level_2": "Total cost = investment + opportunity cost = $200,000",
-                    "level_3": "NPV = -200,000 + 300,000/1.20"
+                    "level_1": "First find each deviation from the mean \\((R_i - E[R])\\), then square them",
+                    "level_2": "Deviations: \\(0.30-0.13=0.17\\), \\(0.15-0.13=0.02\\), \\(-0.10-0.13=-0.23\\)",
+                    "level_3": "\\(\\text{Var} = 0.20 \\times (0.17)^2 + 0.60 \\times (0.02)^2 + 0.20 \\times (-0.23)^2 = 0.00578 + 0.00024 + 0.01058 = 0.0166\\)"
                 }
             },
             {
-                "id": "capbudget_003",
-                "topic": "Comparing Projects by NPV",
+                "id": "riskreturn_003",
+                "topic": "Standard Deviation (Volatility)",
                 "difficulty": "medium",
-                "problem_text": "You have two mutually exclusive projects. Project A costs $100,000 today and pays $140,000 in one year. Project B costs $200,000 today and pays $270,000 in one year. If the discount rate is 12%, what is the NPV of Project B?",
-                "given": {
-                    "project_b_cost": 200000,
-                    "project_b_payoff": 270000,
-                    "discount_rate": 0.12
-                },
-                "formula": "NPV = -Cost + Payoff / (1 + r)",
+                "problem_text": "NTX stock has a variance of returns equal to 0.0166. Calculate the standard deviation (volatility) of returns in percent.",
+                "formula": "\\(SD(R) = \\sqrt{\\text{Var}(R)}\\)",
                 "solution_steps": [
-                    "Step 1: Project B cash flows: C₀ = -$200,000, C₁ = $270,000",
-                    "Step 2: PV of Year 1 cash flow: $270,000 / 1.12 = $241,071",
-                    "Step 3: NPV = -$200,000 + $241,071",
-                    "Step 4: Final answer: NPV of Project B = $41,071"
+                    "Step 1: \\(\\text{Var}(R) = 0.0166\\)",
+                    "Step 2: \\(SD(R) = \\sqrt{0.0166}\\)",
+                    "Step 3: \\(SD(R) = 0.1288\\)",
+                    "Step 4: Convert to percent: \\(0.1288 \\times 100 = 12.88\\%\\)"
                 ],
-                "correct_answer": 41071,
+                "correct_answer": 12.88,
+                "tolerance": 0.5,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "Calculate NPV for Project B using the standard formula",
-                    "level_2": "Discount $270,000 by one year at 12%",
-                    "level_3": "NPV = -200,000 + 270,000/1.12"
+                    "level_1": "Standard deviation is just the square root of variance",
+                    "level_2": "\\(SD = \\sqrt{0.0166}\\). Use your calculator!",
+                    "level_3": "\\(\\sqrt{0.0166} = 0.1288\\), which is \\(12.88\\%\\)"
                 }
             },
             {
-                "id": "capbudget_004",
-                "topic": "Profitability Index",
+                "id": "riskreturn_004",
+                "topic": "Expected Return",
                 "difficulty": "easy",
-                "problem_text": "A project has an NPV of $25 million and requires an initial investment of $20 million. What is the profitability index?",
-                "given": {
-                    "npv": 25,
-                    "initial_investment": 20
-                },
-                "formula": "Profitability Index = NPV / Resource Consumed",
+                "problem_text": "RKL stock has two possible outcomes: a 50% return with probability 40%, and -10% return with probability 60%. Calculate the expected return (in percent).",
+                "formula": "\\(E[R] = \\sum P_i \\times R_i\\)",
                 "solution_steps": [
-                    "Step 1: NPV = $25 million",
-                    "Step 2: Initial Investment = $20 million",
-                    "Step 3: Profitability Index = NPV / Initial Investment",
-                    "Step 4: PI = 25 / 20 = 1.25",
-                    "Step 5: Final answer: Profitability Index = 1.25"
+                    "Step 1: Identify returns and probabilities: \\(R_1=50\\%\\), \\(P_1=0.40\\); \\(R_2=-10\\%\\), \\(P_2=0.60\\)",
+                    "Step 2: \\(E[R] = 0.40 \\times 50\\% + 0.60 \\times (-10\\%)\\)",
+                    "Step 3: \\(E[R] = 20\\% + (-6\\%)\\)",
+                    "Step 4: \\(E[R] = 14\\%\\)"
                 ],
-                "correct_answer": 1.25,
+                "correct_answer": 14,
+                "tolerance": 0.5,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "Profitability Index measures value created per dollar invested",
-                    "level_2": "PI = NPV / Investment",
-                    "level_3": "PI = 25 / 20"
+                    "level_1": "Multiply each return by its probability and sum them",
+                    "level_2": "\\(E[R] = 0.40 \\times 50 + 0.60 \\times (-10)\\)",
+                    "level_3": "\\(= 20 + (-6) = 14\\%\\)"
                 }
             },
             {
-                "id": "capbudget_005",
-                "topic": "Profitability Index - Project Selection",
+                "id": "riskreturn_005",
+                "topic": "Variance of Returns",
                 "difficulty": "medium",
-                "problem_text": "You have $50 million to invest. Project A has NPV of $15M and costs $20M. Project B has NPV of $12M and costs $15M. Project C has NPV of $20M and costs $25M. Using the profitability index, what is the maximum total NPV you can achieve?",
-                "given": {
-                    "budget": 50,
-                    "project_a": {"npv": 15, "cost": 20, "pi": 0.75},
-                    "project_b": {"npv": 12, "cost": 15, "pi": 0.80},
-                    "project_c": {"npv": 20, "cost": 25, "pi": 0.80}
-                },
-                "formula": "Rank by PI = NPV/Cost, then select projects until budget exhausted",
+                "problem_text": "RKL stock has returns of 50% and -10% with probabilities 40% and 60%. The expected return is 14%. Calculate the variance of returns. (Express as a decimal, e.g., 0.0864)",
+                "formula": "\\(\\text{Var}(R) = \\sum P_i \\times (R_i - E[R])^2\\)",
                 "solution_steps": [
-                    "Step 1: Calculate PI for each project:",
-                    "  - Project A: 15/20 = 0.75",
-                    "  - Project B: 12/15 = 0.80",
-                    "  - Project C: 20/25 = 0.80",
-                    "Step 2: Rank by PI: B and C tied at 0.80, then A at 0.75",
-                    "Step 3: Select B ($15M) + C ($25M) = $40M invested, leaves $10M",
-                    "Step 4: Can't fit A ($20M) in remaining $10M",
-                    "Step 5: Total NPV = $12M + $20M = $32M"
+                    "Step 1: \\(E[R] = 14\\% = 0.14\\)",
+                    "Step 2: Deviations: \\(0.50-0.14=0.36\\), \\(-0.10-0.14=-0.24\\)",
+                    "Step 3: Squared deviations: \\((0.36)^2=0.1296\\), \\((-0.24)^2=0.0576\\)",
+                    "Step 4: Weighted sum: \\(0.40 \\times 0.1296 + 0.60 \\times 0.0576\\)",
+                    "Step 5: \\(\\text{Var} = 0.05184 + 0.03456 = 0.0864\\)"
                 ],
-                "correct_answer": 32,
+                "correct_answer": 0.0864,
+                "tolerance": 0.005,
+                "unit": "decimal",
                 "hints": {
-                    "level_1": "Calculate PI for each project, then rank them",
-                    "level_2": "PI: A=0.75, B=0.80, C=0.80. Start with highest PI projects",
-                    "level_3": "B+C costs $40M and gives NPV of $32M. A doesn't fit in remaining $10M"
+                    "level_1": "Calculate \\((R_i - E[R])^2\\) for each outcome, then take the probability-weighted sum",
+                    "level_2": "Deviations: \\(0.50-0.14=0.36\\) and \\(-0.10-0.14=-0.24\\). Square each.",
+                    "level_3": "\\(\\text{Var} = 0.40 \\times (0.36)^2 + 0.60 \\times (-0.24)^2 = 0.05184 + 0.03456 = 0.0864\\)"
                 }
             },
             {
-                "id": "capbudget_006",
-                "topic": "IRR Calculation",
+                "id": "riskreturn_006",
+                "topic": "Standard Deviation (Volatility)",
                 "difficulty": "medium",
-                "problem_text": "A project has the following cash flows: invest $4,000 today, receive $1,500 at the end of each of the next 3 years. The IRR of this project is approximately 6.1%. If your opportunity cost of capital is 5%, what is the NPV of this project (to the nearest dollar)?",
-                "given": {
-                    "initial_investment": 4000,
-                    "annual_cash_flow": 1500,
-                    "years": 3,
-                    "discount_rate": 0.05
-                },
-                "formula": "NPV = -C₀ + C₁/(1+r) + C₂/(1+r)² + C₃/(1+r)³",
+                "problem_text": "RKL stock has a variance of returns equal to 0.0864. Calculate the standard deviation (volatility) of returns in percent.",
+                "formula": "\\(SD(R) = \\sqrt{\\text{Var}(R)}\\)",
                 "solution_steps": [
-                    "Step 1: Cash flows: C₀ = -$4,000, C₁ = C₂ = C₃ = $1,500",
-                    "Step 2: Discount rate = 5%",
-                    "Step 3: PV of Year 1: 1500/1.05 = $1,428.57",
-                    "Step 4: PV of Year 2: 1500/1.05² = $1,360.54",
-                    "Step 5: PV of Year 3: 1500/1.05³ = $1,295.76",
-                    "Step 6: NPV = -4000 + 1428.57 + 1360.54 + 1295.76 = $84.87",
-                    "Step 7: Final answer: NPV ≈ $85"
+                    "Step 1: \\(\\text{Var}(R) = 0.0864\\)",
+                    "Step 2: \\(SD(R) = \\sqrt{0.0864}\\)",
+                    "Step 3: \\(SD(R) = 0.2940\\)",
+                    "Step 4: Convert to percent: \\(0.2940 \\times 100 = 29.39\\%\\)"
                 ],
-                "correct_answer": 85,
+                "correct_answer": 29.39,
+                "tolerance": 0.5,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "Since IRR (6.1%) > cost of capital (5%), NPV should be positive",
-                    "level_2": "Discount each $1,500 payment at 5%",
-                    "level_3": "NPV = -4000 + 1500/1.05 + 1500/1.05² + 1500/1.05³"
+                    "level_1": "Standard deviation is the square root of variance",
+                    "level_2": "\\(SD = \\sqrt{0.0864}\\). Use your calculator!",
+                    "level_3": "\\(\\sqrt{0.0864} = 0.2940\\), which is \\(29.39\\%\\)"
                 }
             },
             {
-                "id": "capbudget_007",
-                "topic": "IRR Decision Rule",
-                "difficulty": "easy",
-                "problem_text": "A project has an IRR of 18%. Your company's hurdle rate (opportunity cost of capital) is 12%. Based on the IRR rule, should you accept this project? Enter 1 for Yes, 0 for No.",
-                "given": {
-                    "irr": 0.18,
-                    "hurdle_rate": 0.12
-                },
-                "formula": "Accept if IRR > Hurdle Rate",
-                "solution_steps": [
-                    "Step 1: IRR = 18%",
-                    "Step 2: Hurdle Rate = 12%",
-                    "Step 3: Compare: 18% > 12%",
-                    "Step 4: Since IRR exceeds the hurdle rate, accept the project",
-                    "Step 5: Final answer: Yes (1)"
-                ],
-                "correct_answer": 1,
-                "hints": {
-                    "level_1": "The IRR rule says to accept if IRR exceeds the opportunity cost of capital",
-                    "level_2": "Compare 18% to 12%",
-                    "level_3": "18% > 12%, so accept"
-                }
-            },
-            {
-                "id": "capbudget_008",
-                "topic": "Payback Period",
-                "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $80 million and generates $20 million per year in free cash flow. What is the payback period in years?",
-                "given": {
-                    "initial_investment": 80,
-                    "annual_cash_flow": 20
-                },
-                "formula": "Payback Period = Initial Investment / Annual Cash Flow",
-                "solution_steps": [
-                    "Step 1: Initial Investment = $80 million",
-                    "Step 2: Annual Cash Flow = $20 million",
-                    "Step 3: Payback Period = Investment / Annual Cash Flow",
-                    "Step 4: Payback = 80 / 20 = 4 years",
-                    "Step 5: Final answer: 4 years"
-                ],
-                "correct_answer": 4,
-                "hints": {
-                    "level_1": "Payback period is how long it takes to recover your initial investment",
-                    "level_2": "Divide initial investment by annual cash flow",
-                    "level_3": "80 / 20 = 4 years"
-                }
-            },
-            {
-                "id": "capbudget_009",
-                "topic": "NPV vs Payback",
+                "id": "riskreturn_007",
+                "topic": "Portfolio Return",
                 "difficulty": "medium",
-                "problem_text": "A project requires $60 million today and generates $12 million per year for 8 years. Your company has a 5-year payback rule and uses an 8% discount rate. What is the NPV of this project (in millions)?",
-                "given": {
-                    "initial_investment": 60,
-                    "annual_cash_flow": 12,
-                    "years": 8,
-                    "discount_rate": 0.08
-                },
-                "formula": "NPV = -C₀ + C × [1 - 1/(1+r)^n] / r",
+                "problem_text": "You invest $20 in Stock A and $80 in Stock B. Stock A earns a 15% return and Stock B earns a 5% return. What is the return on your portfolio (in percent)?",
+                "formula": "\\(R_P = w_A \\times R_A + w_B \\times R_B\\)",
                 "solution_steps": [
-                    "Step 1: This is an annuity: $12M per year for 8 years",
-                    "Step 2: PV of annuity = 12 × [1 - 1/(1.08)^8] / 0.08",
-                    "Step 3: = 12 × [1 - 0.5403] / 0.08",
-                    "Step 4: = 12 × 5.7466 = $68.96M",
-                    "Step 5: NPV = -60 + 68.96 = $8.96M",
-                    "Step 6: Final answer: NPV ≈ $9 million"
+                    "Step 1: Total investment = \\(\\$20 + \\$80 = \\$100\\)",
+                    "Step 2: Calculate weights: \\(w_A = 20/100 = 0.20\\), \\(w_B = 80/100 = 0.80\\)",
+                    "Step 3: \\(R_P = 0.20 \\times 15\\% + 0.80 \\times 5\\%\\)",
+                    "Step 4: \\(R_P = 3\\% + 4\\% = 7\\%\\)"
                 ],
-                "correct_answer": 9,
+                "correct_answer": 7,
+                "tolerance": 0.1,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "Use the annuity formula to find PV of the 8 years of cash flows",
-                    "level_2": "PV = 12 × annuity factor for 8 years at 8%",
-                    "level_3": "Annuity factor = 5.7466, so PV = $68.96M, NPV = -60 + 68.96"
+                    "level_1": "Portfolio return is the weighted average of individual returns",
+                    "level_2": "Weights: \\(w_A = 20/100 = 0.20\\), \\(w_B = 80/100 = 0.80\\)",
+                    "level_3": "\\(R_P = 0.20 \\times 15 + 0.80 \\times 5 = 3 + 4 = 7\\%\\)"
                 }
             },
             {
-                "id": "capbudget_010",
-                "topic": "Free Cash Flow",
+                "id": "riskreturn_008",
+                "topic": "Portfolio Standard Deviation",
                 "difficulty": "hard",
-                "problem_text": "A project has revenues of $500,000, costs of $300,000, and depreciation of $50,000. The tax rate is 25%. There is no change in NWC and no CapEx this year. What is the Free Cash Flow?",
-                "given": {
-                    "revenues": 500000,
-                    "costs": 300000,
-                    "depreciation": 50000,
-                    "tax_rate": 0.25
-                },
-                "formula": "FCF = (Rev - Costs - Dep)(1 - τ) + Dep - CapEx - ΔNWC",
+                "problem_text": "Stocks A and B have standard deviations SD(R_A) = 25% and SD(R_B) = 35%, with a correlation of 0.4. What is the standard deviation of an equally weighted portfolio (in percent)? Use: Var_P = w_A^2 × Var_A + w_B^2 × Var_B + 2 × w_A × w_B × Corr × SD_A × SD_B",
+                "formula": "\\(SD_P = \\sqrt{w_A^2 \\times SD_A^2 + w_B^2 \\times SD_B^2 + 2 \\times w_A \\times w_B \\times \\rho \\times SD_A \\times SD_B}\\)",
                 "solution_steps": [
-                    "Step 1: Calculate EBIT = Revenue - Costs - Depreciation",
-                    "Step 2: EBIT = 500,000 - 300,000 - 50,000 = $150,000",
-                    "Step 3: Taxes = EBIT × tax rate = 150,000 × 0.25 = $37,500",
-                    "Step 4: Unlevered Net Income = EBIT - Taxes = 150,000 - 37,500 = $112,500",
-                    "Step 5: FCF = UNI + Depreciation - CapEx - ΔNWC",
-                    "Step 6: FCF = 112,500 + 50,000 - 0 - 0 = $162,500"
+                    "Step 1: Equally weighted means \\(w_A = w_B = 0.50\\)",
+                    "Step 2: \\(\\text{Var}_P = (0.5)^2(0.25)^2 + (0.5)^2(0.35)^2 + 2(0.5)(0.5)(0.4)(0.25)(0.35)\\)",
+                    "Step 3: \\(= 0.25 \\times 0.0625 + 0.25 \\times 0.1225 + 0.2 \\times 0.0875\\)",
+                    "Step 4: \\(= 0.015625 + 0.030625 + 0.0175 = 0.06375\\)",
+                    "Step 5: \\(SD_P = \\sqrt{0.06375} = 0.2525 = 25.25\\%\\)"
                 ],
-                "correct_answer": 162500,
+                "correct_answer": 25.25,
+                "tolerance": 0.5,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "FCF = Unlevered Net Income + Depreciation (add back non-cash expense)",
-                    "level_2": "First calculate EBIT, then taxes, then add back depreciation",
-                    "level_3": "EBIT = $150K, Taxes = $37.5K, UNI = $112.5K, FCF = $112.5K + $50K"
+                    "level_1": "Use the two-asset portfolio variance formula with \\(w_A = w_B = 0.5\\)",
+                    "level_2": "\\(\\text{Var}_P = (0.5)^2(0.25)^2 + (0.5)^2(0.35)^2 + 2(0.5)(0.5)(0.4)(0.25)(0.35)\\)",
+                    "level_3": "\\(\\text{Var}_P = 0.015625 + 0.030625 + 0.0175 = 0.06375\\). \\(SD_P = \\sqrt{0.06375} = 25.25\\%\\)"
+                }
+            },
+            {
+                "id": "riskreturn_009",
+                "topic": "Diversification",
+                "difficulty": "easy",
+                "problem_text": "Which type of risk can be eliminated through diversification?<br><br>(1) Systematic risk<br>(2) Market-wide risk<br>(3) Idiosyncratic risk<br>(4) Undiversifiable risk",
+                "formula": "\\(\\text{Total Risk} = \\text{Systematic Risk} + \\text{Idiosyncratic Risk}\\)",
+                "solution_steps": [
+                    "Step 1: Systematic risk (= market risk = undiversifiable risk) affects ALL stocks and cannot be diversified away",
+                    "Step 2: Idiosyncratic risk (= firm-specific risk = diversifiable risk) affects only individual stocks",
+                    "Step 3: By holding many stocks, idiosyncratic risks cancel out",
+                    "Step 4: The correct answer is (3) Idiosyncratic risk"
+                ],
+                "correct_answer": 3,
+                "tolerance": 0,
+                "unit": "choice",
+                "hints": {
+                    "level_1": "Think about which type of risk is firm-specific vs. market-wide",
+                    "level_2": "Systematic risk affects everything; idiosyncratic risk is company-specific",
+                    "level_3": "Diversification eliminates firm-specific (idiosyncratic) risk by holding many different stocks"
+                }
+            },
+            {
+                "id": "riskreturn_010",
+                "topic": "Portfolio Diversification",
+                "difficulty": "medium",
+                "problem_text": "If two stocks are perfectly correlated (correlation = 1), the standard deviation of an equally weighted portfolio is:<br><br>(1) Less than the average of the two standard deviations<br>(2) Equal to the average of the two standard deviations<br>(3) Greater than the average of the two standard deviations<br>(4) Zero",
+                "formula": "\\(SD_P = \\sqrt{w_A^2 \\times SD_A^2 + w_B^2 \\times SD_B^2 + 2 \\times w_A \\times w_B \\times \\rho \\times SD_A \\times SD_B}\\)",
+                "solution_steps": [
+                    "Step 1: With \\(\\rho = 1\\) and equal weights \\((w = 0.5)\\):",
+                    "Step 2: \\(\\text{Var}_P = (0.5)^2 SD_A^2 + (0.5)^2 SD_B^2 + 2(0.5)(0.5)(1)(SD_A)(SD_B)\\)",
+                    "Step 3: \\(= 0.25 \\times SD_A^2 + 0.25 \\times SD_B^2 + 0.5 \\times SD_A \\times SD_B\\)",
+                    "Step 4: \\(= (0.5 \\times SD_A + 0.5 \\times SD_B)^2\\) = (average of SDs)²",
+                    "Step 5: So \\(SD_P = 0.5 \\times SD_A + 0.5 \\times SD_B\\) = average of the two standard deviations",
+                    "Step 6: The correct answer is (2)"
+                ],
+                "correct_answer": 2,
+                "tolerance": 0,
+                "unit": "choice",
+                "hints": {
+                    "level_1": "When \\(\\rho = 1\\), there is no diversification benefit",
+                    "level_2": "Try plugging \\(\\rho = 1\\) into the portfolio variance formula. The expression simplifies to a perfect square.",
+                    "level_3": "With \\(\\rho = 1\\): \\(\\text{Var}_P = (0.5 \\times SD_A + 0.5 \\times SD_B)^2\\), so \\(SD_P\\) = average of SDs"
                 }
             }
         ];
@@ -1174,10 +1191,11 @@
         let completedProblems = new Set();
 
         // Spaced repetition tracking
-        const TOPIC_KEY = 'capbudget';
-        const MISSED_PROBLEMS_KEY = 'finance_missed_' + TOPIC_KEY;
-        const MASTERED_PROBLEMS_KEY = 'finance_mastered_' + TOPIC_KEY;
+        const TOPIC_KEY = 'riskreturn'; // Unique key for this topic
+        const MISSED_PROBLEMS_KEY = 'finance_missed_riskreturn';
+        const MASTERED_PROBLEMS_KEY = 'finance_mastered_riskreturn';
 
+        // Check if we're in review mode (URL parameter)
         const urlParams = new URLSearchParams(window.location.search);
         const reviewMode = urlParams.get('review') === 'true';
 
@@ -1193,28 +1211,43 @@
 
         function saveMissedProblem(problemId) {
             const missed = getMissedProblems();
-            missed[problemId] = { count: (missed[problemId]?.count || 0) + 1, lastMissed: new Date().toISOString() };
+            missed[problemId] = {
+                count: (missed[problemId]?.count || 0) + 1,
+                lastMissed: new Date().toISOString()
+            };
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
         }
 
         function markProblemMastered(problemId) {
+            // Remove from missed
             const missed = getMissedProblems();
             delete missed[problemId];
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+
+            // Add to mastered
             const mastered = getMasteredProblems();
-            mastered[problemId] = { masteredOn: new Date().toISOString() };
+            mastered[problemId] = {
+                masteredOn: new Date().toISOString()
+            };
             localStorage.setItem(MASTERED_PROBLEMS_KEY, JSON.stringify(mastered));
         }
 
         function filterProblemsForReview() {
             if (!reviewMode) return problems;
+
             const missed = getMissedProblems();
             const missedIds = Object.keys(missed);
-            return missedIds.length === 0 ? [] : problems.filter(p => missedIds.includes(p.id));
+
+            if (missedIds.length === 0) {
+                return []; // No problems to review
+            }
+
+            return problems.filter(p => missedIds.includes(p.id));
         }
 
         // Load problems on page load
         function loadProblems() {
+            // Filter problems if in review mode
             if (reviewMode) {
                 const reviewProblems = filterProblemsForReview();
                 if (reviewProblems.length === 0) {
@@ -1222,20 +1255,24 @@
                     return;
                 }
                 problems = reviewProblems;
-                document.querySelector('h1').textContent = 'Capital Budgeting - Review';
+                // Update header to show review mode
+                document.querySelector('h1').textContent = 'Risk and Return - Review';
                 document.querySelector('.subtitle').textContent = 'Reviewing missed problems';
             }
             displayProblem();
         }
 
         function showNoProblemsToReview() {
-            document.getElementById('problemCard').innerHTML = `
+            const problemCard = document.getElementById('problemCard');
+            problemCard.innerHTML = `
                 <div style="text-align: center; padding: 3rem;">
                     <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
                     <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #2D3748;">No Problems to Review!</h2>
-                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">You've mastered all the problems you previously missed.</p>
+                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">
+                        You've mastered all the problems you previously missed. Great work!
+                    </p>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="week2-capbudget.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
+                        <a href="week6-riskreturn.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Back to Topics</a>
                     </div>
                 </div>
@@ -1256,6 +1293,7 @@
             const container = document.getElementById('workedExampleContent');
             const toggle = document.getElementById('workedExampleToggle');
 
+            // Reset to collapsed state
             toggle.classList.remove('expanded');
             document.getElementById('toggleText').textContent = 'Show';
 
@@ -1316,14 +1354,30 @@
             displayWorkedExample(problem.id);
 
             // Update problem text
-            document.getElementById('problemText').textContent = problem.problem_text;
+            document.getElementById('problemText').innerHTML = problem.problem_text;
 
             // Update formula (but keep it hidden initially)
             document.getElementById('formulaText').textContent = problem.formula;
             document.getElementById('formulaBox').classList.add('hidden');
 
+            // Update placeholder based on unit type
+            const answerInput = document.getElementById('answerInput');
+            if (problem.unit === 'choice') {
+                answerInput.placeholder = 'Enter option number (1, 2, 3, or 4)';
+                answerInput.step = '1';
+            } else if (problem.unit === 'percent') {
+                answerInput.placeholder = 'Enter answer in percent (e.g., 10)';
+                answerInput.step = '0.01';
+            } else if (problem.unit === 'decimal') {
+                answerInput.placeholder = 'Enter answer as decimal (e.g., 0.045)';
+                answerInput.step = '0.001';
+            } else {
+                answerInput.placeholder = 'Enter your answer';
+                answerInput.step = '0.01';
+            }
+
             // Clear answer input and feedback
-            document.getElementById('answerInput').value = '';
+            answerInput.value = '';
             document.getElementById('feedbackBox').className = 'hidden';
             document.getElementById('submitBtn').disabled = false;
 
@@ -1345,17 +1399,8 @@
                 return;
             }
 
-            // Smart tolerance: 0.5% of correct answer OR $1 (or appropriate minimum), whichever is larger
-            const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
-            let minTolerance;
-            if (problem.correct_answer >= 1000) {
-                minTolerance = Math.max(1, problem.correct_answer * 0.01); // 1% for large numbers
-            } else if (problem.correct_answer < 10) {
-                minTolerance = 0.05; // Small tolerance for small numbers like PI
-            } else {
-                minTolerance = 1;
-            }
-            const tolerance = Math.max(percentTolerance, minTolerance);
+            // Use problem-specific tolerance
+            const tolerance = problem.tolerance !== undefined ? problem.tolerance : 0.5;
 
             const isCorrect = Math.abs(userAnswer - problem.correct_answer) <= tolerance;
 
@@ -1363,23 +1408,15 @@
 
             if (isCorrect) {
                 completedProblems.add(currentProblemIndex);
-                if (attemptCount === 1) markProblemMastered(problem.id);
+                // If correct on first attempt, mark as mastered
+                if (attemptCount === 1) {
+                    markProblemMastered(problem.id);
+                }
                 showCorrectFeedback();
             } else {
+                // Track this as a missed problem
                 saveMissedProblem(problem.id);
                 showIncorrectFeedback();
-            }
-        }
-
-        function formatAnswer(problem) {
-            if (problem.correct_answer >= 1000000) {
-                return '$' + (problem.correct_answer / 1000000).toFixed(2) + ' million';
-            } else if (problem.correct_answer >= 1000) {
-                return '$' + problem.correct_answer.toLocaleString();
-            } else if (problem.correct_answer < 10 && problem.correct_answer > 0) {
-                return problem.correct_answer.toFixed(2);
-            } else {
-                return '$' + problem.correct_answer.toLocaleString();
             }
         }
 
@@ -1392,7 +1429,7 @@
                     Correct!
                 </div>
                 <div class="feedback-content">
-                    Great job! The correct answer is ${formatAnswer(problem)}.
+                    Great job! The correct answer is ${formatAnswer(problem.correct_answer, problem.unit)}.
                 </div>
             `;
 
@@ -1464,7 +1501,7 @@
             problem.solution_steps.forEach((step, index) => {
                 html += `
                     <div class="solution-step">
-                        ${step}
+                        <span class="step-number">Step ${index + 1}:</span> ${step}
                     </div>
                 `;
             });
@@ -1472,7 +1509,7 @@
             html += `
                 </div>
                 <div class="feedback-content" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #E2E8F0;">
-                    <strong>Final Answer:</strong> ${formatAnswer(problem)}
+                    <strong>Final Answer:</strong> ${formatAnswer(problem.correct_answer, problem.unit)}
                 </div>
             `;
 
@@ -1505,15 +1542,26 @@
             const total = problems.length;
             const percentage = Math.round((completed / total) * 100);
 
+            // Check how many problems are in the missed queue
             const missed = getMissedProblems();
             const missedCount = Object.keys(missed).length;
+
             let reviewButton = '';
             if (missedCount > 0 && !reviewMode) {
-                reviewButton = `<a href="week2-capbudget.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}</a>`;
+                reviewButton = `
+                    <a href="week6-riskreturn.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">
+                        Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}
+                    </a>
+                `;
             }
+
             let celebrationMessage = '';
             if (reviewMode && completed === total) {
-                celebrationMessage = `<div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;"><strong>Excellent!</strong> You've mastered these previously missed problems!</div>`;
+                celebrationMessage = `
+                    <div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <strong>Excellent!</strong> You've mastered these previously missed problems!
+                    </div>
+                `;
             }
 
             problemCard.innerHTML = `
@@ -1528,7 +1576,7 @@
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                         ${reviewButton}
-                        <button class="btn-primary" onclick="location.href='week2-capbudget.html'">Practice All</button>
+                        <button class="btn-primary" onclick="location.href='week6-riskreturn.html'">Practice All</button>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
                     </div>
                 </div>
@@ -1536,13 +1584,16 @@
         }
 
         function renderMath() {
-            // Simple rendering - for more complex math, we'd use KaTeX's auto-render
             setTimeout(() => {
-                const elements = document.querySelectorAll('.problem-text, .formula-box, .solution-step, .hint-box');
-                elements.forEach(element => {
-                    // Replace common LaTeX patterns with rendered math
-                    // This is a simplified version - full KaTeX auto-render would be more robust
-                });
+                if (typeof renderMathInElement === 'function') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: '$$', right: '$$', display: true},
+                            {left: '\\(', right: '\\)', display: false}
+                        ],
+                        throwOnError: false
+                    });
+                }
             }, 100);
         }
 

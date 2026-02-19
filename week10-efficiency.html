@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Practice Tool - Capital Budgeting</title>
+    <title>Finance Practice Tool - Investing &amp; Market Efficiency</title>
 
     <!-- KaTeX for LaTeX rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -465,8 +465,15 @@
             color: #2C5282;
         }
 
-        .worked-example-title .icon { font-size: 1.25rem; }
-        .worked-example-subtitle { font-size: 0.85rem; color: #4A5568; font-weight: 400; }
+        .worked-example-title .icon {
+            font-size: 1.25rem;
+        }
+
+        .worked-example-subtitle {
+            font-size: 0.85rem;
+            color: #4A5568;
+            font-weight: 400;
+        }
 
         .toggle-indicator {
             display: flex;
@@ -477,8 +484,14 @@
             font-weight: 500;
         }
 
-        .toggle-arrow { transition: transform 0.3s ease; font-size: 1.25rem; }
-        .worked-example-toggle.expanded .toggle-arrow { transform: rotate(180deg); }
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.25rem;
+        }
+
+        .worked-example-toggle.expanded .toggle-arrow {
+            transform: rotate(180deg);
+        }
 
         .worked-example-content {
             max-height: 0;
@@ -510,8 +523,17 @@
             margin-bottom: 0.5rem;
         }
 
-        .example-text { color: #2D3748; font-size: 0.95rem; line-height: 1.6; }
-        .example-solution { background: white; border-radius: 6px; padding: 1.25rem; }
+        .example-text {
+            color: #2D3748;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .example-solution {
+            background: white;
+            border-radius: 6px;
+            padding: 1.25rem;
+        }
 
         .example-step {
             display: flex;
@@ -520,7 +542,9 @@
             border-bottom: 1px solid #E2E8F0;
         }
 
-        .example-step:last-child { border-bottom: none; }
+        .example-step:last-child {
+            border-bottom: none;
+        }
 
         .example-step-number {
             background-color: #3182CE;
@@ -536,8 +560,15 @@
             flex-shrink: 0;
         }
 
-        .example-step-content { flex: 1; }
-        .example-step-explanation { color: #4A5568; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .example-step-content {
+            flex: 1;
+        }
+
+        .example-step-explanation {
+            color: #4A5568;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
 
         .example-step-calculation {
             font-family: 'SF Mono', Monaco, 'Courier New', monospace;
@@ -557,8 +588,17 @@
             text-align: center;
         }
 
-        .example-final-answer-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
-        .example-final-answer-value { font-size: 1.5rem; font-weight: 700; }
+        .example-final-answer-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+
+        .example-final-answer-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
 
         .now-try-badge {
             background-color: #48BB78;
@@ -602,10 +642,10 @@
     <div class="container">
         <header>
             <div class="header-nav">
-                <a href="index.html" class="back-link">← Back to Topics</a>
+                <a href="index.html" class="back-link">&larr; Back to Topics</a>
             </div>
-            <h1>Capital Budgeting</h1>
-            <div class="subtitle">Week 2 - MGMT 408</div>
+            <h1>Investing &amp; Market Efficiency</h1>
+            <div class="subtitle">Week 10 - MGMT 408</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar" style="width: 0%"></div>
             </div>
@@ -624,7 +664,7 @@
             <div class="worked-example-toggle" id="workedExampleToggle">
                 <div class="worked-example-header" onclick="toggleWorkedExample()">
                     <div class="worked-example-title">
-                        <span class="icon">📖</span>
+                        <span class="icon">&#x1F4D6;</span>
                         <span>
                             See Worked Example
                             <div class="worked-example-subtitle">Similar problem with step-by-step solution</div>
@@ -632,13 +672,15 @@
                     </div>
                     <div class="toggle-indicator">
                         <span class="toggle-text" id="toggleText">Show</span>
-                        <span class="toggle-arrow">▼</span>
+                        <span class="toggle-arrow">&#x25BC;</span>
                     </div>
                 </div>
-                <div class="worked-example-content" id="workedExampleContent"></div>
+                <div class="worked-example-content" id="workedExampleContent">
+                    <!-- Content populated by JavaScript -->
+                </div>
             </div>
 
-            <div class="now-try-badge">✏️ Now You Try</div>
+            <div class="now-try-badge">&#x270F;&#xFE0F; Now You Try</div>
 
             <div class="problem-text" id="problemText">
                 Loading problem...
@@ -680,7 +722,7 @@
                 <button class="calc-btn calc-btn-clear" onclick="calcClear()">AC</button>
                 <button class="calc-btn" onclick="calcBackspace()">Del</button>
                 <button class="calc-btn calc-btn-operator" onclick="calcAppend('^')">x^y</button>
-                <button class="calc-btn calc-btn-operator" onclick="calcAppend('/')">÷</button>
+                <button class="calc-btn calc-btn-operator" onclick="calcAppend('/')">&#xF7;</button>
 
                 <button class="calc-btn" onclick="calcAppend('7')">7</button>
                 <button class="calc-btn" onclick="calcAppend('8')">8</button>
@@ -810,361 +852,372 @@
             }
         });
 
+        // Format answer based on unit type
+        function formatAnswer(value, unit) {
+            if (unit === 'dollars') return '$' + value.toLocaleString();
+            if (unit === 'percent') return value + '%';
+            if (unit === 'choice') return 'Option ' + value;
+            return value.toString();
+        }
+
         // Worked examples for each problem type
         const workedExamples = {
-            "capbudget_001": {
-                problem: "A project requires an initial investment of $100,000 today and will generate a single cash flow of $120,000 in one year. If the opportunity cost of capital is 10%, what is the NPV?",
+            "efficiency_001": {
+                problem: "According to the Efficient Markets Hypothesis, which of the following investment strategies should consistently generate abnormal returns? (1) Buying stocks with low P/E ratios (2) Buying after stock prices rise (3) None of the above - no strategy should consistently beat the market (4) Buying stocks mentioned on social media",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$100,000 (outflow today), C₁ = $120,000 (inflow in 1 year)" },
-                    { explanation: "Calculate PV of future cash flow:", calculation: "PV = $120,000 / (1 + 0.10) = $120,000 / 1.10 = $109,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$100,000 + $109,091 = $9,091" }
+                    { explanation: "Recall the core idea of EMH:", calculation: "EMH states that security prices fully reflect available information" },
+                    { explanation: "What this means for investors:", calculation: "If prices already reflect information, you cannot use that information to earn abnormal returns" },
+                    { explanation: "Evaluate the options:", calculation: "Low P/E, momentum, and social media signals are all publicly available information" },
+                    { explanation: "Under EMH, public info is already in prices:", calculation: "No strategy based on public information should consistently beat the market" }
                 ],
-                answer: "$9,091"
+                answer: "Option 3"
             },
-            "capbudget_002": {
-                problem: "A project costs $100,000 to start plus $25,000 of your time (in PV). It pays $180,000 in one year. At 15% discount rate, what is the NPV?",
+            "efficiency_002": {
+                problem: "A technical analyst claims she can predict stock price movements by studying chart patterns. Which form of market efficiency would her strategy violate? (1) Weak-form efficiency (2) Semi-strong-form efficiency (3) Strong-form efficiency (4) None of the above",
                 steps: [
-                    { explanation: "Calculate total costs:", calculation: "Total Cost = $100,000 + $25,000 = $125,000" },
-                    { explanation: "Calculate PV of benefits:", calculation: "PV = $180,000 / 1.15 = $156,522" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$125,000 + $156,522 = $31,522" }
+                    { explanation: "Recall the three forms of market efficiency:", calculation: "Weak: prices reflect past prices. Semi-strong: prices reflect all public info. Strong: prices reflect all info including private." },
+                    { explanation: "Technical analysis uses past price data (charts, patterns):", calculation: "This is exactly the information set described by weak-form efficiency" },
+                    { explanation: "If weak-form efficiency holds:", calculation: "Past price patterns cannot predict future price movements" },
+                    { explanation: "Therefore, a profitable technical strategy would violate:", calculation: "Weak-form efficiency (the least restrictive form)" }
                 ],
-                answer: "$31,522"
+                answer: "Option 1"
             },
-            "capbudget_003": {
-                problem: "Project X costs $50,000 today and pays $65,000 in one year. At 10% discount rate, what is the NPV?",
+            "efficiency_003": {
+                problem: "A hedge fund reads SEC filings immediately after they are published and trades on the information. Under which form of efficiency would this strategy fail to earn abnormal returns? (1) Weak-form only (2) Semi-strong-form efficiency (3) Strong-form only (4) No form of efficiency",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$50,000, C₁ = $65,000" },
-                    { explanation: "Calculate PV of Year 1 cash flow:", calculation: "PV = $65,000 / 1.10 = $59,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$50,000 + $59,091 = $9,091" }
+                    { explanation: "Identify what type of information SEC filings are:", calculation: "SEC filings are publicly available information once published" },
+                    { explanation: "Recall what semi-strong efficiency says:", calculation: "Prices reflect ALL publicly available information, not just past prices" },
+                    { explanation: "If semi-strong efficiency holds:", calculation: "Stock prices adjust immediately to new public information (like SEC filings)" },
+                    { explanation: "Therefore trading on public filings would fail under:", calculation: "Semi-strong-form efficiency (prices already incorporate this info)" }
                 ],
-                answer: "$9,091"
+                answer: "Option 2"
             },
-            "capbudget_004": {
-                problem: "A project has NPV of $15 million and requires an investment of $10 million. What is the profitability index?",
+            "efficiency_004": {
+                problem: "You form a leveraged portfolio: 150% invested in the market portfolio and -50% borrowed at the risk-free rate. If the market expected return is 12% and risk-free rate is 4%, what is the portfolio's expected return?",
                 steps: [
-                    { explanation: "Identify the values:", calculation: "NPV = $15M, Investment = $10M" },
-                    { explanation: "Apply the PI formula:", calculation: "PI = NPV / Investment" },
-                    { explanation: "Calculate:", calculation: "PI = $15M / $10M = 1.50" }
+                    { explanation: "Identify the portfolio weights:", calculation: "\\(w_{\\text{market}} = 1.5\\) (150%), \\(w_{rf} = -0.5\\) (-50% borrowed)" },
+                    { explanation: "Write the portfolio expected return formula:", calculation: "\\(E[R_P] = w_{\\text{market}} \\times E[R_m] + w_{rf} \\times R_f\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(E[R_P] = 1.5 \\times 12\\% + (-0.5) \\times 4\\%\\)" },
+                    { explanation: "Calculate each term:", calculation: "\\(= 18\\% - 2\\% = 16\\%\\)" }
                 ],
-                answer: "1.50"
+                answer: "16%"
             },
-            "capbudget_005": {
-                problem: "Budget: $30M. Project A: NPV=$8M, Cost=$10M. Project B: NPV=$10M, Cost=$20M. Using PI, what's the max total NPV?",
+            "efficiency_005": {
+                problem: "A portfolio is 150% invested in the market and -50% in the risk-free asset. What is the portfolio's beta?",
                 steps: [
-                    { explanation: "Calculate PI for each:", calculation: "PI(A) = 8/10 = 0.80, PI(B) = 10/20 = 0.50" },
-                    { explanation: "Rank by PI:", calculation: "A (0.80) > B (0.50)" },
-                    { explanation: "Select A first ($10M), then B ($20M):", calculation: "Total cost = $30M (fits budget)" },
-                    { explanation: "Total NPV:", calculation: "$8M + $10M = $18M" }
+                    { explanation: "Recall that beta is the weighted sum of component betas:", calculation: "\\(\\beta_P = w_{\\text{market}} \\times \\beta_{\\text{market}} + w_{rf} \\times \\beta_{rf}\\)" },
+                    { explanation: "Recall key beta values:", calculation: "\\(\\beta_{\\text{market}} = 1\\), \\(\\beta_{rf} = 0\\) (risk-free has zero market risk)" },
+                    { explanation: "Plug in portfolio weights:", calculation: "\\(\\beta_P = 1.5 \\times 1 + (-0.5) \\times 0\\)" },
+                    { explanation: "Simplify:", calculation: "\\(\\beta_P = 1.5 + 0 = 1.5\\)" }
                 ],
-                answer: "$18 million"
+                answer: "1.5"
             },
-            "capbudget_006": {
-                problem: "Invest $3,000 today, receive $1,200/year for 3 years. At 8% discount rate, what is the NPV?",
+            "efficiency_006": {
+                problem: "A stock has an expected return of 16%. The CAPM predicts its return should be 12% (given \\(r_f=2\\%\\), \\(\\beta=1.25\\), market premium = 8%). What is the stock's alpha?",
                 steps: [
-                    { explanation: "Calculate PV of Year 1:", calculation: "$1,200 / 1.08 = $1,111" },
-                    { explanation: "Calculate PV of Year 2:", calculation: "$1,200 / 1.08² = $1,029" },
-                    { explanation: "Calculate PV of Year 3:", calculation: "$1,200 / 1.08³ = $953" },
-                    { explanation: "Sum and subtract initial investment:", calculation: "NPV = -$3,000 + $1,111 + $1,029 + $953 = $93" }
+                    { explanation: "Recall the definition of alpha:", calculation: "\\(\\alpha\\) = Actual (or expected) return - CAPM predicted return" },
+                    { explanation: "Verify the CAPM prediction:", calculation: "\\(E[R] = r_f + \\beta \\times (E[R_m] - r_f) = 2\\% + 1.25 \\times 8\\% = 2\\% + 10\\% = 12\\%\\)" },
+                    { explanation: "Calculate alpha:", calculation: "\\(\\alpha = 16\\% - 12\\% = 4\\%\\)" },
+                    { explanation: "Interpretation:", calculation: "Positive \\(\\alpha\\) means the stock is expected to outperform its CAPM benchmark by 4%" }
                 ],
-                answer: "$93"
+                answer: "4%"
             },
-            "capbudget_007": {
-                problem: "A project has IRR of 15%. The hurdle rate is 18%. Should you accept? (1=Yes, 0=No)",
+            "efficiency_007": {
+                problem: "The 'value premium' anomaly refers to: (1) Growth stocks consistently outperform value stocks (2) Stocks with high book-to-market ratios tend to earn higher average returns (3) All stocks converge to the same value over time (4) Dividends predict future stock returns",
                 steps: [
-                    { explanation: "Compare IRR to hurdle rate:", calculation: "IRR = 15%, Hurdle = 18%" },
-                    { explanation: "Apply decision rule:", calculation: "Accept if IRR > Hurdle Rate" },
-                    { explanation: "15% < 18%, so reject:", calculation: "Answer: No (0)" }
+                    { explanation: "Recall the definition of value stocks:", calculation: "Value stocks have high book-to-market ratios (low price relative to book value)" },
+                    { explanation: "The empirical finding:", calculation: "Fama and French documented that value stocks (high B/M) historically earn higher returns than growth stocks (low B/M)" },
+                    { explanation: "This is called the 'value premium':", calculation: "It is captured by the HML (High Minus Low) factor in the Fama-French model" },
+                    { explanation: "Evaluate the options:", calculation: "Option 2 correctly describes the value premium anomaly" }
                 ],
-                answer: "0 (No - Reject)"
+                answer: "Option 2"
             },
-            "capbudget_008": {
-                problem: "A project costs $60 million and generates $15 million per year. What is the payback period?",
+            "efficiency_008": {
+                problem: "What does the evidence say about the performance of individual stock-pickers (day traders)? (1) Most consistently beat the market (2) About half beat the market consistently (3) The vast majority underperform after trading costs (4) Performance is random and unpredictable",
                 steps: [
-                    { explanation: "Identify values:", calculation: "Investment = $60M, Annual CF = $15M" },
-                    { explanation: "Apply payback formula:", calculation: "Payback = Investment / Annual CF" },
-                    { explanation: "Calculate:", calculation: "Payback = $60M / $15M = 4 years" }
+                    { explanation: "Consider the academic evidence on individual traders:", calculation: "Studies by Barber and Odean show most individual traders underperform" },
+                    { explanation: "Key finding:", calculation: "Active individual traders earn lower returns than passive investors, primarily due to transaction costs and poor timing" },
+                    { explanation: "The more you trade, the worse you tend to do:", calculation: "Overconfidence leads to excessive trading, which erodes returns through fees and bid-ask spreads" },
+                    { explanation: "This is consistent with market efficiency:", calculation: "If markets are efficient, active trading costs reduce returns below market benchmarks" }
                 ],
-                answer: "4 years"
+                answer: "Option 3"
             },
-            "capbudget_009": {
-                problem: "Invest $40M, receive $10M/year for 6 years at 10% discount rate. What is the NPV?",
+            "efficiency_009": {
+                problem: "Which of the following best describes the Fama-French 5-factor model? (1) CAPM plus size, value, profitability, and investment factors (2) CAPM plus momentum, liquidity, and two volatility factors (3) Five separate measures of market beta (4) A model that only applies to bonds",
                 steps: [
-                    { explanation: "Use annuity formula:", calculation: "PV = $10M × [1 - 1/(1.10)⁶] / 0.10" },
-                    { explanation: "Calculate annuity factor:", calculation: "[1 - 0.5645] / 0.10 = 4.355" },
-                    { explanation: "Calculate PV of cash flows:", calculation: "$10M × 4.355 = $43.55M" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$40M + $43.55M = $3.55M" }
+                    { explanation: "Start with the original CAPM:", calculation: "CAPM: \\(E[R] = r_f + \\beta \\times (E[R_m] - r_f)\\) -- one factor: market risk" },
+                    { explanation: "Fama-French 3-factor model adds:", calculation: "SMB (Small Minus Big = size) and HML (High Minus Low = value)" },
+                    { explanation: "Fama-French 5-factor model further adds:", calculation: "RMW (Robust Minus Weak = profitability) and CMA (Conservative Minus Aggressive = investment)" },
+                    { explanation: "So the 5-factor model is:", calculation: "Market + Size + Value + Profitability + Investment = Option 1" }
                 ],
-                answer: "$3.55 million"
+                answer: "Option 1"
             },
-            "capbudget_010": {
-                problem: "Revenue $400K, Costs $250K, Depreciation $40K, Tax rate 30%, no CapEx or NWC change. What is FCF?",
+            "efficiency_010": {
+                problem: "Suppose researchers discover a new anomaly that earns 8% alpha per year. After the paper is published, how much alpha would you expect based on McLean and Pontiff's findings? (1) About 8% (2) About 3.2% (3) About 12% (4) About 0%",
                 steps: [
-                    { explanation: "Calculate EBIT:", calculation: "$400K - $250K - $40K = $110K" },
-                    { explanation: "Calculate Taxes:", calculation: "$110K × 0.30 = $33K" },
-                    { explanation: "Calculate Unlevered Net Income:", calculation: "$110K - $33K = $77K" },
-                    { explanation: "Add back depreciation:", calculation: "FCF = $77K + $40K = $117K" }
+                    { explanation: "Recall McLean and Pontiff's key finding:", calculation: "After publication, anomaly returns decline by approximately 58% (roughly 60%)" },
+                    { explanation: "This happens because:", calculation: "Once investors learn about an anomaly, they trade on it, which reduces the mispricing" },
+                    { explanation: "Apply the 60% decline to 8% alpha:", calculation: "Post-publication \\(\\alpha = 8\\% \\times (1 - 0.60) = 8\\% \\times 0.40 = 3.2\\%\\)" },
+                    { explanation: "Therefore:", calculation: "You would expect about 3.2% \\(\\alpha\\) after publication, which matches Option 2" }
                 ],
-                answer: "$117,000"
+                answer: "Option 2 (about 3.2%)"
             }
         };
 
-        // Capital Budgeting Problems based on Week 2 slides (with variations)
+        // Problems data embedded directly to avoid CORS issues
         let problems = [
             {
-                "id": "capbudget_001",
-                "topic": "NPV Calculation",
+                "id": "efficiency_001",
+                "topic": "Efficient Markets Hypothesis",
                 "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $200,000 today and will generate a single cash flow of $250,000 in one year. If the opportunity cost of capital is 15%, what is the NPV of this project?",
-                "given": {
-                    "initial_investment": 200000,
-                    "future_cash_flow": 250000,
-                    "discount_rate": 0.15
-                },
-                "formula": "NPV = -Initial Investment + Future Cash Flow / (1 + r)",
+                "problem_text": "The Efficient Markets Hypothesis states that:\n\n(1) All investors earn the same return\n(2) Stock prices are always too high\n(3) All securities are fairly priced given publicly available information\n(4) Markets never crash",
+                "given": {},
+                "formula": "EMH: Prices reflect available information",
                 "solution_steps": [
-                    "Step 1: Identify cash flows: C₀ = -$200,000, C₁ = $250,000",
-                    "Step 2: Discount rate r = 15%",
-                    "Step 3: Calculate PV of future cash flow: $250,000 / 1.15 = $217,391",
-                    "Step 4: NPV = -$200,000 + $217,391",
-                    "Step 5: Final answer: NPV = $17,391"
+                    "Step 1: The EMH is about information being reflected in prices.",
+                    "Step 2: Option (1) is wrong -- investors can earn different returns based on risk.",
+                    "Step 3: Option (2) is wrong -- EMH says prices are 'fair,' not 'too high.'",
+                    "Step 4: Option (4) is wrong -- EMH does not say markets cannot crash; crashes can reflect new information.",
+                    "Step 5: Option (3) is correct -- EMH states securities are fairly priced given available information."
                 ],
-                "correct_answer": 17391,
+                "correct_answer": 3,
+                "tolerance": 0,
+                "unit": "choice",
                 "hints": {
-                    "level_1": "NPV = Present Value of Benefits - Present Value of Costs",
-                    "level_2": "Discount the $250,000 back one year at 15%, then subtract the initial investment",
-                    "level_3": "NPV = -200,000 + 250,000/1.15"
+                    "level_1": "EMH is about information and pricing, not about preventing crashes or equalizing returns.",
+                    "level_2": "Think about what 'efficient' means: prices quickly incorporate available information.",
+                    "level_3": "The answer is the option about prices being fair given publicly available information."
                 }
             },
             {
-                "id": "capbudget_002",
-                "topic": "NPV with Multiple Cash Flows",
-                "difficulty": "medium",
-                "problem_text": "A project requires an investment of $150,000 today and the opportunity cost of your time worth $50,000 in present value. The project will pay $300,000 in one year. If the discount rate is 20%, what is the NPV?",
-                "given": {
-                    "initial_investment": 150000,
-                    "opportunity_cost": 50000,
-                    "future_cash_flow": 300000,
-                    "discount_rate": 0.20
-                },
-                "formula": "NPV = -Initial Investment - Opportunity Cost + PV(Future Cash Flow)",
-                "solution_steps": [
-                    "Step 1: Total costs today = $150,000 + $50,000 = $200,000",
-                    "Step 2: PV of benefits = $300,000 / 1.20 = $250,000",
-                    "Step 3: NPV = -$200,000 + $250,000",
-                    "Step 4: Final answer: NPV = $50,000"
-                ],
-                "correct_answer": 50000,
-                "hints": {
-                    "level_1": "Don't forget to include the opportunity cost of time as a cost",
-                    "level_2": "Total cost = investment + opportunity cost = $200,000",
-                    "level_3": "NPV = -200,000 + 300,000/1.20"
-                }
-            },
-            {
-                "id": "capbudget_003",
-                "topic": "Comparing Projects by NPV",
-                "difficulty": "medium",
-                "problem_text": "You have two mutually exclusive projects. Project A costs $100,000 today and pays $140,000 in one year. Project B costs $200,000 today and pays $270,000 in one year. If the discount rate is 12%, what is the NPV of Project B?",
-                "given": {
-                    "project_b_cost": 200000,
-                    "project_b_payoff": 270000,
-                    "discount_rate": 0.12
-                },
-                "formula": "NPV = -Cost + Payoff / (1 + r)",
-                "solution_steps": [
-                    "Step 1: Project B cash flows: C₀ = -$200,000, C₁ = $270,000",
-                    "Step 2: PV of Year 1 cash flow: $270,000 / 1.12 = $241,071",
-                    "Step 3: NPV = -$200,000 + $241,071",
-                    "Step 4: Final answer: NPV of Project B = $41,071"
-                ],
-                "correct_answer": 41071,
-                "hints": {
-                    "level_1": "Calculate NPV for Project B using the standard formula",
-                    "level_2": "Discount $270,000 by one year at 12%",
-                    "level_3": "NPV = -200,000 + 270,000/1.12"
-                }
-            },
-            {
-                "id": "capbudget_004",
-                "topic": "Profitability Index",
+                "id": "efficiency_002",
+                "topic": "Forms of Market Efficiency",
                 "difficulty": "easy",
-                "problem_text": "A project has an NPV of $25 million and requires an initial investment of $20 million. What is the profitability index?",
-                "given": {
-                    "npv": 25,
-                    "initial_investment": 20
-                },
-                "formula": "Profitability Index = NPV / Resource Consumed",
+                "problem_text": "Which form of market efficiency states that prices reflect all information contained in past prices?\n\n(1) Strong-form efficiency\n(2) Semi-strong-form efficiency\n(3) Weak-form efficiency\n(4) Ultra-weak efficiency",
+                "given": {},
+                "formula": "Weak < Semi-Strong < Strong (increasing information sets)",
                 "solution_steps": [
-                    "Step 1: NPV = $25 million",
-                    "Step 2: Initial Investment = $20 million",
-                    "Step 3: Profitability Index = NPV / Initial Investment",
-                    "Step 4: PI = 25 / 20 = 1.25",
-                    "Step 5: Final answer: Profitability Index = 1.25"
+                    "Step 1: There are three forms of market efficiency: weak, semi-strong, and strong.",
+                    "Step 2: Weak-form: prices reflect all past price and trading data.",
+                    "Step 3: Semi-strong-form: prices reflect all publicly available information.",
+                    "Step 4: Strong-form: prices reflect all information, including private/insider info.",
+                    "Step 5: Option (4) 'Ultra-weak efficiency' is not a real category.",
+                    "Step 6: The answer is (3) Weak-form efficiency."
                 ],
-                "correct_answer": 1.25,
+                "correct_answer": 3,
+                "tolerance": 0,
+                "unit": "choice",
                 "hints": {
-                    "level_1": "Profitability Index measures value created per dollar invested",
-                    "level_2": "PI = NPV / Investment",
-                    "level_3": "PI = 25 / 20"
+                    "level_1": "The three forms are ordered by how much information prices reflect: past prices, all public info, or all info.",
+                    "level_2": "The weakest form says prices only reflect past price history -- making technical analysis useless.",
+                    "level_3": "Weak-form efficiency = past prices already in current prices. Answer is option 3."
                 }
             },
             {
-                "id": "capbudget_005",
-                "topic": "Profitability Index - Project Selection",
+                "id": "efficiency_003",
+                "topic": "Semi-Strong Efficiency",
                 "difficulty": "medium",
-                "problem_text": "You have $50 million to invest. Project A has NPV of $15M and costs $20M. Project B has NPV of $12M and costs $15M. Project C has NPV of $20M and costs $25M. Using the profitability index, what is the maximum total NPV you can achieve?",
-                "given": {
-                    "budget": 50,
-                    "project_a": {"npv": 15, "cost": 20, "pi": 0.75},
-                    "project_b": {"npv": 12, "cost": 15, "pi": 0.80},
-                    "project_c": {"npv": 20, "cost": 25, "pi": 0.80}
-                },
-                "formula": "Rank by PI = NPV/Cost, then select projects until budget exhausted",
+                "problem_text": "Semi-strong-form efficiency means that:\n\n(1) Only insider information can generate alpha\n(2) Prices reflect all publicly available information\n(3) Prices only reflect past price data\n(4) Technical analysis can generate alpha",
+                "given": {},
+                "formula": "Semi-strong: Prices reflect all public information",
                 "solution_steps": [
-                    "Step 1: Calculate PI for each project:",
-                    "  - Project A: 15/20 = 0.75",
-                    "  - Project B: 12/15 = 0.80",
-                    "  - Project C: 20/25 = 0.80",
-                    "Step 2: Rank by PI: B and C tied at 0.80, then A at 0.75",
-                    "Step 3: Select B ($15M) + C ($25M) = $40M invested, leaves $10M",
-                    "Step 4: Can't fit A ($20M) in remaining $10M",
-                    "Step 5: Total NPV = $12M + $20M = $32M"
+                    "Step 1: Semi-strong-form efficiency says prices reflect ALL publicly available information.",
+                    "Step 2: This includes past prices, financial statements, news, analyst reports, etc.",
+                    "Step 3: Option (3) is wrong -- that describes weak-form efficiency only.",
+                    "Step 4: Option (4) is wrong -- if prices reflect all public info, technical analysis (which uses public price data) cannot generate alpha.",
+                    "Step 5: Option (1) is a consequence: if all public info is priced in, only non-public (insider) info could generate alpha.",
+                    "Step 6: But the question asks what semi-strong efficiency MEANS, not its consequence. The answer is (2)."
                 ],
-                "correct_answer": 32,
+                "correct_answer": 2,
+                "tolerance": 0,
+                "unit": "choice",
                 "hints": {
-                    "level_1": "Calculate PI for each project, then rank them",
-                    "level_2": "PI: A=0.75, B=0.80, C=0.80. Start with highest PI projects",
-                    "level_3": "B+C costs $40M and gives NPV of $32M. A doesn't fit in remaining $10M"
+                    "level_1": "Semi-strong is the middle level -- more than just past prices, but not insider info.",
+                    "level_2": "Semi-strong says all publicly available information is reflected in prices.",
+                    "level_3": "The definition is option (2): prices reflect all publicly available information."
                 }
             },
             {
-                "id": "capbudget_006",
-                "topic": "IRR Calculation",
+                "id": "efficiency_004",
+                "topic": "Leveraged Portfolios",
                 "difficulty": "medium",
-                "problem_text": "A project has the following cash flows: invest $4,000 today, receive $1,500 at the end of each of the next 3 years. The IRR of this project is approximately 6.1%. If your opportunity cost of capital is 5%, what is the NPV of this project (to the nearest dollar)?",
+                "problem_text": "You form a leveraged portfolio: 150% invested in the market portfolio and -50% borrowed at the risk-free rate. If the market expected return is 12% and the risk-free rate is 2%, what is the portfolio's expected return? (Enter as a percentage, e.g., 17 for 17%)",
                 "given": {
-                    "initial_investment": 4000,
-                    "annual_cash_flow": 1500,
-                    "years": 3,
-                    "discount_rate": 0.05
+                    "w_market": 1.5,
+                    "w_rf": -0.5,
+                    "E_Rm": 0.12,
+                    "Rf": 0.02
                 },
-                "formula": "NPV = -C₀ + C₁/(1+r) + C₂/(1+r)² + C₃/(1+r)³",
+                "formula": "\\(E[R_P] = w_{\\text{market}} \\times E[R_m] + w_{rf} \\times R_f\\)",
                 "solution_steps": [
-                    "Step 1: Cash flows: C₀ = -$4,000, C₁ = C₂ = C₃ = $1,500",
-                    "Step 2: Discount rate = 5%",
-                    "Step 3: PV of Year 1: 1500/1.05 = $1,428.57",
-                    "Step 4: PV of Year 2: 1500/1.05² = $1,360.54",
-                    "Step 5: PV of Year 3: 1500/1.05³ = $1,295.76",
-                    "Step 6: NPV = -4000 + 1428.57 + 1360.54 + 1295.76 = $84.87",
-                    "Step 7: Final answer: NPV ≈ $85"
+                    "Step 1: Identify portfolio weights: \\(w_{\\text{market}} = 1.5\\) (150%), \\(w_{rf} = -0.5\\) (-50% borrowed).",
+                    "Step 2: Note that weights sum to 1: \\(1.5 + (-0.5) = 1.0\\).",
+                    "Step 3: Apply the portfolio return formula: \\(E[R_P] = w_{\\text{market}} \\times E[R_m] + w_{rf} \\times R_f\\).",
+                    "Step 4: \\(E[R_P] = 1.5 \\times 12\\% + (-0.5) \\times 2\\%\\).",
+                    "Step 5: \\(E[R_P] = 18\\% - 1\\% = 17\\%\\)."
                 ],
-                "correct_answer": 85,
+                "correct_answer": 17,
+                "tolerance": 0.5,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "Since IRR (6.1%) > cost of capital (5%), NPV should be positive",
-                    "level_2": "Discount each $1,500 payment at 5%",
-                    "level_3": "NPV = -4000 + 1500/1.05 + 1500/1.05² + 1500/1.05³"
+                    "level_1": "A leveraged portfolio borrows at the risk-free rate to invest more in the market.",
+                    "level_2": "\\(E[R_P] = w_{\\text{market}} \\times E[R_m] + w_{rf} \\times R_f\\). The weights must sum to 1.",
+                    "level_3": "Calculate: \\(1.5 \\times 12\\% + (-0.5) \\times 2\\% = 18\\% - 1\\% = 17\\%\\)."
                 }
             },
             {
-                "id": "capbudget_007",
-                "topic": "IRR Decision Rule",
-                "difficulty": "easy",
-                "problem_text": "A project has an IRR of 18%. Your company's hurdle rate (opportunity cost of capital) is 12%. Based on the IRR rule, should you accept this project? Enter 1 for Yes, 0 for No.",
+                "id": "efficiency_005",
+                "topic": "Portfolio Beta",
+                "difficulty": "medium",
+                "problem_text": "Using the same leveraged portfolio (150% in the market portfolio, -50% in the risk-free asset), what is the portfolio's beta? (Enter as a number, e.g., 1.5 for beta = 1.5)",
                 "given": {
-                    "irr": 0.18,
-                    "hurdle_rate": 0.12
+                    "w_market": 1.5,
+                    "w_rf": -0.5,
+                    "beta_market": 1.0,
+                    "beta_rf": 0.0
                 },
-                "formula": "Accept if IRR > Hurdle Rate",
+                "formula": "\\(\\beta_P = w_{\\text{market}} \\times \\beta_{\\text{market}} + w_{rf} \\times \\beta_{rf}\\)",
                 "solution_steps": [
-                    "Step 1: IRR = 18%",
-                    "Step 2: Hurdle Rate = 12%",
-                    "Step 3: Compare: 18% > 12%",
-                    "Step 4: Since IRR exceeds the hurdle rate, accept the project",
-                    "Step 5: Final answer: Yes (1)"
+                    "Step 1: Portfolio beta is the weighted average of component betas.",
+                    "Step 2: \\(\\beta_{\\text{market}} = 1.0\\) (by definition), \\(\\beta_{rf} = 0\\) (risk-free has zero systematic risk).",
+                    "Step 3: \\(\\beta_P = 1.5 \\times 1.0 + (-0.5) \\times 0\\).",
+                    "Step 4: \\(\\beta_P = 1.5 + 0 = 1.5\\)."
+                ],
+                "correct_answer": 1.5,
+                "tolerance": 0.01,
+                "unit": "decimal",
+                "hints": {
+                    "level_1": "Beta of a portfolio is the weighted average of individual betas.",
+                    "level_2": "The market portfolio has \\(\\beta = 1\\), and the risk-free asset has \\(\\beta = 0\\).",
+                    "level_3": "\\(\\beta_P = 1.5 \\times 1 + (-0.5) \\times 0 = 1.5\\)."
+                }
+            },
+            {
+                "id": "efficiency_006",
+                "topic": "Alpha (CAPM)",
+                "difficulty": "medium",
+                "problem_text": "A stock has an expected return of 15%. The CAPM predicts its return should be 12% (given r_f = 2%, beta = 1.25, market risk premium = 8%). What is the stock's alpha? (Enter as a percentage, e.g., 3 for 3%)",
+                "given": {
+                    "expected_return": 0.15,
+                    "capm_return": 0.12,
+                    "rf": 0.02,
+                    "beta": 1.25,
+                    "market_premium": 0.08
+                },
+                "formula": "\\(\\alpha = E[R] - [r_f + \\beta \\times (E[R_m] - r_f)]\\)",
+                "solution_steps": [
+                    "Step 1: Verify the CAPM prediction: \\(E[R] = r_f + \\beta \\times \\text{market premium} = 2\\% + 1.25 \\times 8\\% = 12\\%\\).",
+                    "Step 2: \\(\\alpha\\) = Actual expected return - CAPM predicted return.",
+                    "Step 3: \\(\\alpha = 15\\% - 12\\% = 3\\%\\).",
+                    "Step 4: A positive \\(\\alpha\\) of 3% means the stock is expected to outperform its risk-adjusted benchmark."
+                ],
+                "correct_answer": 3,
+                "tolerance": 0.1,
+                "unit": "percent",
+                "hints": {
+                    "level_1": "Alpha measures how much a stock's expected return exceeds its CAPM benchmark.",
+                    "level_2": "\\(\\alpha\\) = Expected return - CAPM predicted return.",
+                    "level_3": "\\(\\alpha = 15\\% - 12\\% = 3\\%\\)."
+                }
+            },
+            {
+                "id": "efficiency_007",
+                "topic": "Market Anomalies",
+                "difficulty": "medium",
+                "problem_text": "The 'momentum' anomaly refers to:\n\n(1) Stocks that have gone up recently tend to continue going up over the next 6-12 months\n(2) All stocks eventually return to their average price\n(3) Large-cap stocks always outperform small-cap stocks\n(4) Bond yields predict stock returns",
+                "given": {},
+                "formula": "Momentum: Past winners continue to win, past losers continue to lose (6-12 month horizon)",
+                "solution_steps": [
+                    "Step 1: Momentum is one of the most well-documented anomalies in finance.",
+                    "Step 2: It refers to the tendency for recent price trends to continue over a medium-term horizon.",
+                    "Step 3: Option (2) describes 'mean reversion,' which is different from momentum.",
+                    "Step 4: Option (3) is incorrect -- the size effect actually says small-cap stocks tend to outperform.",
+                    "Step 5: Option (4) describes a different relationship entirely.",
+                    "Step 6: The answer is (1): stocks that have gone up recently tend to continue going up over 6-12 months."
                 ],
                 "correct_answer": 1,
+                "tolerance": 0,
+                "unit": "choice",
                 "hints": {
-                    "level_1": "The IRR rule says to accept if IRR exceeds the opportunity cost of capital",
-                    "level_2": "Compare 18% to 12%",
-                    "level_3": "18% > 12%, so accept"
+                    "level_1": "Momentum is about trends continuing, not reversing.",
+                    "level_2": "Think 'winners keep winning' over a 6-12 month horizon.",
+                    "level_3": "The answer is option (1): recent winners continue to outperform over 6-12 months."
                 }
             },
             {
-                "id": "capbudget_008",
-                "topic": "Payback Period",
-                "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $80 million and generates $20 million per year in free cash flow. What is the payback period in years?",
-                "given": {
-                    "initial_investment": 80,
-                    "annual_cash_flow": 20
-                },
-                "formula": "Payback Period = Initial Investment / Annual Cash Flow",
-                "solution_steps": [
-                    "Step 1: Initial Investment = $80 million",
-                    "Step 2: Annual Cash Flow = $20 million",
-                    "Step 3: Payback Period = Investment / Annual Cash Flow",
-                    "Step 4: Payback = 80 / 20 = 4 years",
-                    "Step 5: Final answer: 4 years"
-                ],
-                "correct_answer": 4,
-                "hints": {
-                    "level_1": "Payback period is how long it takes to recover your initial investment",
-                    "level_2": "Divide initial investment by annual cash flow",
-                    "level_3": "80 / 20 = 4 years"
-                }
-            },
-            {
-                "id": "capbudget_009",
-                "topic": "NPV vs Payback",
+                "id": "efficiency_008",
+                "topic": "Active vs. Passive Management",
                 "difficulty": "medium",
-                "problem_text": "A project requires $60 million today and generates $12 million per year for 8 years. Your company has a 5-year payback rule and uses an 8% discount rate. What is the NPV of this project (in millions)?",
-                "given": {
-                    "initial_investment": 60,
-                    "annual_cash_flow": 12,
-                    "years": 8,
-                    "discount_rate": 0.08
-                },
-                "formula": "NPV = -C₀ + C × [1 - 1/(1+r)^n] / r",
+                "problem_text": "According to the evidence, actively managed mutual funds on average:\n\n(1) Significantly outperform the market after fees\n(2) Roughly match or underperform the market after fees\n(3) Always beat index funds\n(4) Have zero risk",
+                "given": {},
+                "formula": "\\(\\text{Net return} = \\text{Gross return} - \\text{Management fees} - \\text{Trading costs}\\)",
                 "solution_steps": [
-                    "Step 1: This is an annuity: $12M per year for 8 years",
-                    "Step 2: PV of annuity = 12 × [1 - 1/(1.08)^8] / 0.08",
-                    "Step 3: = 12 × [1 - 0.5403] / 0.08",
-                    "Step 4: = 12 × 5.7466 = $68.96M",
-                    "Step 5: NPV = -60 + 68.96 = $8.96M",
-                    "Step 6: Final answer: NPV ≈ $9 million"
+                    "Step 1: Decades of research consistently show that actively managed funds struggle to beat the market.",
+                    "Step 2: Before fees, the average active fund roughly matches the market (since they ARE the market in aggregate).",
+                    "Step 3: After fees (typically 0.5% to 1.5% per year), most active funds underperform index funds.",
+                    "Step 4: Option (1) is wrong -- the evidence shows the opposite.",
+                    "Step 5: Option (3) is wrong -- most do not beat index funds, especially over long periods.",
+                    "Step 6: Option (4) is wrong -- all equity funds have risk.",
+                    "Step 7: The answer is (2): active funds on average roughly match or underperform the market after fees."
                 ],
-                "correct_answer": 9,
+                "correct_answer": 2,
+                "tolerance": 0,
+                "unit": "choice",
                 "hints": {
-                    "level_1": "Use the annuity formula to find PV of the 8 years of cash flows",
-                    "level_2": "PV = 12 × annuity factor for 8 years at 8%",
-                    "level_3": "Annuity factor = 5.7466, so PV = $68.96M, NPV = -60 + 68.96"
+                    "level_1": "Think about what happens when you subtract management fees from market-average returns.",
+                    "level_2": "Active managers in aggregate ARE the market, so before fees they match it. After fees...",
+                    "level_3": "The answer is option (2): active funds roughly match or underperform after fees."
                 }
             },
             {
-                "id": "capbudget_010",
-                "topic": "Free Cash Flow",
+                "id": "efficiency_009",
+                "topic": "Fama-French Model",
                 "difficulty": "hard",
-                "problem_text": "A project has revenues of $500,000, costs of $300,000, and depreciation of $50,000. The tax rate is 25%. There is no change in NWC and no CapEx this year. What is the Free Cash Flow?",
-                "given": {
-                    "revenues": 500000,
-                    "costs": 300000,
-                    "depreciation": 50000,
-                    "tax_rate": 0.25
-                },
-                "formula": "FCF = (Rev - Costs - Dep)(1 - τ) + Dep - CapEx - ΔNWC",
+                "problem_text": "The Fama-French 3-factor model extends the CAPM by adding which factors?\n\n(1) Inflation and GDP growth\n(2) Size (SMB) and value (HML)\n(3) Momentum and liquidity\n(4) Interest rates and exchange rates",
+                "given": {},
+                "formula": "\\(E[R] = r_f + \\beta_m(R_m - r_f) + \\beta_s \\cdot SMB + \\beta_v \\cdot HML\\)",
                 "solution_steps": [
-                    "Step 1: Calculate EBIT = Revenue - Costs - Depreciation",
-                    "Step 2: EBIT = 500,000 - 300,000 - 50,000 = $150,000",
-                    "Step 3: Taxes = EBIT × tax rate = 150,000 × 0.25 = $37,500",
-                    "Step 4: Unlevered Net Income = EBIT - Taxes = 150,000 - 37,500 = $112,500",
-                    "Step 5: FCF = UNI + Depreciation - CapEx - ΔNWC",
-                    "Step 6: FCF = 112,500 + 50,000 - 0 - 0 = $162,500"
+                    "Step 1: The CAPM has one factor: market risk (beta).",
+                    "Step 2: Fama and French (1993) added two additional factors to better explain stock returns.",
+                    "Step 3: SMB (Small Minus Big) captures the size effect: small stocks tend to outperform large stocks.",
+                    "Step 4: HML (High Minus Low book-to-market) captures the value effect: value stocks tend to outperform growth stocks.",
+                    "Step 5: Option (1) is wrong -- these are macroeconomic variables, not Fama-French factors.",
+                    "Step 6: Option (3) is wrong -- momentum was added later by Carhart (1997) as a 4th factor.",
+                    "Step 7: The answer is (2): Size (SMB) and Value (HML)."
                 ],
-                "correct_answer": 162500,
+                "correct_answer": 2,
+                "tolerance": 0,
+                "unit": "choice",
                 "hints": {
-                    "level_1": "FCF = Unlevered Net Income + Depreciation (add back non-cash expense)",
-                    "level_2": "First calculate EBIT, then taxes, then add back depreciation",
-                    "level_3": "EBIT = $150K, Taxes = $37.5K, UNI = $112.5K, FCF = $112.5K + $50K"
+                    "level_1": "Fama and French found two patterns CAPM could not explain: one related to firm size and one related to value.",
+                    "level_2": "SMB stands for 'Small Minus Big' and HML stands for 'High Minus Low' (book-to-market).",
+                    "level_3": "The answer is option (2): Size (SMB) and Value (HML)."
+                }
+            },
+            {
+                "id": "efficiency_010",
+                "topic": "Publication Effect on Anomalies",
+                "difficulty": "hard",
+                "problem_text": "McLean and Pontiff (2015) found that after an anomaly is published in academic research, its alpha:\n\n(1) Increases by about 60%\n(2) Remains unchanged\n(3) Falls by about 60% on average\n(4) Becomes negative for all investors",
+                "given": {},
+                "formula": "Post-publication alpha declines as investors trade on the anomaly",
+                "solution_steps": [
+                    "Step 1: McLean and Pontiff (2015) studied 97 anomalies documented in academic papers.",
+                    "Step 2: They compared anomaly returns before and after publication.",
+                    "Step 3: Key finding: after publication, anomaly returns declined by approximately 58% (roughly 60%).",
+                    "Step 4: This suggests that once investors learn about an anomaly, they trade on it, reducing the mispricing.",
+                    "Step 5: Option (1) is the opposite of what happens.",
+                    "Step 6: Option (2) is wrong -- publication clearly has an effect.",
+                    "Step 7: Option (4) is too extreme -- alpha falls but does not necessarily become negative.",
+                    "Step 8: The answer is (3): alpha falls by about 60% on average."
+                ],
+                "correct_answer": 3,
+                "tolerance": 0,
+                "unit": "choice",
+                "hints": {
+                    "level_1": "Think about what happens when many investors learn about a profitable strategy at the same time.",
+                    "level_2": "When investors trade on a published anomaly, they reduce the mispricing that caused the alpha.",
+                    "level_3": "The answer is option (3): alpha falls by about 60% after publication."
                 }
             }
         ];
@@ -1174,10 +1227,11 @@
         let completedProblems = new Set();
 
         // Spaced repetition tracking
-        const TOPIC_KEY = 'capbudget';
-        const MISSED_PROBLEMS_KEY = 'finance_missed_' + TOPIC_KEY;
-        const MASTERED_PROBLEMS_KEY = 'finance_mastered_' + TOPIC_KEY;
+        const TOPIC_KEY = 'efficiency'; // Unique key for this topic
+        const MISSED_PROBLEMS_KEY = 'finance_missed_efficiency';
+        const MASTERED_PROBLEMS_KEY = 'finance_mastered_efficiency';
 
+        // Check if we're in review mode (URL parameter)
         const urlParams = new URLSearchParams(window.location.search);
         const reviewMode = urlParams.get('review') === 'true';
 
@@ -1193,28 +1247,43 @@
 
         function saveMissedProblem(problemId) {
             const missed = getMissedProblems();
-            missed[problemId] = { count: (missed[problemId]?.count || 0) + 1, lastMissed: new Date().toISOString() };
+            missed[problemId] = {
+                count: (missed[problemId]?.count || 0) + 1,
+                lastMissed: new Date().toISOString()
+            };
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
         }
 
         function markProblemMastered(problemId) {
+            // Remove from missed
             const missed = getMissedProblems();
             delete missed[problemId];
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+
+            // Add to mastered
             const mastered = getMasteredProblems();
-            mastered[problemId] = { masteredOn: new Date().toISOString() };
+            mastered[problemId] = {
+                masteredOn: new Date().toISOString()
+            };
             localStorage.setItem(MASTERED_PROBLEMS_KEY, JSON.stringify(mastered));
         }
 
         function filterProblemsForReview() {
             if (!reviewMode) return problems;
+
             const missed = getMissedProblems();
             const missedIds = Object.keys(missed);
-            return missedIds.length === 0 ? [] : problems.filter(p => missedIds.includes(p.id));
+
+            if (missedIds.length === 0) {
+                return []; // No problems to review
+            }
+
+            return problems.filter(p => missedIds.includes(p.id));
         }
 
         // Load problems on page load
         function loadProblems() {
+            // Filter problems if in review mode
             if (reviewMode) {
                 const reviewProblems = filterProblemsForReview();
                 if (reviewProblems.length === 0) {
@@ -1222,20 +1291,24 @@
                     return;
                 }
                 problems = reviewProblems;
-                document.querySelector('h1').textContent = 'Capital Budgeting - Review';
+                // Update header to show review mode
+                document.querySelector('h1').textContent = 'Investing & Market Efficiency - Review';
                 document.querySelector('.subtitle').textContent = 'Reviewing missed problems';
             }
             displayProblem();
         }
 
         function showNoProblemsToReview() {
-            document.getElementById('problemCard').innerHTML = `
+            const problemCard = document.getElementById('problemCard');
+            problemCard.innerHTML = `
                 <div style="text-align: center; padding: 3rem;">
-                    <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
+                    <div style="font-size: 4rem; margin-bottom: 1rem;">&#x1F389;</div>
                     <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #2D3748;">No Problems to Review!</h2>
-                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">You've mastered all the problems you previously missed.</p>
+                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">
+                        You've mastered all the problems you previously missed. Great work!
+                    </p>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="week2-capbudget.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
+                        <a href="week10-efficiency.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Back to Topics</a>
                     </div>
                 </div>
@@ -1256,6 +1329,7 @@
             const container = document.getElementById('workedExampleContent');
             const toggle = document.getElementById('workedExampleToggle');
 
+            // Reset to collapsed state
             toggle.classList.remove('expanded');
             document.getElementById('toggleText').textContent = 'Show';
 
@@ -1316,7 +1390,7 @@
             displayWorkedExample(problem.id);
 
             // Update problem text
-            document.getElementById('problemText').textContent = problem.problem_text;
+            document.getElementById('problemText').innerText = problem.problem_text;
 
             // Update formula (but keep it hidden initially)
             document.getElementById('formulaText').textContent = problem.formula;
@@ -1326,6 +1400,22 @@
             document.getElementById('answerInput').value = '';
             document.getElementById('feedbackBox').className = 'hidden';
             document.getElementById('submitBtn').disabled = false;
+
+            // Update placeholder based on unit type
+            const input = document.getElementById('answerInput');
+            if (problem.unit === 'choice') {
+                input.placeholder = 'Enter option number (1, 2, 3, or 4)';
+                input.step = '1';
+            } else if (problem.unit === 'percent') {
+                input.placeholder = 'Enter percentage (e.g., 17 for 17%)';
+                input.step = '0.01';
+            } else if (problem.unit === 'decimal') {
+                input.placeholder = 'Enter your answer';
+                input.step = '0.01';
+            } else {
+                input.placeholder = 'Enter your answer';
+                input.step = '0.01';
+            }
 
             // Render LaTeX
             renderMath();
@@ -1345,17 +1435,15 @@
                 return;
             }
 
-            // Smart tolerance: 0.5% of correct answer OR $1 (or appropriate minimum), whichever is larger
+            // Smart tolerance: allow for rounding errors from intermediate calculations
+            // Use 0.5% of the correct answer or $1, whichever is larger
+            // This handles cases where students round intermediate steps
             const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
-            let minTolerance;
-            if (problem.correct_answer >= 1000) {
-                minTolerance = Math.max(1, problem.correct_answer * 0.01); // 1% for large numbers
-            } else if (problem.correct_answer < 10) {
-                minTolerance = 0.05; // Small tolerance for small numbers like PI
-            } else {
-                minTolerance = 1;
-            }
-            const tolerance = Math.max(percentTolerance, minTolerance);
+            const minTolerance = problem.unit === 'percent' ? 0.05 : (problem.unit === 'choice' ? 0 : 1);
+            const calculatedTolerance = Math.max(percentTolerance, minTolerance);
+
+            // Use problem-specific tolerance if provided, otherwise use calculated tolerance
+            const tolerance = problem.tolerance !== undefined ? problem.tolerance : calculatedTolerance;
 
             const isCorrect = Math.abs(userAnswer - problem.correct_answer) <= tolerance;
 
@@ -1363,23 +1451,15 @@
 
             if (isCorrect) {
                 completedProblems.add(currentProblemIndex);
-                if (attemptCount === 1) markProblemMastered(problem.id);
+                // If correct on first attempt, mark as mastered
+                if (attemptCount === 1) {
+                    markProblemMastered(problem.id);
+                }
                 showCorrectFeedback();
             } else {
+                // Track this as a missed problem
                 saveMissedProblem(problem.id);
                 showIncorrectFeedback();
-            }
-        }
-
-        function formatAnswer(problem) {
-            if (problem.correct_answer >= 1000000) {
-                return '$' + (problem.correct_answer / 1000000).toFixed(2) + ' million';
-            } else if (problem.correct_answer >= 1000) {
-                return '$' + problem.correct_answer.toLocaleString();
-            } else if (problem.correct_answer < 10 && problem.correct_answer > 0) {
-                return problem.correct_answer.toFixed(2);
-            } else {
-                return '$' + problem.correct_answer.toLocaleString();
             }
         }
 
@@ -1392,7 +1472,7 @@
                     Correct!
                 </div>
                 <div class="feedback-content">
-                    Great job! The correct answer is ${formatAnswer(problem)}.
+                    Great job! The correct answer is ${formatAnswer(problem.correct_answer, problem.unit || 'dollars')}.
                 </div>
             `;
 
@@ -1464,7 +1544,7 @@
             problem.solution_steps.forEach((step, index) => {
                 html += `
                     <div class="solution-step">
-                        ${step}
+                        <span class="step-number">Step ${index + 1}:</span> ${step}
                     </div>
                 `;
             });
@@ -1472,7 +1552,7 @@
             html += `
                 </div>
                 <div class="feedback-content" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #E2E8F0;">
-                    <strong>Final Answer:</strong> ${formatAnswer(problem)}
+                    <strong>Final Answer:</strong> ${formatAnswer(problem.correct_answer, problem.unit || 'dollars')}
                 </div>
             `;
 
@@ -1505,15 +1585,26 @@
             const total = problems.length;
             const percentage = Math.round((completed / total) * 100);
 
+            // Check how many problems are in the missed queue
             const missed = getMissedProblems();
             const missedCount = Object.keys(missed).length;
+
             let reviewButton = '';
             if (missedCount > 0 && !reviewMode) {
-                reviewButton = `<a href="week2-capbudget.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}</a>`;
+                reviewButton = `
+                    <a href="week10-efficiency.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">
+                        Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}
+                    </a>
+                `;
             }
+
             let celebrationMessage = '';
             if (reviewMode && completed === total) {
-                celebrationMessage = `<div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;"><strong>Excellent!</strong> You've mastered these previously missed problems!</div>`;
+                celebrationMessage = `
+                    <div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <strong>Excellent!</strong> You've mastered these previously missed problems!
+                    </div>
+                `;
             }
 
             problemCard.innerHTML = `
@@ -1528,7 +1619,7 @@
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                         ${reviewButton}
-                        <button class="btn-primary" onclick="location.href='week2-capbudget.html'">Practice All</button>
+                        <button class="btn-primary" onclick="location.href='week10-efficiency.html'">Practice All</button>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
                     </div>
                 </div>
@@ -1536,13 +1627,16 @@
         }
 
         function renderMath() {
-            // Simple rendering - for more complex math, we'd use KaTeX's auto-render
             setTimeout(() => {
-                const elements = document.querySelectorAll('.problem-text, .formula-box, .solution-step, .hint-box');
-                elements.forEach(element => {
-                    // Replace common LaTeX patterns with rendered math
-                    // This is a simplified version - full KaTeX auto-render would be more robust
-                });
+                if (typeof renderMathInElement === 'function') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: '$$', right: '$$', display: true},
+                            {left: '\\(', right: '\\)', display: false}
+                        ],
+                        throwOnError: false
+                    });
+                }
             }, 100);
         }
 

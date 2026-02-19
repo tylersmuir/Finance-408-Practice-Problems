@@ -435,6 +435,52 @@
         }
 
 
+        /* Worked Example Toggle Styles */
+        .worked-example-toggle {
+            background: linear-gradient(135deg, #EBF8FF 0%, #E6FFFA 100%);
+            border: 2px solid #3182CE;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .worked-example-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .worked-example-header:hover { background-color: rgba(49, 130, 206, 0.1); }
+        .worked-example-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 600;
+            color: #2C5282;
+        }
+        .worked-example-title .icon { font-size: 1.25rem; }
+        .worked-example-subtitle { font-size: 0.85rem; color: #4A5568; font-weight: 400; }
+        .toggle-indicator { display: flex; align-items: center; gap: 0.5rem; color: #3182CE; font-size: 0.875rem; font-weight: 500; }
+        .toggle-arrow { transition: transform 0.3s ease; font-size: 1.25rem; }
+        .worked-example-toggle.expanded .toggle-arrow { transform: rotate(180deg); }
+        .worked-example-content { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; background-color: #F7FAFC; }
+        .worked-example-toggle.expanded .worked-example-content { max-height: 2000px; padding: 1.5rem; border-top: 1px solid #BEE3F8; }
+        .example-problem { background: white; border-radius: 6px; padding: 1.25rem; margin-bottom: 1rem; border-left: 4px solid #3182CE; }
+        .example-label { font-size: 0.75rem; font-weight: 600; color: #3182CE; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+        .example-text { color: #2D3748; font-size: 0.95rem; line-height: 1.6; }
+        .example-solution { background: white; border-radius: 6px; padding: 1.25rem; }
+        .example-step { display: flex; gap: 1rem; padding: 0.75rem 0; border-bottom: 1px solid #E2E8F0; }
+        .example-step:last-child { border-bottom: none; }
+        .example-step-number { background-color: #3182CE; color: white; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; flex-shrink: 0; }
+        .example-step-content { flex: 1; }
+        .example-step-explanation { color: #4A5568; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .example-step-calculation { font-family: 'SF Mono', Monaco, 'Courier New', monospace; background-color: #EDF2F7; padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.9rem; color: #2D3748; }
+        .example-final-answer { background: linear-gradient(135deg, #48BB78 0%, #38A169 100%); color: white; padding: 1rem; border-radius: 6px; margin-top: 1rem; text-align: center; }
+        .example-final-answer-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
+        .example-final-answer-value { font-size: 1.5rem; font-weight: 700; }
+        .now-try-badge { background-color: #48BB78; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.875rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .container {
@@ -481,6 +527,26 @@
                     <span class="badge" style="background-color: #EBF8FF; color: #2C5282;" id="topicBadge">Topic</span>
                 </div>
             </div>
+
+            <!-- Worked Example Toggle -->
+            <div class="worked-example-toggle" id="workedExampleToggle">
+                <div class="worked-example-header" onclick="toggleWorkedExample()">
+                    <div class="worked-example-title">
+                        <span class="icon">📖</span>
+                        <span>
+                            See Worked Example
+                            <div class="worked-example-subtitle">Similar problem with step-by-step solution</div>
+                        </span>
+                    </div>
+                    <div class="toggle-indicator">
+                        <span class="toggle-text" id="toggleText">Show</span>
+                        <span class="toggle-arrow">▼</span>
+                    </div>
+                </div>
+                <div class="worked-example-content" id="workedExampleContent"></div>
+            </div>
+
+            <div class="now-try-badge">✏️ Now You Try</div>
 
             <div class="problem-text" id="problemText">
                 Loading problem...
@@ -550,6 +616,57 @@
     </div>
 
     <script>
+        // Spaced repetition tracking
+        const TOPIC_KEY = 'stocks';
+        const MISSED_PROBLEMS_KEY = 'finance_missed_' + TOPIC_KEY;
+        const MASTERED_PROBLEMS_KEY = 'finance_mastered_' + TOPIC_KEY;
+
+        // Check if we're in review mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const reviewMode = urlParams.get('review') === 'true';
+
+        function getMissedProblems() {
+            const stored = localStorage.getItem(MISSED_PROBLEMS_KEY);
+            return stored ? JSON.parse(stored) : {};
+        }
+
+        function getMasteredProblems() {
+            const stored = localStorage.getItem(MASTERED_PROBLEMS_KEY);
+            return stored ? JSON.parse(stored) : {};
+        }
+
+        function saveMissedProblem(problemId) {
+            const missed = getMissedProblems();
+            missed[problemId] = {
+                count: (missed[problemId]?.count || 0) + 1,
+                lastMissed: new Date().toISOString()
+            };
+            localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+        }
+
+        function markProblemMastered(problemId) {
+            // Remove from missed
+            const missed = getMissedProblems();
+            delete missed[problemId];
+            localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+
+            // Add to mastered
+            const mastered = getMasteredProblems();
+            mastered[problemId] = { masteredOn: new Date().toISOString() };
+            localStorage.setItem(MASTERED_PROBLEMS_KEY, JSON.stringify(mastered));
+        }
+
+        function filterProblemsForReview() {
+            if (!reviewMode) return problems;
+
+            const missed = getMissedProblems();
+            const missedIds = Object.keys(missed);
+
+            if (missedIds.length === 0) return [];
+
+            return problems.filter(p => missedIds.includes(p.id));
+        }
+
         // Calculator state
         let calcCurrentExpression = '';
         let calcCurrentResult = '0';
@@ -651,6 +768,100 @@
                 calcAppend(e.key);
             }
         });
+
+        // Worked examples for each problem type
+        const workedExamples = {
+            "stock_001": {
+                problem: "You expect a stock to be worth $150 next year and pay a $2 dividend. Required return is 10%. What's the max price today?",
+                steps: [
+                    { explanation: "Identify future cash flows:", calculation: "P₁ = $150, Div₁ = $2" },
+                    { explanation: "Total cash flows at year end:", calculation: "$150 + $2 = $152" },
+                    { explanation: "Discount to today:", calculation: "P₀ = $152 / (1 + 0.10) = $152 / 1.10" },
+                    { explanation: "Calculate:", calculation: "P₀ = $138.18" }
+                ],
+                answer: "$138.18"
+            },
+            "stock_002": {
+                problem: "A stock trades at $50 and pays a $2 annual dividend. What is the dividend yield?",
+                steps: [
+                    { explanation: "Identify values:", calculation: "P₀ = $50, Div = $2" },
+                    { explanation: "Apply dividend yield formula:", calculation: "Dividend Yield = Div / P₀" },
+                    { explanation: "Calculate:", calculation: "$2 / $50 = 0.04 = 4%" }
+                ],
+                answer: "4%"
+            },
+            "stock_003": {
+                problem: "A company will pay $3 dividend next year, growing 4% forever. Required return is 10%. What's the stock price?",
+                steps: [
+                    { explanation: "Identify values:", calculation: "Div₁ = $3, g = 4%, rₑ = 10%" },
+                    { explanation: "Apply Gordon Growth Model:", calculation: "P₀ = Div₁ / (rₑ - g)" },
+                    { explanation: "Calculate:", calculation: "P₀ = $3 / (0.10 - 0.04) = $3 / 0.06 = $50" }
+                ],
+                answer: "$50.00"
+            },
+            "stock_004": {
+                problem: "A company retains 40% of earnings at 15% ROI. What's the earnings growth rate?",
+                steps: [
+                    { explanation: "Identify values:", calculation: "Retention rate (b) = 40%, ROI = 15%" },
+                    { explanation: "Apply growth formula:", calculation: "g = b × ROI" },
+                    { explanation: "Calculate:", calculation: "g = 0.40 × 0.15 = 0.06 = 6%" }
+                ],
+                answer: "6%"
+            },
+            "stock_005": {
+                problem: "Stock is $80, expected return is 12%, growth rate is 4%. What's the expected dividend next year?",
+                steps: [
+                    { explanation: "Rearrange Gordon Growth Model:", calculation: "P₀ = Div₁ / (rₑ - g), so Div₁ = P₀ × (rₑ - g)" },
+                    { explanation: "Plug in values:", calculation: "Div₁ = $80 × (0.12 - 0.04)" },
+                    { explanation: "Calculate:", calculation: "Div₁ = $80 × 0.08 = $6.40" }
+                ],
+                answer: "$6.40"
+            },
+            "stock_006": {
+                problem: "EPS is $4, P/E ratio is 18. What is the stock price?",
+                steps: [
+                    { explanation: "P/E ratio formula:", calculation: "P/E = Price / EPS" },
+                    { explanation: "Rearrange for price:", calculation: "Price = P/E × EPS" },
+                    { explanation: "Calculate:", calculation: "Price = 18 × $4 = $72" }
+                ],
+                answer: "$72.00"
+            },
+            "stock_007": {
+                problem: "A stock has EPS of $5, payout ratio of 60%, and P/E of 15. What's the dividend per share?",
+                steps: [
+                    { explanation: "Calculate dividend from EPS:", calculation: "Dividend = EPS × Payout Ratio" },
+                    { explanation: "Calculate:", calculation: "Dividend = $5 × 0.60 = $3" }
+                ],
+                answer: "$3.00"
+            },
+            "stock_008": {
+                problem: "Two-stage growth: $2 dividend grows 20% for 2 years, then 3% forever. Required return is 10%. What's the price?",
+                steps: [
+                    { explanation: "Calculate high-growth dividends:", calculation: "D₁ = $2 × 1.20 = $2.40, D₂ = $2.40 × 1.20 = $2.88" },
+                    { explanation: "Calculate D₃ (first stable dividend):", calculation: "D₃ = $2.88 × 1.03 = $2.97" },
+                    { explanation: "Terminal value at end of year 2:", calculation: "P₂ = D₃ / (r - g) = $2.97 / 0.07 = $42.39" },
+                    { explanation: "Discount all cash flows:", calculation: "P₀ = $2.40/1.10 + ($2.88 + $42.39)/1.10² = $2.18 + $37.44 = $39.62" }
+                ],
+                answer: "$39.62"
+            },
+            "stock_009": {
+                problem: "A firm earns $10/share, retains 50%, ROE is 16%. What is implied P/E if r=12%?",
+                steps: [
+                    { explanation: "Calculate growth rate:", calculation: "g = b × ROE = 0.50 × 0.16 = 8%" },
+                    { explanation: "Calculate payout ratio:", calculation: "Payout = 1 - 0.50 = 50%" },
+                    { explanation: "P/E formula with growth:", calculation: "P/E = Payout / (r - g) = 0.50 / (0.12 - 0.08) = 12.5" }
+                ],
+                answer: "12.5"
+            },
+            "stock_010": {
+                problem: "Stock price is $40, EPS is $2.50, dividend is $1. What are the P/E ratio and payout ratio?",
+                steps: [
+                    { explanation: "Calculate P/E ratio:", calculation: "P/E = Price / EPS = $40 / $2.50 = 16" },
+                    { explanation: "Calculate payout ratio:", calculation: "Payout = Dividend / EPS = $1 / $2.50 = 0.40 = 40%" }
+                ],
+                answer: "P/E = 16, Payout = 40%"
+            }
+        };
 
         // Stock Valuation Problems based on Week 3 slides (with variations)
         let problems = [
@@ -923,7 +1134,75 @@
 
         // Load problems on page load
         function loadProblems() {
+            // Filter for review mode if needed
+            problems = filterProblemsForReview();
+
+            if (problems.length === 0 && reviewMode) {
+                // No problems to review
+                document.getElementById('problemCard').innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <h2 style="font-size: 2rem; margin-bottom: 1rem; color: #48BB78;">All Caught Up!</h2>
+                        <div style="font-size: 1.25rem; color: #4A5568; margin-bottom: 2rem;">
+                            You've mastered all the previously missed Stock Valuation problems.
+                        </div>
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                            <a href="week3-stocks.html" class="btn-primary" style="text-decoration: none; display: inline-block;">Practice All Problems</a>
+                            <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            // Update header for review mode
+            if (reviewMode) {
+                document.querySelector('h1').textContent = 'Stock Valuation - Review Mode';
+                document.querySelector('.subtitle').textContent = 'Reviewing previously missed problems';
+            }
+
             displayProblem();
+        }
+
+        // Toggle worked example visibility
+        function toggleWorkedExample() {
+            const toggle = document.getElementById('workedExampleToggle');
+            const toggleText = document.getElementById('toggleText');
+            toggle.classList.toggle('expanded');
+            toggleText.textContent = toggle.classList.contains('expanded') ? 'Hide' : 'Show';
+        }
+
+        // Populate worked example content
+        function displayWorkedExample(problemId) {
+            const example = workedExamples[problemId];
+            const container = document.getElementById('workedExampleContent');
+            const toggle = document.getElementById('workedExampleToggle');
+            toggle.classList.remove('expanded');
+            document.getElementById('toggleText').textContent = 'Show';
+            if (!example) { toggle.style.display = 'none'; return; }
+            toggle.style.display = 'block';
+            let stepsHtml = example.steps.map((step, index) => `
+                <div class="example-step">
+                    <span class="example-step-number">${index + 1}</span>
+                    <div class="example-step-content">
+                        <div class="example-step-explanation">${step.explanation}</div>
+                        <div class="example-step-calculation">${step.calculation}</div>
+                    </div>
+                </div>
+            `).join('');
+            container.innerHTML = `
+                <div class="example-problem">
+                    <div class="example-label">Example Problem</div>
+                    <div class="example-text">${example.problem}</div>
+                </div>
+                <div class="example-solution">
+                    <div class="example-label">Step-by-Step Solution</div>
+                    ${stepsHtml}
+                    <div class="example-final-answer">
+                        <div class="example-final-answer-label">Final Answer</div>
+                        <div class="example-final-answer-value">${example.answer}</div>
+                    </div>
+                </div>
+            `;
         }
 
         function displayProblem() {
@@ -945,6 +1224,9 @@
 
             // Update topic badge
             document.getElementById('topicBadge').textContent = problem.topic;
+
+            // Display worked example for this problem
+            displayWorkedExample(problem.id);
 
             // Update problem text
             document.getElementById('problemText').textContent = problem.problem_text;
@@ -987,8 +1269,14 @@
 
             if (isCorrect) {
                 completedProblems.add(currentProblemIndex);
+                // Mark as mastered if correct on first attempt
+                if (attemptCount === 1) {
+                    markProblemMastered(problem.id);
+                }
                 showCorrectFeedback();
             } else {
+                // Track missed problem
+                saveMissedProblem(problem.id);
                 showIncorrectFeedback();
             }
         }
@@ -1020,6 +1308,7 @@
             feedbackBox.innerHTML = html;
 
             document.getElementById('submitBtn').disabled = true;
+            renderMath();
         }
 
         function showIncorrectFeedback() {
@@ -1066,6 +1355,7 @@
 
             feedbackBox.className = 'feedback-box feedback-incorrect';
             feedbackBox.innerHTML = html;
+            renderMath();
         }
 
         function showFullSolution() {
@@ -1123,9 +1413,32 @@
             const total = problems.length;
             const percentage = Math.round((completed / total) * 100);
 
+            // Check if there are missed problems to review
+            const missed = getMissedProblems();
+            const missedCount = Object.keys(missed).length;
+
+            let reviewButton = '';
+            if (missedCount > 0 && !reviewMode) {
+                reviewButton = `
+                    <a href="week3-stocks.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">
+                        Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}
+                    </a>
+                `;
+            }
+
+            let celebrationMessage = '';
+            if (reviewMode && percentage === 100) {
+                celebrationMessage = `
+                    <div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        Excellent! You've mastered all the problems you previously missed!
+                    </div>
+                `;
+            }
+
             problemCard.innerHTML = `
                 <div style="text-align: center; padding: 3rem;">
-                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">Practice Session Complete!</h2>
+                    <h2 style="font-size: 2rem; margin-bottom: 1rem;">${reviewMode ? 'Review Session' : 'Practice Session'} Complete!</h2>
+                    ${celebrationMessage}
                     <div style="font-size: 3rem; font-weight: bold; color: #2C5282; margin: 2rem 0;">
                         ${completed} / ${total}
                     </div>
@@ -1133,6 +1446,7 @@
                         You got ${percentage}% of problems correct on the first try!
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                        ${reviewButton}
                         <button class="btn-primary" onclick="location.reload()">Practice Again</button>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
                     </div>

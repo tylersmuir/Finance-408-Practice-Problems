@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Practice Tool - Capital Budgeting</title>
+    <title>Finance Practice Tool - Portfolio Analysis &amp; CAPM</title>
 
     <!-- KaTeX for LaTeX rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -465,8 +465,15 @@
             color: #2C5282;
         }
 
-        .worked-example-title .icon { font-size: 1.25rem; }
-        .worked-example-subtitle { font-size: 0.85rem; color: #4A5568; font-weight: 400; }
+        .worked-example-title .icon {
+            font-size: 1.25rem;
+        }
+
+        .worked-example-subtitle {
+            font-size: 0.85rem;
+            color: #4A5568;
+            font-weight: 400;
+        }
 
         .toggle-indicator {
             display: flex;
@@ -477,8 +484,14 @@
             font-weight: 500;
         }
 
-        .toggle-arrow { transition: transform 0.3s ease; font-size: 1.25rem; }
-        .worked-example-toggle.expanded .toggle-arrow { transform: rotate(180deg); }
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.25rem;
+        }
+
+        .worked-example-toggle.expanded .toggle-arrow {
+            transform: rotate(180deg);
+        }
 
         .worked-example-content {
             max-height: 0;
@@ -510,8 +523,17 @@
             margin-bottom: 0.5rem;
         }
 
-        .example-text { color: #2D3748; font-size: 0.95rem; line-height: 1.6; }
-        .example-solution { background: white; border-radius: 6px; padding: 1.25rem; }
+        .example-text {
+            color: #2D3748;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .example-solution {
+            background: white;
+            border-radius: 6px;
+            padding: 1.25rem;
+        }
 
         .example-step {
             display: flex;
@@ -520,7 +542,9 @@
             border-bottom: 1px solid #E2E8F0;
         }
 
-        .example-step:last-child { border-bottom: none; }
+        .example-step:last-child {
+            border-bottom: none;
+        }
 
         .example-step-number {
             background-color: #3182CE;
@@ -536,8 +560,15 @@
             flex-shrink: 0;
         }
 
-        .example-step-content { flex: 1; }
-        .example-step-explanation { color: #4A5568; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .example-step-content {
+            flex: 1;
+        }
+
+        .example-step-explanation {
+            color: #4A5568;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
 
         .example-step-calculation {
             font-family: 'SF Mono', Monaco, 'Courier New', monospace;
@@ -557,8 +588,17 @@
             text-align: center;
         }
 
-        .example-final-answer-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
-        .example-final-answer-value { font-size: 1.5rem; font-weight: 700; }
+        .example-final-answer-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+
+        .example-final-answer-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
 
         .now-try-badge {
             background-color: #48BB78;
@@ -571,6 +611,36 @@
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 1rem;
+        }
+
+        /* Multiple choice styles */
+        .mc-options {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0 1.5rem 0;
+        }
+
+        .mc-options li {
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.5rem;
+            background-color: #F7FAFC;
+            border: 2px solid #E2E8F0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            color: #2D3748;
+        }
+
+        .mc-options li:hover {
+            border-color: #2C5282;
+            background-color: #EBF8FF;
+        }
+
+        .mc-options li.selected {
+            border-color: #2C5282;
+            background-color: #EBF8FF;
+            font-weight: 600;
         }
 
         /* Mobile responsiveness */
@@ -602,10 +672,10 @@
     <div class="container">
         <header>
             <div class="header-nav">
-                <a href="index.html" class="back-link">← Back to Topics</a>
+                <a href="index.html" class="back-link">&larr; Back to Topics</a>
             </div>
-            <h1>Capital Budgeting</h1>
-            <div class="subtitle">Week 2 - MGMT 408</div>
+            <h1>Portfolio Analysis &amp; CAPM</h1>
+            <div class="subtitle">Week 7 - MGMT 408</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar" style="width: 0%"></div>
             </div>
@@ -635,7 +705,9 @@
                         <span class="toggle-arrow">▼</span>
                     </div>
                 </div>
-                <div class="worked-example-content" id="workedExampleContent"></div>
+                <div class="worked-example-content" id="workedExampleContent">
+                    <!-- Content populated by JavaScript -->
+                </div>
             </div>
 
             <div class="now-try-badge">✏️ Now You Try</div>
@@ -810,361 +882,348 @@
             }
         });
 
+        // Format answer based on unit type
+        function formatAnswer(value, unit) {
+            if (unit === 'dollars') return '$' + value.toLocaleString();
+            if (unit === 'percent') return value + '%';
+            if (unit === 'choice') return 'Option ' + value;
+            return value.toString();
+        }
+
         // Worked examples for each problem type
         const workedExamples = {
-            "capbudget_001": {
-                problem: "A project requires an initial investment of $100,000 today and will generate a single cash flow of $120,000 in one year. If the opportunity cost of capital is 10%, what is the NPV?",
+            "capm_001": {
+                problem: "A mutual fund \"Alpha Growth\" has an expected return of 12% and a standard deviation of 30%. The risk-free rate is 2%. Calculate its Sharpe Ratio.",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$100,000 (outflow today), C₁ = $120,000 (inflow in 1 year)" },
-                    { explanation: "Calculate PV of future cash flow:", calculation: "PV = $120,000 / (1 + 0.10) = $120,000 / 1.10 = $109,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$100,000 + $109,091 = $9,091" }
+                    { explanation: "Identify the variables:", calculation: "\\(E[R] = 12\\%,\\ SD = 30\\%,\\ r_f = 2\\%\\)" },
+                    { explanation: "Write the Sharpe Ratio formula:", calculation: "\\(\\text{Sharpe Ratio} = \\frac{E[R] - r_f}{SD}\\)" },
+                    { explanation: "Plug in the values:", calculation: "\\(\\text{Sharpe Ratio} = \\frac{12 - 2}{30}\\)" },
+                    { explanation: "Calculate the numerator:", calculation: "\\(12 - 2 = 10\\)" },
+                    { explanation: "Divide to get the final answer:", calculation: "\\(\\frac{10}{30} = 0.3333\\)" }
                 ],
-                answer: "$9,091"
+                answer: "0.33"
             },
-            "capbudget_002": {
-                problem: "A project costs $100,000 to start plus $25,000 of your time (in PV). It pays $180,000 in one year. At 15% discount rate, what is the NPV?",
+            "capm_002": {
+                problem: "A bond fund \"Steady Income\" has an expected return of 6% and a standard deviation of 8%. The risk-free rate is 2%. Calculate its Sharpe Ratio.",
                 steps: [
-                    { explanation: "Calculate total costs:", calculation: "Total Cost = $100,000 + $25,000 = $125,000" },
-                    { explanation: "Calculate PV of benefits:", calculation: "PV = $180,000 / 1.15 = $156,522" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$125,000 + $156,522 = $31,522" }
+                    { explanation: "Identify the variables:", calculation: "\\(E[R] = 6\\%,\\ SD = 8\\%,\\ r_f = 2\\%\\)" },
+                    { explanation: "Write the Sharpe Ratio formula:", calculation: "\\(\\text{Sharpe Ratio} = \\frac{E[R] - r_f}{SD}\\)" },
+                    { explanation: "Plug in the values:", calculation: "\\(\\text{Sharpe Ratio} = \\frac{6 - 2}{8}\\)" },
+                    { explanation: "Calculate the numerator:", calculation: "\\(6 - 2 = 4\\)" },
+                    { explanation: "Divide to get the final answer:", calculation: "\\(\\frac{4}{8} = 0.50\\)" }
                 ],
-                answer: "$31,522"
+                answer: "0.50"
             },
-            "capbudget_003": {
-                problem: "Project X costs $50,000 today and pays $65,000 in one year. At 10% discount rate, what is the NPV?",
+            "capm_003": {
+                problem: "Fund A has a Sharpe Ratio of 0.45 and Fund B has a Sharpe Ratio of 0.35. You can borrow and lend at the risk-free rate. Which fund should you invest in? (1) Fund B because it has less volatility (2) Fund A because it has the higher Sharpe Ratio (3) Both funds equally (4) Neither fund",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$50,000, C₁ = $65,000" },
-                    { explanation: "Calculate PV of Year 1 cash flow:", calculation: "PV = $65,000 / 1.10 = $59,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$50,000 + $59,091 = $9,091" }
+                    { explanation: "Recall the key insight about the Sharpe Ratio:", calculation: "The Sharpe Ratio measures return per unit of risk (excess return / standard deviation)" },
+                    { explanation: "Compare the two ratios:", calculation: "Fund A: \\(0.45\\) vs Fund B: \\(0.35\\)" },
+                    { explanation: "Since we can borrow/lend at the risk-free rate:", calculation: "We can adjust any portfolio's risk level by leveraging or deleveraging" },
+                    { explanation: "The fund with the higher Sharpe Ratio dominates:", calculation: "Fund A \\((0.45)\\) gives more return per unit of risk than Fund B \\((0.35)\\)" }
                 ],
-                answer: "$9,091"
+                answer: "Option 2"
             },
-            "capbudget_004": {
-                problem: "A project has NPV of $15 million and requires an investment of $10 million. What is the profitability index?",
+            "capm_004": {
+                problem: "Nike has a market cap of $4 billion and Disney has a market cap of $6 billion. These are the only two stocks. What is Nike's weight in the market portfolio (in percent)?",
                 steps: [
-                    { explanation: "Identify the values:", calculation: "NPV = $15M, Investment = $10M" },
-                    { explanation: "Apply the PI formula:", calculation: "PI = NPV / Investment" },
-                    { explanation: "Calculate:", calculation: "PI = $15M / $10M = 1.50" }
+                    { explanation: "Identify the market caps:", calculation: "\\(\\text{Nike} = \\$4B,\\ \\text{Disney} = \\$6B\\)" },
+                    { explanation: "Calculate total market cap:", calculation: "\\(\\text{Total} = \\$4B + \\$6B = \\$10B\\)" },
+                    { explanation: "Calculate Nike's weight:", calculation: "\\(w = \\frac{\\$4B}{\\$10B}\\)" },
+                    { explanation: "Convert to percentage:", calculation: "\\(w = 0.40 = 40\\%\\)" }
                 ],
-                answer: "1.50"
+                answer: "40%"
             },
-            "capbudget_005": {
-                problem: "Budget: $30M. Project A: NPV=$8M, Cost=$10M. Project B: NPV=$10M, Cost=$20M. Using PI, what's the max total NPV?",
+            "capm_005": {
+                problem: "Using the CAPM: the risk-free rate is 3%, the expected market return is 10%. A stock has a beta of 0.8. What is its expected return?",
                 steps: [
-                    { explanation: "Calculate PI for each:", calculation: "PI(A) = 8/10 = 0.80, PI(B) = 10/20 = 0.50" },
-                    { explanation: "Rank by PI:", calculation: "A (0.80) > B (0.50)" },
-                    { explanation: "Select A first ($10M), then B ($20M):", calculation: "Total cost = $30M (fits budget)" },
-                    { explanation: "Total NPV:", calculation: "$8M + $10M = $18M" }
+                    { explanation: "Identify the variables:", calculation: "\\(r_f = 3\\%,\\ E[R_m] = 10\\%,\\ \\beta = 0.8\\)" },
+                    { explanation: "Write the CAPM formula:", calculation: "\\(E[R] = r_f + \\beta \\times (E[R_m] - r_f)\\)" },
+                    { explanation: "Calculate the market risk premium:", calculation: "\\(E[R_m] - r_f = 10\\% - 3\\% = 7\\%\\)" },
+                    { explanation: "Multiply by beta:", calculation: "\\(0.8 \\times 7\\% = 5.6\\%\\)" },
+                    { explanation: "Add the risk-free rate:", calculation: "\\(E[R] = 3\\% + 5.6\\% = 8.6\\%\\)" }
                 ],
-                answer: "$18 million"
+                answer: "8.6%"
             },
-            "capbudget_006": {
-                problem: "Invest $3,000 today, receive $1,200/year for 3 years. At 8% discount rate, what is the NPV?",
+            "capm_006": {
+                problem: "Gold Corp has a beta of -0.10. The expected market return is 10% and the risk-free rate is 4%. What is Gold Corp's expected return according to the CAPM?",
                 steps: [
-                    { explanation: "Calculate PV of Year 1:", calculation: "$1,200 / 1.08 = $1,111" },
-                    { explanation: "Calculate PV of Year 2:", calculation: "$1,200 / 1.08² = $1,029" },
-                    { explanation: "Calculate PV of Year 3:", calculation: "$1,200 / 1.08³ = $953" },
-                    { explanation: "Sum and subtract initial investment:", calculation: "NPV = -$3,000 + $1,111 + $1,029 + $953 = $93" }
+                    { explanation: "Identify the variables:", calculation: "\\(r_f = 4\\%,\\ E[R_m] = 10\\%,\\ \\beta = -0.10\\)" },
+                    { explanation: "Write the CAPM formula:", calculation: "\\(E[R] = r_f + \\beta \\times (E[R_m] - r_f)\\)" },
+                    { explanation: "Calculate the market risk premium:", calculation: "\\(E[R_m] - r_f = 10\\% - 4\\% = 6\\%\\)" },
+                    { explanation: "Multiply by beta (note the negative):", calculation: "\\(-0.10 \\times 6\\% = -0.6\\%\\)" },
+                    { explanation: "Add the risk-free rate:", calculation: "\\(E[R] = 4\\% + (-0.6\\%) = 3.4\\%\\)" }
                 ],
-                answer: "$93"
+                answer: "3.4%"
             },
-            "capbudget_007": {
-                problem: "A project has IRR of 15%. The hurdle rate is 18%. Should you accept? (1=Yes, 0=No)",
+            "capm_007": {
+                problem: "Stock A has beta 0.50 and Stock B has beta 1.50. Risk-free rate is 4%, expected market return is 10%. What is the expected return of a portfolio with 30% Stock A and 70% Stock B?",
                 steps: [
-                    { explanation: "Compare IRR to hurdle rate:", calculation: "IRR = 15%, Hurdle = 18%" },
-                    { explanation: "Apply decision rule:", calculation: "Accept if IRR > Hurdle Rate" },
-                    { explanation: "15% < 18%, so reject:", calculation: "Answer: No (0)" }
+                    { explanation: "Calculate the portfolio beta:", calculation: "\\(\\beta_P = 0.30 \\times 0.50 + 0.70 \\times 1.50\\)" },
+                    { explanation: "Compute each term:", calculation: "\\(0.30 \\times 0.50 = 0.15\\) and \\(0.70 \\times 1.50 = 1.05\\)" },
+                    { explanation: "Sum for portfolio beta:", calculation: "\\(\\beta_P = 0.15 + 1.05 = 1.20\\)" },
+                    { explanation: "Apply CAPM:", calculation: "\\(E[R_P] = 4\\% + 1.20 \\times (10\\% - 4\\%)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(E[R_P] = 4\\% + 1.20 \\times 6\\% = 4\\% + 7.2\\% = 11.2\\%\\)" }
                 ],
-                answer: "0 (No - Reject)"
+                answer: "11.2%"
             },
-            "capbudget_008": {
-                problem: "A project costs $60 million and generates $15 million per year. What is the payback period?",
+            "capm_008": {
+                problem: "A stock has SD(R) = 30%, correlation with the market = 0.8, and the market has SD = 20%. What is the stock's beta?",
                 steps: [
-                    { explanation: "Identify values:", calculation: "Investment = $60M, Annual CF = $15M" },
-                    { explanation: "Apply payback formula:", calculation: "Payback = Investment / Annual CF" },
-                    { explanation: "Calculate:", calculation: "Payback = $60M / $15M = 4 years" }
+                    { explanation: "Identify the variables:", calculation: "\\(SD(R) = 30\\%,\\ \\text{Corr}(R, R_m) = 0.8,\\ SD(R_m) = 20\\%\\)" },
+                    { explanation: "Write the beta formula using correlation:", calculation: "\\(\\beta = \\frac{SD(R) \\times \\text{Corr}(R, R_m)}{SD(R_m)}\\)" },
+                    { explanation: "Plug in the values:", calculation: "\\(\\beta = \\frac{30 \\times 0.8}{20}\\)" },
+                    { explanation: "Calculate the numerator:", calculation: "\\(30 \\times 0.8 = 24\\)" },
+                    { explanation: "Divide to get beta:", calculation: "\\(\\beta = \\frac{24}{20} = 1.20\\)" }
                 ],
-                answer: "4 years"
+                answer: "1.20"
             },
-            "capbudget_009": {
-                problem: "Invest $40M, receive $10M/year for 6 years at 10% discount rate. What is the NPV?",
+            "capm_009": {
+                problem: "Jensen's alpha for a stock is calculated as alpha = actual return - CAPM predicted return. What does a positive alpha indicate? (1) The stock has high total risk (2) The stock outperformed its CAPM prediction (3) The stock has a high beta (4) The stock is negatively correlated with the market",
                 steps: [
-                    { explanation: "Use annuity formula:", calculation: "PV = $10M × [1 - 1/(1.10)⁶] / 0.10" },
-                    { explanation: "Calculate annuity factor:", calculation: "[1 - 0.5645] / 0.10 = 4.355" },
-                    { explanation: "Calculate PV of cash flows:", calculation: "$10M × 4.355 = $43.55M" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$40M + $43.55M = $3.55M" }
+                    { explanation: "Recall the definition of Jensen's alpha:", calculation: "\\(\\alpha = R_{\\text{actual}} - [r_f + \\beta \\times (R_m - r_f)]\\)" },
+                    { explanation: "A positive alpha means:", calculation: "The actual return exceeded the return predicted by CAPM" },
+                    { explanation: "This tells us:", calculation: "The stock earned more than what was expected given its systematic risk (\\(\\beta\\))" },
+                    { explanation: "Therefore:", calculation: "A positive alpha means the stock outperformed its CAPM prediction" }
                 ],
-                answer: "$3.55 million"
+                answer: "Option 2"
             },
-            "capbudget_010": {
-                problem: "Revenue $400K, Costs $250K, Depreciation $40K, Tax rate 30%, no CapEx or NWC change. What is FCF?",
+            "capm_010": {
+                problem: "In the CAPM framework, which type of risk is rewarded with higher expected returns? (1) Total risk (2) Idiosyncratic (firm-specific) risk (3) Systematic (market) risk (4) Both systematic and idiosyncratic risk equally",
                 steps: [
-                    { explanation: "Calculate EBIT:", calculation: "$400K - $250K - $40K = $110K" },
-                    { explanation: "Calculate Taxes:", calculation: "$110K × 0.30 = $33K" },
-                    { explanation: "Calculate Unlevered Net Income:", calculation: "$110K - $33K = $77K" },
-                    { explanation: "Add back depreciation:", calculation: "FCF = $77K + $40K = $117K" }
+                    { explanation: "Recall that total risk = systematic + idiosyncratic:", calculation: "\\(SD(R)^2 = \\beta^2 \\times SD(R_m)^2 + SD(\\epsilon)^2\\)" },
+                    { explanation: "Idiosyncratic risk can be diversified away:", calculation: "By holding many stocks, firm-specific shocks cancel out" },
+                    { explanation: "Since investors can eliminate idiosyncratic risk for free:", calculation: "The market does not compensate them for bearing it" },
+                    { explanation: "Only systematic risk (measured by beta) earns a premium:", calculation: "\\(E[R] = r_f + \\beta \\times (E[R_m] - r_f)\\) -- only \\(\\beta\\) matters" }
                 ],
-                answer: "$117,000"
+                answer: "Option 3"
             }
         };
 
-        // Capital Budgeting Problems based on Week 2 slides (with variations)
+        // Problems data embedded directly to avoid CORS issues
         let problems = [
             {
-                "id": "capbudget_001",
-                "topic": "NPV Calculation",
+                "id": "capm_001",
+                "topic": "Sharpe Ratio",
                 "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $200,000 today and will generate a single cash flow of $250,000 in one year. If the opportunity cost of capital is 15%, what is the NPV of this project?",
-                "given": {
-                    "initial_investment": 200000,
-                    "future_cash_flow": 250000,
-                    "discount_rate": 0.15
-                },
-                "formula": "NPV = -Initial Investment + Future Cash Flow / (1 + r)",
+                "problem_text": "A mutual fund called \"High Flyer Fund\" has an expected return of 14% and a standard deviation of 35%. The risk-free rate is 2%. Calculate the fund's Sharpe Ratio.",
+                "formula": "\\(\\text{Sharpe Ratio} = \\frac{E[R] - r_f}{SD(R)}\\)",
                 "solution_steps": [
-                    "Step 1: Identify cash flows: C₀ = -$200,000, C₁ = $250,000",
-                    "Step 2: Discount rate r = 15%",
-                    "Step 3: Calculate PV of future cash flow: $250,000 / 1.15 = $217,391",
-                    "Step 4: NPV = -$200,000 + $217,391",
-                    "Step 5: Final answer: NPV = $17,391"
+                    "Step 1: Identify the variables: \\(E[R] = 14\\%,\\ SD = 35\\%,\\ r_f = 2\\%\\)",
+                    "Step 2: \\(\\text{Sharpe} = \\frac{E[R] - r_f}{SD}\\)",
+                    "Step 3: Calculate the excess return: \\(14 - 2 = 12\\)",
+                    "Step 4: Divide by the standard deviation: \\(\\frac{12}{35} = 0.343\\)",
+                    "Step 5: Final answer: \\(\\text{Sharpe Ratio} = 0.34\\)"
                 ],
-                "correct_answer": 17391,
+                "correct_answer": 0.34,
+                "tolerance": 0.02,
+                "unit": "decimal",
                 "hints": {
-                    "level_1": "NPV = Present Value of Benefits - Present Value of Costs",
-                    "level_2": "Discount the $250,000 back one year at 15%, then subtract the initial investment",
-                    "level_3": "NPV = -200,000 + 250,000/1.15"
+                    "level_1": "The Sharpe Ratio measures excess return per unit of risk",
+                    "level_2": "Use the formula: \\(\\text{Sharpe Ratio} = \\frac{E[R] - r_f}{SD}\\)",
+                    "level_3": "Calculate: \\(\\frac{14 - 2}{35} = \\frac{12}{35}\\)"
                 }
             },
             {
-                "id": "capbudget_002",
-                "topic": "NPV with Multiple Cash Flows",
-                "difficulty": "medium",
-                "problem_text": "A project requires an investment of $150,000 today and the opportunity cost of your time worth $50,000 in present value. The project will pay $300,000 in one year. If the discount rate is 20%, what is the NPV?",
-                "given": {
-                    "initial_investment": 150000,
-                    "opportunity_cost": 50000,
-                    "future_cash_flow": 300000,
-                    "discount_rate": 0.20
-                },
-                "formula": "NPV = -Initial Investment - Opportunity Cost + PV(Future Cash Flow)",
-                "solution_steps": [
-                    "Step 1: Total costs today = $150,000 + $50,000 = $200,000",
-                    "Step 2: PV of benefits = $300,000 / 1.20 = $250,000",
-                    "Step 3: NPV = -$200,000 + $250,000",
-                    "Step 4: Final answer: NPV = $50,000"
-                ],
-                "correct_answer": 50000,
-                "hints": {
-                    "level_1": "Don't forget to include the opportunity cost of time as a cost",
-                    "level_2": "Total cost = investment + opportunity cost = $200,000",
-                    "level_3": "NPV = -200,000 + 300,000/1.20"
-                }
-            },
-            {
-                "id": "capbudget_003",
-                "topic": "Comparing Projects by NPV",
-                "difficulty": "medium",
-                "problem_text": "You have two mutually exclusive projects. Project A costs $100,000 today and pays $140,000 in one year. Project B costs $200,000 today and pays $270,000 in one year. If the discount rate is 12%, what is the NPV of Project B?",
-                "given": {
-                    "project_b_cost": 200000,
-                    "project_b_payoff": 270000,
-                    "discount_rate": 0.12
-                },
-                "formula": "NPV = -Cost + Payoff / (1 + r)",
-                "solution_steps": [
-                    "Step 1: Project B cash flows: C₀ = -$200,000, C₁ = $270,000",
-                    "Step 2: PV of Year 1 cash flow: $270,000 / 1.12 = $241,071",
-                    "Step 3: NPV = -$200,000 + $241,071",
-                    "Step 4: Final answer: NPV of Project B = $41,071"
-                ],
-                "correct_answer": 41071,
-                "hints": {
-                    "level_1": "Calculate NPV for Project B using the standard formula",
-                    "level_2": "Discount $270,000 by one year at 12%",
-                    "level_3": "NPV = -200,000 + 270,000/1.12"
-                }
-            },
-            {
-                "id": "capbudget_004",
-                "topic": "Profitability Index",
+                "id": "capm_002",
+                "topic": "Sharpe Ratio",
                 "difficulty": "easy",
-                "problem_text": "A project has an NPV of $25 million and requires an initial investment of $20 million. What is the profitability index?",
-                "given": {
-                    "npv": 25,
-                    "initial_investment": 20
-                },
-                "formula": "Profitability Index = NPV / Resource Consumed",
+                "problem_text": "Another fund called \"Steady Income Fund\" has an expected return of 6% and a standard deviation of 15%. The risk-free rate is 2%. Calculate the fund's Sharpe Ratio.",
+                "formula": "\\(\\text{Sharpe Ratio} = \\frac{E[R] - r_f}{SD(R)}\\)",
                 "solution_steps": [
-                    "Step 1: NPV = $25 million",
-                    "Step 2: Initial Investment = $20 million",
-                    "Step 3: Profitability Index = NPV / Initial Investment",
-                    "Step 4: PI = 25 / 20 = 1.25",
-                    "Step 5: Final answer: Profitability Index = 1.25"
+                    "Step 1: Identify the variables: \\(E[R] = 6\\%,\\ SD = 15\\%,\\ r_f = 2\\%\\)",
+                    "Step 2: \\(\\text{Sharpe} = \\frac{E[R] - r_f}{SD}\\)",
+                    "Step 3: Calculate the excess return: \\(6 - 2 = 4\\)",
+                    "Step 4: Divide by the standard deviation: \\(\\frac{4}{15} = 0.267\\)",
+                    "Step 5: Final answer: \\(\\text{Sharpe Ratio} = 0.27\\)"
                 ],
-                "correct_answer": 1.25,
+                "correct_answer": 0.27,
+                "tolerance": 0.02,
+                "unit": "decimal",
                 "hints": {
-                    "level_1": "Profitability Index measures value created per dollar invested",
-                    "level_2": "PI = NPV / Investment",
-                    "level_3": "PI = 25 / 20"
+                    "level_1": "The Sharpe Ratio measures excess return per unit of risk",
+                    "level_2": "Use the formula: \\(\\text{Sharpe Ratio} = \\frac{E[R] - r_f}{SD}\\)",
+                    "level_3": "Calculate: \\(\\frac{6 - 2}{15} = \\frac{4}{15}\\)"
                 }
             },
             {
-                "id": "capbudget_005",
-                "topic": "Profitability Index - Project Selection",
+                "id": "capm_003",
+                "topic": "Sharpe Ratio - Fund Selection",
                 "difficulty": "medium",
-                "problem_text": "You have $50 million to invest. Project A has NPV of $15M and costs $20M. Project B has NPV of $12M and costs $15M. Project C has NPV of $20M and costs $25M. Using the profitability index, what is the maximum total NPV you can achieve?",
-                "given": {
-                    "budget": 50,
-                    "project_a": {"npv": 15, "cost": 20, "pi": 0.75},
-                    "project_b": {"npv": 12, "cost": 15, "pi": 0.80},
-                    "project_c": {"npv": 20, "cost": 25, "pi": 0.80}
-                },
-                "formula": "Rank by PI = NPV/Cost, then select projects until budget exhausted",
+                "problem_text": "Based on the Sharpe Ratios of 0.34 for \"High Flyer Fund\" and 0.27 for \"Steady Income Fund\" (and you can borrow/lend at the risk-free rate), which fund should you choose?\n\n(1) Steady Income Fund because it has lower risk\n(2) High Flyer Fund because it has the higher Sharpe Ratio\n(3) Either fund since they have the same expected return\n(4) Neither fund - invest directly in the market",
+                "formula": "Choose the portfolio with the highest Sharpe Ratio",
                 "solution_steps": [
-                    "Step 1: Calculate PI for each project:",
-                    "  - Project A: 15/20 = 0.75",
-                    "  - Project B: 12/15 = 0.80",
-                    "  - Project C: 20/25 = 0.80",
-                    "Step 2: Rank by PI: B and C tied at 0.80, then A at 0.75",
-                    "Step 3: Select B ($15M) + C ($25M) = $40M invested, leaves $10M",
-                    "Step 4: Can't fit A ($20M) in remaining $10M",
-                    "Step 5: Total NPV = $12M + $20M = $32M"
+                    "Step 1: Compare the Sharpe Ratios: High Flyer Fund \\(= 0.34\\) vs Steady Income Fund \\(= 0.27\\)",
+                    "Step 2: The Sharpe Ratio measures return per unit of risk",
+                    "Step 3: Since we can borrow/lend at the risk-free rate, we can adjust risk levels",
+                    "Step 4: The fund with the higher Sharpe Ratio gives the best risk-return tradeoff",
+                    "Step 5: Answer: Option 2 - High Flyer Fund because it has the higher Sharpe Ratio"
                 ],
-                "correct_answer": 32,
+                "correct_answer": 2,
+                "tolerance": 0,
+                "unit": "choice",
                 "hints": {
-                    "level_1": "Calculate PI for each project, then rank them",
-                    "level_2": "PI: A=0.75, B=0.80, C=0.80. Start with highest PI projects",
-                    "level_3": "B+C costs $40M and gives NPV of $32M. A doesn't fit in remaining $10M"
+                    "level_1": "The Sharpe Ratio measures the reward-to-risk ratio of an investment",
+                    "level_2": "When you can borrow/lend at the risk-free rate, you can always adjust the risk level - so which metric matters most?",
+                    "level_3": "A higher Sharpe Ratio means more return per unit of risk. Since you can lever up or down, you always prefer the highest Sharpe Ratio."
                 }
             },
             {
-                "id": "capbudget_006",
-                "topic": "IRR Calculation",
+                "id": "capm_004",
+                "topic": "Market Portfolio Weights",
                 "difficulty": "medium",
-                "problem_text": "A project has the following cash flows: invest $4,000 today, receive $1,500 at the end of each of the next 3 years. The IRR of this project is approximately 6.1%. If your opportunity cost of capital is 5%, what is the NPV of this project (to the nearest dollar)?",
-                "given": {
-                    "initial_investment": 4000,
-                    "annual_cash_flow": 1500,
-                    "years": 3,
-                    "discount_rate": 0.05
-                },
-                "formula": "NPV = -C₀ + C₁/(1+r) + C₂/(1+r)² + C₃/(1+r)³",
+                "problem_text": "Apple has a market capitalization of $3 billion and Tesla has a market capitalization of $7 billion. These are the only two stocks in the market. What is Apple's weight in the market portfolio (in percent)?",
+                "formula": "\\(w_i = \\frac{\\text{MarketCap}_i}{\\text{Total MarketCap}}\\)",
                 "solution_steps": [
-                    "Step 1: Cash flows: C₀ = -$4,000, C₁ = C₂ = C₃ = $1,500",
-                    "Step 2: Discount rate = 5%",
-                    "Step 3: PV of Year 1: 1500/1.05 = $1,428.57",
-                    "Step 4: PV of Year 2: 1500/1.05² = $1,360.54",
-                    "Step 5: PV of Year 3: 1500/1.05³ = $1,295.76",
-                    "Step 6: NPV = -4000 + 1428.57 + 1360.54 + 1295.76 = $84.87",
-                    "Step 7: Final answer: NPV ≈ $85"
+                    "Step 1: Identify the market caps: Apple \\(= \\$3B\\), Tesla \\(= \\$7B\\)",
+                    "Step 2: Calculate total market cap: \\(\\$3B + \\$7B = \\$10B\\)",
+                    "Step 3: Calculate Apple's weight: \\(\\frac{\\$3B}{\\$10B} = 0.30\\)",
+                    "Step 4: Convert to percentage: \\(0.30 = 30\\%\\)",
+                    "Step 5: Final answer: Apple's weight \\(= 30\\%\\)"
                 ],
-                "correct_answer": 85,
+                "correct_answer": 30,
+                "tolerance": 0.5,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "Since IRR (6.1%) > cost of capital (5%), NPV should be positive",
-                    "level_2": "Discount each $1,500 payment at 5%",
-                    "level_3": "NPV = -4000 + 1500/1.05 + 1500/1.05² + 1500/1.05³"
+                    "level_1": "The market portfolio weights each stock by its market capitalization",
+                    "level_2": "\\(w = \\frac{\\text{Stock's market cap}}{\\text{Total market cap}}\\)",
+                    "level_3": "Calculate \\(\\frac{3}{3+7}\\) and convert to a percentage"
                 }
             },
             {
-                "id": "capbudget_007",
-                "topic": "IRR Decision Rule",
-                "difficulty": "easy",
-                "problem_text": "A project has an IRR of 18%. Your company's hurdle rate (opportunity cost of capital) is 12%. Based on the IRR rule, should you accept this project? Enter 1 for Yes, 0 for No.",
-                "given": {
-                    "irr": 0.18,
-                    "hurdle_rate": 0.12
-                },
-                "formula": "Accept if IRR > Hurdle Rate",
-                "solution_steps": [
-                    "Step 1: IRR = 18%",
-                    "Step 2: Hurdle Rate = 12%",
-                    "Step 3: Compare: 18% > 12%",
-                    "Step 4: Since IRR exceeds the hurdle rate, accept the project",
-                    "Step 5: Final answer: Yes (1)"
-                ],
-                "correct_answer": 1,
-                "hints": {
-                    "level_1": "The IRR rule says to accept if IRR exceeds the opportunity cost of capital",
-                    "level_2": "Compare 18% to 12%",
-                    "level_3": "18% > 12%, so accept"
-                }
-            },
-            {
-                "id": "capbudget_008",
-                "topic": "Payback Period",
-                "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $80 million and generates $20 million per year in free cash flow. What is the payback period in years?",
-                "given": {
-                    "initial_investment": 80,
-                    "annual_cash_flow": 20
-                },
-                "formula": "Payback Period = Initial Investment / Annual Cash Flow",
-                "solution_steps": [
-                    "Step 1: Initial Investment = $80 million",
-                    "Step 2: Annual Cash Flow = $20 million",
-                    "Step 3: Payback Period = Investment / Annual Cash Flow",
-                    "Step 4: Payback = 80 / 20 = 4 years",
-                    "Step 5: Final answer: 4 years"
-                ],
-                "correct_answer": 4,
-                "hints": {
-                    "level_1": "Payback period is how long it takes to recover your initial investment",
-                    "level_2": "Divide initial investment by annual cash flow",
-                    "level_3": "80 / 20 = 4 years"
-                }
-            },
-            {
-                "id": "capbudget_009",
-                "topic": "NPV vs Payback",
+                "id": "capm_005",
+                "topic": "CAPM Expected Return",
                 "difficulty": "medium",
-                "problem_text": "A project requires $60 million today and generates $12 million per year for 8 years. Your company has a 5-year payback rule and uses an 8% discount rate. What is the NPV of this project (in millions)?",
-                "given": {
-                    "initial_investment": 60,
-                    "annual_cash_flow": 12,
-                    "years": 8,
-                    "discount_rate": 0.08
-                },
-                "formula": "NPV = -C₀ + C × [1 - 1/(1+r)^n] / r",
+                "problem_text": "Using the CAPM: the risk-free rate is 3%, the expected market return is 10%. A stock has a beta of 1.5. What is the stock's expected return (in percent)?",
+                "formula": "\\(E[R_i] = r_f + \\beta_i \\times (E[R_m] - r_f)\\)",
                 "solution_steps": [
-                    "Step 1: This is an annuity: $12M per year for 8 years",
-                    "Step 2: PV of annuity = 12 × [1 - 1/(1.08)^8] / 0.08",
-                    "Step 3: = 12 × [1 - 0.5403] / 0.08",
-                    "Step 4: = 12 × 5.7466 = $68.96M",
-                    "Step 5: NPV = -60 + 68.96 = $8.96M",
-                    "Step 6: Final answer: NPV ≈ $9 million"
+                    "Step 1: Identify the variables: \\(r_f = 3\\%,\\ E[R_m] = 10\\%,\\ \\beta = 1.5\\)",
+                    "Step 2: Apply the CAPM: \\(E[R] = r_f + \\beta \\times (E[R_m] - r_f)\\)",
+                    "Step 3: Calculate the market risk premium: \\(10\\% - 3\\% = 7\\%\\)",
+                    "Step 4: Multiply by beta: \\(1.5 \\times 7\\% = 10.5\\%\\)",
+                    "Step 5: Add the risk-free rate: \\(3\\% + 10.5\\% = 13.5\\%\\)",
+                    "Step 6: Final answer: \\(E[R] = 13.5\\%\\)"
                 ],
-                "correct_answer": 9,
+                "correct_answer": 13.5,
+                "tolerance": 0.1,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "Use the annuity formula to find PV of the 8 years of cash flows",
-                    "level_2": "PV = 12 × annuity factor for 8 years at 8%",
-                    "level_3": "Annuity factor = 5.7466, so PV = $68.96M, NPV = -60 + 68.96"
+                    "level_1": "The CAPM says expected return depends on the risk-free rate, beta, and the market risk premium",
+                    "level_2": "Formula: \\(E[R] = r_f + \\beta \\times (E[R_m] - r_f)\\). First find the market risk premium.",
+                    "level_3": "Market risk premium \\(= 10 - 3 = 7\\). Then \\(E[R] = 3 + 1.5 \\times 7\\)"
                 }
             },
             {
-                "id": "capbudget_010",
-                "topic": "Free Cash Flow",
+                "id": "capm_006",
+                "topic": "CAPM with Negative Beta",
+                "difficulty": "medium",
+                "problem_text": "SafeHaven Corp has a beta of -0.20. The expected market return is 10% and the risk-free rate is 2%. What is SafeHaven's expected return according to the CAPM (in percent)?",
+                "formula": "\\(E[R_i] = r_f + \\beta_i \\times (E[R_m] - r_f)\\)",
+                "solution_steps": [
+                    "Step 1: Identify the variables: \\(r_f = 2\\%,\\ E[R_m] = 10\\%,\\ \\beta = -0.20\\)",
+                    "Step 2: Apply the CAPM: \\(E[R] = r_f + \\beta \\times (E[R_m] - r_f)\\)",
+                    "Step 3: Calculate the market risk premium: \\(10\\% - 2\\% = 8\\%\\)",
+                    "Step 4: Multiply by beta: \\(-0.20 \\times 8\\% = -1.6\\%\\)",
+                    "Step 5: Add the risk-free rate: \\(2\\% + (-1.6\\%) = 0.4\\%\\)",
+                    "Step 6: Final answer: \\(E[R] = 0.4\\%\\)"
+                ],
+                "correct_answer": 0.4,
+                "tolerance": 0.1,
+                "unit": "percent",
+                "hints": {
+                    "level_1": "A negative beta means the stock moves opposite to the market - it's like insurance",
+                    "level_2": "The CAPM still applies the same way: \\(E[R] = r_f + \\beta \\times (E[R_m] - r_f)\\), but beta is negative",
+                    "level_3": "\\(E[R] = 2 + (-0.20) \\times (10 - 2) = 2 + (-0.20 \\times 8) = 2 - 1.6\\)"
+                }
+            },
+            {
+                "id": "capm_007",
+                "topic": "Portfolio Expected Return via CAPM",
                 "difficulty": "hard",
-                "problem_text": "A project has revenues of $500,000, costs of $300,000, and depreciation of $50,000. The tax rate is 25%. There is no change in NWC and no CapEx this year. What is the Free Cash Flow?",
-                "given": {
-                    "revenues": 500000,
-                    "costs": 300000,
-                    "depreciation": 50000,
-                    "tax_rate": 0.25
-                },
-                "formula": "FCF = (Rev - Costs - Dep)(1 - τ) + Dep - CapEx - ΔNWC",
+                "problem_text": "Stock X has a beta of 0.80 and Stock Y has a beta of 1.60. The risk-free rate is 3% and the expected market return is 11%. What is the expected return of a portfolio with 50% in X and 50% in Y (in percent)?",
+                "formula": "\\(\\beta_P = w_1 \\beta_1 + w_2 \\beta_2\\), then \\(E[R_P] = r_f + \\beta_P \\times (E[R_m] - r_f)\\)",
                 "solution_steps": [
-                    "Step 1: Calculate EBIT = Revenue - Costs - Depreciation",
-                    "Step 2: EBIT = 500,000 - 300,000 - 50,000 = $150,000",
-                    "Step 3: Taxes = EBIT × tax rate = 150,000 × 0.25 = $37,500",
-                    "Step 4: Unlevered Net Income = EBIT - Taxes = 150,000 - 37,500 = $112,500",
-                    "Step 5: FCF = UNI + Depreciation - CapEx - ΔNWC",
-                    "Step 6: FCF = 112,500 + 50,000 - 0 - 0 = $162,500"
+                    "Step 1: Calculate the portfolio beta: \\(\\beta_P = 0.50 \\times 0.80 + 0.50 \\times 1.60\\)",
+                    "Step 2: Compute each term: \\(0.50 \\times 0.80 = 0.40\\) and \\(0.50 \\times 1.60 = 0.80\\)",
+                    "Step 3: Sum for portfolio beta: \\(\\beta_P = 0.40 + 0.80 = 1.20\\)",
+                    "Step 4: Apply CAPM: \\(E[R_P] = 3 + 1.20 \\times (11 - 3)\\)",
+                    "Step 5: Calculate: \\(E[R_P] = 3 + 1.20 \\times 8 = 3 + 9.60\\)",
+                    "Step 6: Final answer: \\(E[R_P] = 12.60\\%\\)"
                 ],
-                "correct_answer": 162500,
+                "correct_answer": 12.60,
+                "tolerance": 0.2,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "FCF = Unlevered Net Income + Depreciation (add back non-cash expense)",
-                    "level_2": "First calculate EBIT, then taxes, then add back depreciation",
-                    "level_3": "EBIT = $150K, Taxes = $37.5K, UNI = $112.5K, FCF = $112.5K + $50K"
+                    "level_1": "First find the portfolio beta as the weighted average of the individual betas",
+                    "level_2": "\\(\\beta_P = w_X \\beta_X + w_Y \\beta_Y\\). Then apply the CAPM.",
+                    "level_3": "\\(\\beta_P = 0.50 \\times 0.80 + 0.50 \\times 1.60 = 1.20\\). Then \\(E[R_P] = 3 + 1.20 \\times (11-3)\\)"
+                }
+            },
+            {
+                "id": "capm_008",
+                "topic": "Beta from Correlation",
+                "difficulty": "medium",
+                "problem_text": "A stock has a standard deviation of 50%, its correlation with the market is 0.5, and the market's standard deviation is 25%. What is the stock's beta?",
+                "formula": "\\(\\beta = \\frac{SD(R_i) \\times \\text{Corr}(R_i, R_m)}{SD(R_m)}\\)",
+                "solution_steps": [
+                    "Step 1: Identify the variables: \\(SD(R) = 50\\%,\\ \\text{Corr}(R, R_m) = 0.5,\\ SD(R_m) = 25\\%\\)",
+                    "Step 2: Apply the beta formula: \\(\\beta = \\frac{SD(R) \\times \\text{Corr}(R, R_m)}{SD(R_m)}\\)",
+                    "Step 3: Calculate the numerator: \\(50 \\times 0.5 = 25\\)",
+                    "Step 4: Divide by market SD: \\(\\frac{25}{25} = 1.00\\)",
+                    "Step 5: Final answer: \\(\\beta = 1.00\\)"
+                ],
+                "correct_answer": 1.00,
+                "tolerance": 0.05,
+                "unit": "decimal",
+                "hints": {
+                    "level_1": "Beta can be calculated from the stock's volatility, its correlation with the market, and the market's volatility",
+                    "level_2": "Formula: \\(\\beta = \\frac{SD(\\text{stock}) \\times \\text{Corr}(\\text{stock}, \\text{market})}{SD(\\text{market})}\\)",
+                    "level_3": "Calculate: \\(\\frac{50 \\times 0.5}{25} = \\frac{25}{25}\\)"
+                }
+            },
+            {
+                "id": "capm_009",
+                "topic": "Jensen's Alpha",
+                "difficulty": "medium",
+                "problem_text": "Jensen's alpha measures:\n\n(1) The total return of a stock\n(2) How much a stock's return exceeds the CAPM prediction\n(3) The stock's exposure to market risk\n(4) The stock's idiosyncratic risk",
+                "formula": "\\(\\alpha = R_{\\text{actual}} - [r_f + \\beta \\times (R_m - r_f)]\\)",
+                "solution_steps": [
+                    "Step 1: Jensen's alpha = Actual Return - CAPM Predicted Return",
+                    "Step 2: \\(\\alpha = R_{\\text{actual}} - [r_f + \\beta \\times (R_m - r_f)]\\)",
+                    "Step 3: It measures how much the stock's actual return exceeded (or fell short of) what CAPM predicts",
+                    "Step 4: This is different from total return (Option 1), beta/market risk exposure (Option 3), or idiosyncratic risk (Option 4)",
+                    "Step 5: Answer: Option 2 - How much a stock's return exceeds the CAPM prediction"
+                ],
+                "correct_answer": 2,
+                "tolerance": 0,
+                "unit": "choice",
+                "hints": {
+                    "level_1": "Think about what alpha represents relative to the Security Market Line",
+                    "level_2": "\\(\\alpha\\) = Actual return minus the return predicted by CAPM. What does this difference tell you?",
+                    "level_3": "\\(\\alpha\\) measures outperformance (or underperformance) relative to what CAPM says the stock should earn given its \\(\\beta\\)."
+                }
+            },
+            {
+                "id": "capm_010",
+                "topic": "Idiosyncratic Risk",
+                "difficulty": "hard",
+                "problem_text": "According to the CAPM, why doesn't idiosyncratic risk earn a risk premium?\n\n(1) Idiosyncratic risk doesn't exist in well-managed companies\n(2) Idiosyncratic risk can be diversified away, so investors don't need compensation for bearing it\n(3) The government insures investors against idiosyncratic risk\n(4) Idiosyncratic risk is always smaller than systematic risk",
+                "formula": "\\(\\text{Total Risk} = \\text{Systematic Risk} + \\text{Idiosyncratic Risk}\\)",
+                "solution_steps": [
+                    "Step 1: Total risk has two components: systematic (market) risk and idiosyncratic (firm-specific) risk",
+                    "Step 2: Idiosyncratic risk is specific to individual firms (e.g., a CEO leaving, a product recall)",
+                    "Step 3: By holding a diversified portfolio, idiosyncratic risks of different stocks cancel each other out",
+                    "Step 4: Since investors can eliminate this risk for free through diversification, the market doesn't reward them for bearing it",
+                    "Step 5: Only systematic risk (\\(\\beta\\)) earns a risk premium in the CAPM",
+                    "Step 6: Answer: Option 2 - Idiosyncratic risk can be diversified away"
+                ],
+                "correct_answer": 2,
+                "tolerance": 0,
+                "unit": "choice",
+                "hints": {
+                    "level_1": "Think about what happens to firm-specific risk when you hold many stocks in a portfolio",
+                    "level_2": "If a risk can be eliminated for free, would the market pay you extra for taking it?",
+                    "level_3": "Diversification eliminates idiosyncratic risk. Since it's free to diversify, investors aren't compensated for bearing risk they could have avoided."
                 }
             }
         ];
@@ -1172,12 +1231,14 @@
         let currentProblemIndex = 0;
         let attemptCount = 0;
         let completedProblems = new Set();
+        let selectedChoice = null;
 
         // Spaced repetition tracking
-        const TOPIC_KEY = 'capbudget';
-        const MISSED_PROBLEMS_KEY = 'finance_missed_' + TOPIC_KEY;
-        const MASTERED_PROBLEMS_KEY = 'finance_mastered_' + TOPIC_KEY;
+        const TOPIC_KEY = 'capm'; // Unique key for this topic
+        const MISSED_PROBLEMS_KEY = 'finance_missed_capm';
+        const MASTERED_PROBLEMS_KEY = 'finance_mastered_capm';
 
+        // Check if we're in review mode (URL parameter)
         const urlParams = new URLSearchParams(window.location.search);
         const reviewMode = urlParams.get('review') === 'true';
 
@@ -1193,28 +1254,43 @@
 
         function saveMissedProblem(problemId) {
             const missed = getMissedProblems();
-            missed[problemId] = { count: (missed[problemId]?.count || 0) + 1, lastMissed: new Date().toISOString() };
+            missed[problemId] = {
+                count: (missed[problemId]?.count || 0) + 1,
+                lastMissed: new Date().toISOString()
+            };
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
         }
 
         function markProblemMastered(problemId) {
+            // Remove from missed
             const missed = getMissedProblems();
             delete missed[problemId];
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+
+            // Add to mastered
             const mastered = getMasteredProblems();
-            mastered[problemId] = { masteredOn: new Date().toISOString() };
+            mastered[problemId] = {
+                masteredOn: new Date().toISOString()
+            };
             localStorage.setItem(MASTERED_PROBLEMS_KEY, JSON.stringify(mastered));
         }
 
         function filterProblemsForReview() {
             if (!reviewMode) return problems;
+
             const missed = getMissedProblems();
             const missedIds = Object.keys(missed);
-            return missedIds.length === 0 ? [] : problems.filter(p => missedIds.includes(p.id));
+
+            if (missedIds.length === 0) {
+                return []; // No problems to review
+            }
+
+            return problems.filter(p => missedIds.includes(p.id));
         }
 
         // Load problems on page load
         function loadProblems() {
+            // Filter problems if in review mode
             if (reviewMode) {
                 const reviewProblems = filterProblemsForReview();
                 if (reviewProblems.length === 0) {
@@ -1222,20 +1298,24 @@
                     return;
                 }
                 problems = reviewProblems;
-                document.querySelector('h1').textContent = 'Capital Budgeting - Review';
+                // Update header to show review mode
+                document.querySelector('h1').textContent = 'Portfolio Analysis & CAPM - Review';
                 document.querySelector('.subtitle').textContent = 'Reviewing missed problems';
             }
             displayProblem();
         }
 
         function showNoProblemsToReview() {
-            document.getElementById('problemCard').innerHTML = `
+            const problemCard = document.getElementById('problemCard');
+            problemCard.innerHTML = `
                 <div style="text-align: center; padding: 3rem;">
                     <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
                     <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #2D3748;">No Problems to Review!</h2>
-                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">You've mastered all the problems you previously missed.</p>
+                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">
+                        You've mastered all the problems you previously missed. Great work!
+                    </p>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="week2-capbudget.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
+                        <a href="week7-capm.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Back to Topics</a>
                     </div>
                 </div>
@@ -1256,6 +1336,7 @@
             const container = document.getElementById('workedExampleContent');
             const toggle = document.getElementById('workedExampleToggle');
 
+            // Reset to collapsed state
             toggle.classList.remove('expanded');
             document.getElementById('toggleText').textContent = 'Show';
 
@@ -1297,6 +1378,7 @@
 
             const problem = problems[currentProblemIndex];
             attemptCount = 0;
+            selectedChoice = null;
 
             // Update progress
             const progress = ((currentProblemIndex) / problems.length) * 100;
@@ -1316,7 +1398,31 @@
             displayWorkedExample(problem.id);
 
             // Update problem text
-            document.getElementById('problemText').textContent = problem.problem_text;
+            if (problem.unit === 'choice') {
+                // For multiple choice, split problem text at the options
+                const lines = problem.problem_text.split('\n').filter(l => l.trim() !== '');
+                const questionText = lines[0];
+                const options = lines.slice(1);
+
+                let problemHtml = questionText;
+                if (options.length > 0) {
+                    problemHtml += '<ul class="mc-options" id="mcOptions">';
+                    options.forEach((opt, idx) => {
+                        const optText = opt.trim();
+                        problemHtml += `<li onclick="selectChoice(${idx + 1})" data-choice="${idx + 1}">${optText}</li>`;
+                    });
+                    problemHtml += '</ul>';
+                }
+                document.getElementById('problemText').innerHTML = problemHtml;
+
+                // Hide the number input, show a hidden input for choice
+                document.getElementById('answerInput').style.display = 'none';
+                document.querySelector('label[for="answerInput"]').style.display = 'none';
+            } else {
+                document.getElementById('problemText').textContent = problem.problem_text;
+                document.getElementById('answerInput').style.display = '';
+                document.querySelector('label[for="answerInput"]').style.display = '';
+            }
 
             // Update formula (but keep it hidden initially)
             document.getElementById('formulaText').textContent = problem.formula;
@@ -1336,26 +1442,43 @@
                 currentProblemIndex === problems.length - 1 ? 'Finish' : 'Next Problem';
         }
 
+        function selectChoice(choiceNum) {
+            selectedChoice = choiceNum;
+            // Update visual selection
+            const options = document.querySelectorAll('#mcOptions li');
+            options.forEach(li => {
+                li.classList.remove('selected');
+                if (parseInt(li.getAttribute('data-choice')) === choiceNum) {
+                    li.classList.add('selected');
+                }
+            });
+        }
+
         function checkAnswer() {
             const problem = problems[currentProblemIndex];
-            const userAnswer = parseFloat(document.getElementById('answerInput').value);
+            let userAnswer;
 
-            if (isNaN(userAnswer)) {
-                showFeedback('Please enter a valid number', 'incorrect');
-                return;
-            }
-
-            // Smart tolerance: 0.5% of correct answer OR $1 (or appropriate minimum), whichever is larger
-            const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
-            let minTolerance;
-            if (problem.correct_answer >= 1000) {
-                minTolerance = Math.max(1, problem.correct_answer * 0.01); // 1% for large numbers
-            } else if (problem.correct_answer < 10) {
-                minTolerance = 0.05; // Small tolerance for small numbers like PI
+            if (problem.unit === 'choice') {
+                if (selectedChoice === null) {
+                    showFeedback('Please select an option', 'incorrect');
+                    return;
+                }
+                userAnswer = selectedChoice;
             } else {
-                minTolerance = 1;
+                userAnswer = parseFloat(document.getElementById('answerInput').value);
+                if (isNaN(userAnswer)) {
+                    showFeedback('Please enter a valid number', 'incorrect');
+                    return;
+                }
             }
-            const tolerance = Math.max(percentTolerance, minTolerance);
+
+            // Smart tolerance: allow for rounding errors from intermediate calculations
+            const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
+            const minTolerance = problem.unit === 'percent' ? 0.05 : (problem.unit === 'choice' ? 0 : 0.01);
+            const calculatedTolerance = Math.max(percentTolerance, minTolerance);
+
+            // Use problem-specific tolerance if provided, otherwise use calculated tolerance
+            const tolerance = problem.tolerance !== undefined ? problem.tolerance : calculatedTolerance;
 
             const isCorrect = Math.abs(userAnswer - problem.correct_answer) <= tolerance;
 
@@ -1363,24 +1486,22 @@
 
             if (isCorrect) {
                 completedProblems.add(currentProblemIndex);
-                if (attemptCount === 1) markProblemMastered(problem.id);
+                // If correct on first attempt, mark as mastered
+                if (attemptCount === 1) {
+                    markProblemMastered(problem.id);
+                }
                 showCorrectFeedback();
             } else {
+                // Track this as a missed problem
                 saveMissedProblem(problem.id);
                 showIncorrectFeedback();
             }
         }
 
-        function formatAnswer(problem) {
-            if (problem.correct_answer >= 1000000) {
-                return '$' + (problem.correct_answer / 1000000).toFixed(2) + ' million';
-            } else if (problem.correct_answer >= 1000) {
-                return '$' + problem.correct_answer.toLocaleString();
-            } else if (problem.correct_answer < 10 && problem.correct_answer > 0) {
-                return problem.correct_answer.toFixed(2);
-            } else {
-                return '$' + problem.correct_answer.toLocaleString();
-            }
+        function showFeedback(message, type) {
+            const feedbackBox = document.getElementById('feedbackBox');
+            feedbackBox.className = 'feedback-box feedback-' + type;
+            feedbackBox.innerHTML = `<div class="feedback-title">${message}</div>`;
         }
 
         function showCorrectFeedback() {
@@ -1392,7 +1513,7 @@
                     Correct!
                 </div>
                 <div class="feedback-content">
-                    Great job! The correct answer is ${formatAnswer(problem)}.
+                    Great job! The correct answer is ${formatAnswer(problem.correct_answer, problem.unit)}.
                 </div>
             `;
 
@@ -1464,7 +1585,7 @@
             problem.solution_steps.forEach((step, index) => {
                 html += `
                     <div class="solution-step">
-                        ${step}
+                        <span class="step-number">Step ${index + 1}:</span> ${step}
                     </div>
                 `;
             });
@@ -1472,7 +1593,7 @@
             html += `
                 </div>
                 <div class="feedback-content" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #E2E8F0;">
-                    <strong>Final Answer:</strong> ${formatAnswer(problem)}
+                    <strong>Final Answer:</strong> ${formatAnswer(problem.correct_answer, problem.unit)}
                 </div>
             `;
 
@@ -1505,15 +1626,26 @@
             const total = problems.length;
             const percentage = Math.round((completed / total) * 100);
 
+            // Check how many problems are in the missed queue
             const missed = getMissedProblems();
             const missedCount = Object.keys(missed).length;
+
             let reviewButton = '';
             if (missedCount > 0 && !reviewMode) {
-                reviewButton = `<a href="week2-capbudget.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}</a>`;
+                reviewButton = `
+                    <a href="week7-capm.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">
+                        Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}
+                    </a>
+                `;
             }
+
             let celebrationMessage = '';
             if (reviewMode && completed === total) {
-                celebrationMessage = `<div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;"><strong>Excellent!</strong> You've mastered these previously missed problems!</div>`;
+                celebrationMessage = `
+                    <div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <strong>Excellent!</strong> You've mastered these previously missed problems!
+                    </div>
+                `;
             }
 
             problemCard.innerHTML = `
@@ -1528,7 +1660,7 @@
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                         ${reviewButton}
-                        <button class="btn-primary" onclick="location.href='week2-capbudget.html'">Practice All</button>
+                        <button class="btn-primary" onclick="location.href='week7-capm.html'">Practice All</button>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
                     </div>
                 </div>
@@ -1536,13 +1668,16 @@
         }
 
         function renderMath() {
-            // Simple rendering - for more complex math, we'd use KaTeX's auto-render
             setTimeout(() => {
-                const elements = document.querySelectorAll('.problem-text, .formula-box, .solution-step, .hint-box');
-                elements.forEach(element => {
-                    // Replace common LaTeX patterns with rendered math
-                    // This is a simplified version - full KaTeX auto-render would be more robust
-                });
+                if (typeof renderMathInElement === 'function') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: '$$', right: '$$', display: true},
+                            {left: '\\(', right: '\\)', display: false}
+                        ],
+                        throwOnError: false
+                    });
+                }
             }, 100);
         }
 

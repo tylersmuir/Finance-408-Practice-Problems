@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Practice Tool - Capital Budgeting</title>
+    <title>Finance Practice Tool - The Cost of Capital</title>
 
     <!-- KaTeX for LaTeX rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -465,8 +465,15 @@
             color: #2C5282;
         }
 
-        .worked-example-title .icon { font-size: 1.25rem; }
-        .worked-example-subtitle { font-size: 0.85rem; color: #4A5568; font-weight: 400; }
+        .worked-example-title .icon {
+            font-size: 1.25rem;
+        }
+
+        .worked-example-subtitle {
+            font-size: 0.85rem;
+            color: #4A5568;
+            font-weight: 400;
+        }
 
         .toggle-indicator {
             display: flex;
@@ -477,8 +484,14 @@
             font-weight: 500;
         }
 
-        .toggle-arrow { transition: transform 0.3s ease; font-size: 1.25rem; }
-        .worked-example-toggle.expanded .toggle-arrow { transform: rotate(180deg); }
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.25rem;
+        }
+
+        .worked-example-toggle.expanded .toggle-arrow {
+            transform: rotate(180deg);
+        }
 
         .worked-example-content {
             max-height: 0;
@@ -510,8 +523,17 @@
             margin-bottom: 0.5rem;
         }
 
-        .example-text { color: #2D3748; font-size: 0.95rem; line-height: 1.6; }
-        .example-solution { background: white; border-radius: 6px; padding: 1.25rem; }
+        .example-text {
+            color: #2D3748;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .example-solution {
+            background: white;
+            border-radius: 6px;
+            padding: 1.25rem;
+        }
 
         .example-step {
             display: flex;
@@ -520,7 +542,9 @@
             border-bottom: 1px solid #E2E8F0;
         }
 
-        .example-step:last-child { border-bottom: none; }
+        .example-step:last-child {
+            border-bottom: none;
+        }
 
         .example-step-number {
             background-color: #3182CE;
@@ -536,8 +560,15 @@
             flex-shrink: 0;
         }
 
-        .example-step-content { flex: 1; }
-        .example-step-explanation { color: #4A5568; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .example-step-content {
+            flex: 1;
+        }
+
+        .example-step-explanation {
+            color: #4A5568;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
 
         .example-step-calculation {
             font-family: 'SF Mono', Monaco, 'Courier New', monospace;
@@ -557,8 +588,17 @@
             text-align: center;
         }
 
-        .example-final-answer-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
-        .example-final-answer-value { font-size: 1.5rem; font-weight: 700; }
+        .example-final-answer-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+
+        .example-final-answer-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
 
         .now-try-badge {
             background-color: #48BB78;
@@ -571,6 +611,58 @@
             align-items: center;
             gap: 0.5rem;
             margin-bottom: 1rem;
+        }
+
+        /* Multiple choice styles */
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .choice-btn {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            border: 2px solid #CBD5E0;
+            border-radius: 8px;
+            background-color: #F7FAFC;
+            cursor: pointer;
+            text-align: left;
+            font-size: 1rem;
+            line-height: 1.5;
+            transition: all 0.2s;
+        }
+
+        .choice-btn:hover {
+            border-color: #2C5282;
+            background-color: #EBF8FF;
+        }
+
+        .choice-btn.selected {
+            border-color: #2C5282;
+            background-color: #EBF8FF;
+            font-weight: 500;
+        }
+
+        .choice-number {
+            background-color: #2C5282;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .choice-btn.selected .choice-number {
+            background-color: #2C5282;
         }
 
         /* Mobile responsiveness */
@@ -602,10 +694,10 @@
     <div class="container">
         <header>
             <div class="header-nav">
-                <a href="index.html" class="back-link">← Back to Topics</a>
+                <a href="index.html" class="back-link">&larr; Back to Topics</a>
             </div>
-            <h1>Capital Budgeting</h1>
-            <div class="subtitle">Week 2 - MGMT 408</div>
+            <h1>The Cost of Capital</h1>
+            <div class="subtitle">Week 8 - MGMT 408</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar" style="width: 0%"></div>
             </div>
@@ -635,7 +727,9 @@
                         <span class="toggle-arrow">▼</span>
                     </div>
                 </div>
-                <div class="worked-example-content" id="workedExampleContent"></div>
+                <div class="worked-example-content" id="workedExampleContent">
+                    <!-- Content populated by JavaScript -->
+                </div>
             </div>
 
             <div class="now-try-badge">✏️ Now You Try</div>
@@ -649,7 +743,7 @@
                 <div id="formulaText"></div>
             </div>
 
-            <div class="answer-section">
+            <div class="answer-section" id="answerSection">
                 <div class="input-group">
                     <label for="answerInput">Your Answer:</label>
                     <input type="number" id="answerInput" step="0.01" placeholder="Enter your answer">
@@ -810,361 +904,402 @@
             }
         });
 
+        // Format answer based on unit type
+        function formatAnswer(value, unit) {
+            if (unit === 'dollars') return '$' + value.toLocaleString();
+            if (unit === 'percent') return value + '%';
+            if (unit === 'choice') return 'Option ' + value;
+            return value.toString();
+        }
+
         // Worked examples for each problem type
         const workedExamples = {
-            "capbudget_001": {
-                problem: "A project requires an initial investment of $100,000 today and will generate a single cash flow of $120,000 in one year. If the opportunity cost of capital is 10%, what is the NPV?",
+            "coc_001": {
+                problem: "A firm has equity value E=$400M and debt D=$600M. What fraction of the firm's value is equity (as a percentage)?",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$100,000 (outflow today), C₁ = $120,000 (inflow in 1 year)" },
-                    { explanation: "Calculate PV of future cash flow:", calculation: "PV = $120,000 / (1 + 0.10) = $120,000 / 1.10 = $109,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$100,000 + $109,091 = $9,091" }
+                    { explanation: "Identify the values:", calculation: "\\(E = \\$400M\\), \\(D = \\$600M\\)" },
+                    { explanation: "Calculate total firm value:", calculation: "\\(V = E + D = 400 + 600 = \\$1{,}000M\\)" },
+                    { explanation: "Calculate equity fraction:", calculation: "\\(E/V = 400 / 1{,}000 = 0.40\\)" },
+                    { explanation: "Convert to percentage:", calculation: "\\(0.40 \\times 100 = 40.00\\%\\)" }
                 ],
-                answer: "$9,091"
+                answer: "40.00%"
             },
-            "capbudget_002": {
-                problem: "A project costs $100,000 to start plus $25,000 of your time (in PV). It pays $180,000 in one year. At 15% discount rate, what is the NPV?",
+            "coc_002": {
+                problem: "WidgetCo has equity market cap $300M, debt $700M, cost of equity 12%, cost of debt 5%. Calculate the unlevered cost of capital.",
                 steps: [
-                    { explanation: "Calculate total costs:", calculation: "Total Cost = $100,000 + $25,000 = $125,000" },
-                    { explanation: "Calculate PV of benefits:", calculation: "PV = $180,000 / 1.15 = $156,522" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$125,000 + $156,522 = $31,522" }
+                    { explanation: "Identify the values:", calculation: "\\(E = \\$300M\\), \\(D = \\$700M\\), \\(r_E = 12\\%\\), \\(r_D = 5\\%\\)" },
+                    { explanation: "Calculate total firm value:", calculation: "\\(V = E + D = 300 + 700 = \\$1{,}000M\\)" },
+                    { explanation: "Calculate equity weight:", calculation: "\\(E/V = 300/1{,}000 = 0.30\\)" },
+                    { explanation: "Calculate debt weight:", calculation: "\\(D/V = 700/1{,}000 = 0.70\\)" },
+                    { explanation: "Apply unlevered cost of capital formula:", calculation: "\\(r_U = (E/V) \\times r_E + (D/V) \\times r_D = 0.30 \\times 12\\% + 0.70 \\times 5\\%\\)" },
+                    { explanation: "Calculate:", calculation: "\\(r_U = 3.60\\% + 3.50\\% = 7.10\\%\\)" }
                 ],
-                answer: "$31,522"
+                answer: "7.10%"
             },
-            "capbudget_003": {
-                problem: "Project X costs $50,000 today and pays $65,000 in one year. At 10% discount rate, what is the NPV?",
+            "coc_003": {
+                problem: "WidgetCo has E=$300M, D=$700M, r_E=12%, r_D=5%, and tax rate=35%. Calculate the WACC.",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$50,000, C₁ = $65,000" },
-                    { explanation: "Calculate PV of Year 1 cash flow:", calculation: "PV = $65,000 / 1.10 = $59,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$50,000 + $59,091 = $9,091" }
+                    { explanation: "Identify the values:", calculation: "\\(E = \\$300M\\), \\(D = \\$700M\\), \\(r_E = 12\\%\\), \\(r_D = 5\\%\\), \\(T_c = 35\\%\\)" },
+                    { explanation: "Calculate weights:", calculation: "\\(E/V = 300/1{,}000 = 0.30\\), \\(D/V = 700/1{,}000 = 0.70\\)" },
+                    { explanation: "Apply WACC formula:", calculation: "\\(WACC = (E/V) \\times r_E + (D/V) \\times r_D \\times (1 - T_c)\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(WACC = 0.30 \\times 12\\% + 0.70 \\times 5\\% \\times (1 - 0.35)\\)" },
+                    { explanation: "Calculate each term:", calculation: "\\(= 3.60\\% + 0.70 \\times 5\\% \\times 0.65 = 3.60\\% + 2.275\\%\\)" },
+                    { explanation: "Final answer:", calculation: "\\(WACC = 5.88\\%\\)" }
                 ],
-                answer: "$9,091"
+                answer: "5.88%"
             },
-            "capbudget_004": {
-                problem: "A project has NPV of $15 million and requires an investment of $10 million. What is the profitability index?",
+            "coc_004": {
+                problem: "Using CAPM: risk-free rate=2%, equity beta=0.8, market risk premium=6%. What is the cost of equity capital?",
                 steps: [
-                    { explanation: "Identify the values:", calculation: "NPV = $15M, Investment = $10M" },
-                    { explanation: "Apply the PI formula:", calculation: "PI = NPV / Investment" },
-                    { explanation: "Calculate:", calculation: "PI = $15M / $10M = 1.50" }
+                    { explanation: "Identify the variables:", calculation: "\\(r_f = 2\\%\\), \\(\\beta_E = 0.8\\), \\(MRP = 6\\%\\)" },
+                    { explanation: "Write the CAPM formula:", calculation: "\\(r_E = r_f + \\beta_E \\times (MRP)\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(r_E = 2\\% + 0.8 \\times 6\\%\\)" },
+                    { explanation: "Calculate:", calculation: "\\(r_E = 2\\% + 4.8\\% = 6.8\\%\\)" }
                 ],
-                answer: "1.50"
+                answer: "6.8%"
             },
-            "capbudget_005": {
-                problem: "Budget: $30M. Project A: NPV=$8M, Cost=$10M. Project B: NPV=$10M, Cost=$20M. Using PI, what's the max total NPV?",
+            "coc_005": {
+                problem: "Cost of debt using credit spreads: risk-free rate=2%, bond spread for A-rated 10-year debt=125bps. What is the cost of debt capital?",
                 steps: [
-                    { explanation: "Calculate PI for each:", calculation: "PI(A) = 8/10 = 0.80, PI(B) = 10/20 = 0.50" },
-                    { explanation: "Rank by PI:", calculation: "A (0.80) > B (0.50)" },
-                    { explanation: "Select A first ($10M), then B ($20M):", calculation: "Total cost = $30M (fits budget)" },
-                    { explanation: "Total NPV:", calculation: "$8M + $10M = $18M" }
+                    { explanation: "Identify the variables:", calculation: "\\(r_f = 2\\%\\), \\(\\text{credit spread} = 125 \\text{ bps}\\)" },
+                    { explanation: "Convert basis points to percentage:", calculation: "\\(125 \\text{ bps} = 1.25\\%\\)" },
+                    { explanation: "Apply credit spread method:", calculation: "\\(r_D = r_f + \\text{credit spread}\\)" },
+                    { explanation: "Calculate:", calculation: "\\(r_D = 2\\% + 1.25\\% = 3.25\\%\\)" }
                 ],
-                answer: "$18 million"
+                answer: "3.25%"
             },
-            "capbudget_006": {
-                problem: "Invest $3,000 today, receive $1,200/year for 3 years. At 8% discount rate, what is the NPV?",
+            "coc_006": {
+                problem: "Apex Corp: equity=$300M, debt=$500M, r_E=8%, r_D=4%, tax rate=30%. Calculate the WACC.",
                 steps: [
-                    { explanation: "Calculate PV of Year 1:", calculation: "$1,200 / 1.08 = $1,111" },
-                    { explanation: "Calculate PV of Year 2:", calculation: "$1,200 / 1.08² = $1,029" },
-                    { explanation: "Calculate PV of Year 3:", calculation: "$1,200 / 1.08³ = $953" },
-                    { explanation: "Sum and subtract initial investment:", calculation: "NPV = -$3,000 + $1,111 + $1,029 + $953 = $93" }
+                    { explanation: "Identify the values:", calculation: "\\(E = \\$300M\\), \\(D = \\$500M\\), \\(r_E = 8\\%\\), \\(r_D = 4\\%\\), \\(T_c = 30\\%\\)" },
+                    { explanation: "Calculate total firm value:", calculation: "\\(V = 300 + 500 = \\$800M\\)" },
+                    { explanation: "Calculate weights:", calculation: "\\(E/V = 300/800 = 0.375\\), \\(D/V = 500/800 = 0.625\\)" },
+                    { explanation: "Apply WACC formula:", calculation: "\\(WACC = (E/V) \\times r_E + (D/V) \\times r_D \\times (1 - T_c)\\)" },
+                    { explanation: "Plug in:", calculation: "\\(WACC = 0.375 \\times 8\\% + 0.625 \\times 4\\% \\times (1 - 0.30)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(WACC = 3.00\\% + 0.625 \\times 4\\% \\times 0.70 = 3.00\\% + 1.75\\% = 4.75\\%\\)" }
                 ],
-                answer: "$93"
+                answer: "4.75%"
             },
-            "capbudget_007": {
-                problem: "A project has IRR of 15%. The hurdle rate is 18%. Should you accept? (1=Yes, 0=No)",
+            "coc_007": {
+                problem: "A firm has equity beta of 1.60 and debt-to-value ratio D/V=0.40. Debt beta=0.30. What is the unlevered (asset) beta?",
                 steps: [
-                    { explanation: "Compare IRR to hurdle rate:", calculation: "IRR = 15%, Hurdle = 18%" },
-                    { explanation: "Apply decision rule:", calculation: "Accept if IRR > Hurdle Rate" },
-                    { explanation: "15% < 18%, so reject:", calculation: "Answer: No (0)" }
+                    { explanation: "Identify the values:", calculation: "\\(\\beta_E = 1.60\\), \\(D/V = 0.40\\), \\(\\beta_D = 0.30\\)" },
+                    { explanation: "Calculate E/V:", calculation: "\\(E/V = 1 - D/V = 1 - 0.40 = 0.60\\)" },
+                    { explanation: "Apply the unlevered beta formula:", calculation: "\\(\\beta_U = (E/V) \\times \\beta_E + (D/V) \\times \\beta_D\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(\\beta_U = 0.60 \\times 1.60 + 0.40 \\times 0.30\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\beta_U = 0.96 + 0.12 = 1.08\\)" }
                 ],
-                answer: "0 (No - Reject)"
+                answer: "1.08"
             },
-            "capbudget_008": {
-                problem: "A project costs $60 million and generates $15 million per year. What is the payback period?",
+            "coc_008": {
+                problem: "A firm has equity beta=1.30, D/V=0.30, debt beta=0.15. Calculate the unlevered beta.",
                 steps: [
-                    { explanation: "Identify values:", calculation: "Investment = $60M, Annual CF = $15M" },
-                    { explanation: "Apply payback formula:", calculation: "Payback = Investment / Annual CF" },
-                    { explanation: "Calculate:", calculation: "Payback = $60M / $15M = 4 years" }
+                    { explanation: "Identify the values:", calculation: "\\(\\beta_E = 1.30\\), \\(D/V = 0.30\\), \\(\\beta_D = 0.15\\)" },
+                    { explanation: "Calculate E/V:", calculation: "\\(E/V = 1 - D/V = 1 - 0.30 = 0.70\\)" },
+                    { explanation: "Apply unlevered beta formula:", calculation: "\\(\\beta_U = (E/V) \\times \\beta_E + (D/V) \\times \\beta_D\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(\\beta_U = 0.70 \\times 1.30 + 0.30 \\times 0.15\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\beta_U = 0.91 + 0.045 = 0.955 \\approx 0.96\\)" }
                 ],
-                answer: "4 years"
+                answer: "0.96"
             },
-            "capbudget_009": {
-                problem: "Invest $40M, receive $10M/year for 6 years at 10% discount rate. What is the NPV?",
+            "coc_009": {
+                problem: "A conglomerate has a chemicals division (low risk) and a biotech division (high risk). The firm's overall WACC is 9%. The chemicals division has a cost of capital of 7% and the biotech division has a cost of capital of 13%. Should the firm use 9% to evaluate all projects?",
                 steps: [
-                    { explanation: "Use annuity formula:", calculation: "PV = $10M × [1 - 1/(1.10)⁶] / 0.10" },
-                    { explanation: "Calculate annuity factor:", calculation: "[1 - 0.5645] / 0.10 = 4.355" },
-                    { explanation: "Calculate PV of cash flows:", calculation: "$10M × 4.355 = $43.55M" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$40M + $43.55M = $3.55M" }
+                    { explanation: "Consider what happens if we use the firm-wide 9% WACC:", calculation: "Chemicals projects need 7% return; Biotech projects need 13% return" },
+                    { explanation: "Using 9% for chemicals division:", calculation: "Would reject good chemicals projects that earn 7-9% (too high a hurdle)" },
+                    { explanation: "Using 9% for biotech division:", calculation: "Would accept bad biotech projects that earn 9-13% (too low a hurdle)" },
+                    { explanation: "Conclusion:", calculation: "The firm should NOT use a single rate when divisions have different risk profiles" }
                 ],
-                answer: "$3.55 million"
+                answer: "Option 2"
             },
-            "capbudget_010": {
-                problem: "Revenue $400K, Costs $250K, Depreciation $40K, Tax rate 30%, no CapEx or NWC change. What is FCF?",
+            "coc_010": {
+                problem: "TechStartup Inc. is a private company considering entering the cloud storage market. Why might they look at comparable public companies like Dropbox or Box to estimate their cost of capital?",
                 steps: [
-                    { explanation: "Calculate EBIT:", calculation: "$400K - $250K - $40K = $110K" },
-                    { explanation: "Calculate Taxes:", calculation: "$110K × 0.30 = $33K" },
-                    { explanation: "Calculate Unlevered Net Income:", calculation: "$110K - $33K = $77K" },
-                    { explanation: "Add back depreciation:", calculation: "FCF = $77K + $40K = $117K" }
+                    { explanation: "Consider why direct estimation is difficult:", calculation: "Private companies have no publicly traded stock, so beta cannot be observed directly" },
+                    { explanation: "Consider the project context:", calculation: "Even if the firm were public, a new project may have different risk than existing operations" },
+                    { explanation: "The comparable firm approach:", calculation: "Use betas from similar public firms, unlever them, then relever for the target capital structure" },
+                    { explanation: "Conclusion:", calculation: "Comparable firms provide observable market data when direct estimation is impossible" }
                 ],
-                answer: "$117,000"
+                answer: "Option 3"
             }
         };
 
-        // Capital Budgeting Problems based on Week 2 slides (with variations)
+        // Problems data embedded directly to avoid CORS issues
         let problems = [
             {
-                "id": "capbudget_001",
-                "topic": "NPV Calculation",
+                "id": "coc_001",
+                "topic": "Capital Structure Weights",
                 "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $200,000 today and will generate a single cash flow of $250,000 in one year. If the opportunity cost of capital is 15%, what is the NPV of this project?",
+                "problem_text": "A firm has equity value E=$200M and debt D=$600M. What fraction of the firm's value is equity (as a percentage)?",
                 "given": {
-                    "initial_investment": 200000,
-                    "future_cash_flow": 250000,
-                    "discount_rate": 0.15
+                    "equity": 200,
+                    "debt": 600
                 },
-                "formula": "NPV = -Initial Investment + Future Cash Flow / (1 + r)",
+                "formula": "\\(E/V = E / (E + D)\\)",
                 "solution_steps": [
-                    "Step 1: Identify cash flows: C₀ = -$200,000, C₁ = $250,000",
-                    "Step 2: Discount rate r = 15%",
-                    "Step 3: Calculate PV of future cash flow: $250,000 / 1.15 = $217,391",
-                    "Step 4: NPV = -$200,000 + $217,391",
-                    "Step 5: Final answer: NPV = $17,391"
+                    "Step 1: Identify the values: \\(E = \\$200M\\), \\(D = \\$600M\\)",
+                    "Step 2: Calculate total firm value: \\(V = E + D = 200 + 600 = \\$800M\\)",
+                    "Step 3: Calculate equity fraction: \\(E/V = 200 / 800 = 0.25\\)",
+                    "Step 4: Convert to percentage: \\(0.25 \\times 100 = 25\\%\\)"
                 ],
-                "correct_answer": 17391,
+                "correct_answer": 25,
+                "tolerance": 0.5,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "NPV = Present Value of Benefits - Present Value of Costs",
-                    "level_2": "Discount the $250,000 back one year at 15%, then subtract the initial investment",
-                    "level_3": "NPV = -200,000 + 250,000/1.15"
+                    "level_1": "First calculate total firm value \\(V = E + D\\), then divide \\(E\\) by \\(V\\)",
+                    "level_2": "\\(V = 200 + 600 = 800\\). Now divide \\(E\\) by \\(V\\) and multiply by 100",
+                    "level_3": "\\(E/V = 200/800 = 0.25 \\rightarrow 25\\%\\)"
                 }
             },
             {
-                "id": "capbudget_002",
-                "topic": "NPV with Multiple Cash Flows",
+                "id": "coc_002",
+                "topic": "Unlevered Cost of Capital",
                 "difficulty": "medium",
-                "problem_text": "A project requires an investment of $150,000 today and the opportunity cost of your time worth $50,000 in present value. The project will pay $300,000 in one year. If the discount rate is 20%, what is the NPV?",
+                "problem_text": "Ridgeline Corp has equity market cap $200M, debt $600M, cost of equity 12%, cost of debt 5%. Calculate the unlevered cost of capital (as a percentage).",
                 "given": {
-                    "initial_investment": 150000,
-                    "opportunity_cost": 50000,
-                    "future_cash_flow": 300000,
-                    "discount_rate": 0.20
+                    "equity": 200,
+                    "debt": 600,
+                    "cost_of_equity": 0.12,
+                    "cost_of_debt": 0.05
                 },
-                "formula": "NPV = -Initial Investment - Opportunity Cost + PV(Future Cash Flow)",
+                "formula": "\\(r_U = (E/V) \\times r_E + (D/V) \\times r_D\\)",
                 "solution_steps": [
-                    "Step 1: Total costs today = $150,000 + $50,000 = $200,000",
-                    "Step 2: PV of benefits = $300,000 / 1.20 = $250,000",
-                    "Step 3: NPV = -$200,000 + $250,000",
-                    "Step 4: Final answer: NPV = $50,000"
+                    "Step 1: Identify: \\(E = \\$200M\\), \\(D = \\$600M\\), \\(r_E = 12\\%\\), \\(r_D = 5\\%\\)",
+                    "Step 2: Calculate \\(V = E + D = 200 + 600 = \\$800M\\)",
+                    "Step 3: Calculate weights: \\(E/V = 200/800 = 0.25\\), \\(D/V = 600/800 = 0.75\\)",
+                    "Step 4: Apply formula: \\(r_U = 0.25 \\times 12\\% + 0.75 \\times 5\\%\\)",
+                    "Step 5: Calculate: \\(r_U = 3.00\\% + 3.75\\% = 6.75\\%\\)"
                 ],
-                "correct_answer": 50000,
+                "correct_answer": 6.75,
+                "tolerance": 0.1,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "Don't forget to include the opportunity cost of time as a cost",
-                    "level_2": "Total cost = investment + opportunity cost = $200,000",
-                    "level_3": "NPV = -200,000 + 300,000/1.20"
+                    "level_1": "The unlevered cost of capital is the weighted average of equity and debt costs, using market value weights",
+                    "level_2": "First find \\(V = E + D = 800\\). Then \\(r_U = (E/V) \\times r_E + (D/V) \\times r_D\\)",
+                    "level_3": "\\(r_U = (200/800) \\times 12\\% + (600/800) \\times 5\\% = 3.00\\% + 3.75\\%\\)"
                 }
             },
             {
-                "id": "capbudget_003",
-                "topic": "Comparing Projects by NPV",
+                "id": "coc_003",
+                "topic": "WACC",
                 "difficulty": "medium",
-                "problem_text": "You have two mutually exclusive projects. Project A costs $100,000 today and pays $140,000 in one year. Project B costs $200,000 today and pays $270,000 in one year. If the discount rate is 12%, what is the NPV of Project B?",
+                "problem_text": "Using the same Ridgeline data (E=$200M, D=$600M, r_E=12%, r_D=5%) and a corporate tax rate of 25%, calculate the WACC (as a percentage).",
                 "given": {
-                    "project_b_cost": 200000,
-                    "project_b_payoff": 270000,
-                    "discount_rate": 0.12
-                },
-                "formula": "NPV = -Cost + Payoff / (1 + r)",
-                "solution_steps": [
-                    "Step 1: Project B cash flows: C₀ = -$200,000, C₁ = $270,000",
-                    "Step 2: PV of Year 1 cash flow: $270,000 / 1.12 = $241,071",
-                    "Step 3: NPV = -$200,000 + $241,071",
-                    "Step 4: Final answer: NPV of Project B = $41,071"
-                ],
-                "correct_answer": 41071,
-                "hints": {
-                    "level_1": "Calculate NPV for Project B using the standard formula",
-                    "level_2": "Discount $270,000 by one year at 12%",
-                    "level_3": "NPV = -200,000 + 270,000/1.12"
-                }
-            },
-            {
-                "id": "capbudget_004",
-                "topic": "Profitability Index",
-                "difficulty": "easy",
-                "problem_text": "A project has an NPV of $25 million and requires an initial investment of $20 million. What is the profitability index?",
-                "given": {
-                    "npv": 25,
-                    "initial_investment": 20
-                },
-                "formula": "Profitability Index = NPV / Resource Consumed",
-                "solution_steps": [
-                    "Step 1: NPV = $25 million",
-                    "Step 2: Initial Investment = $20 million",
-                    "Step 3: Profitability Index = NPV / Initial Investment",
-                    "Step 4: PI = 25 / 20 = 1.25",
-                    "Step 5: Final answer: Profitability Index = 1.25"
-                ],
-                "correct_answer": 1.25,
-                "hints": {
-                    "level_1": "Profitability Index measures value created per dollar invested",
-                    "level_2": "PI = NPV / Investment",
-                    "level_3": "PI = 25 / 20"
-                }
-            },
-            {
-                "id": "capbudget_005",
-                "topic": "Profitability Index - Project Selection",
-                "difficulty": "medium",
-                "problem_text": "You have $50 million to invest. Project A has NPV of $15M and costs $20M. Project B has NPV of $12M and costs $15M. Project C has NPV of $20M and costs $25M. Using the profitability index, what is the maximum total NPV you can achieve?",
-                "given": {
-                    "budget": 50,
-                    "project_a": {"npv": 15, "cost": 20, "pi": 0.75},
-                    "project_b": {"npv": 12, "cost": 15, "pi": 0.80},
-                    "project_c": {"npv": 20, "cost": 25, "pi": 0.80}
-                },
-                "formula": "Rank by PI = NPV/Cost, then select projects until budget exhausted",
-                "solution_steps": [
-                    "Step 1: Calculate PI for each project:",
-                    "  - Project A: 15/20 = 0.75",
-                    "  - Project B: 12/15 = 0.80",
-                    "  - Project C: 20/25 = 0.80",
-                    "Step 2: Rank by PI: B and C tied at 0.80, then A at 0.75",
-                    "Step 3: Select B ($15M) + C ($25M) = $40M invested, leaves $10M",
-                    "Step 4: Can't fit A ($20M) in remaining $10M",
-                    "Step 5: Total NPV = $12M + $20M = $32M"
-                ],
-                "correct_answer": 32,
-                "hints": {
-                    "level_1": "Calculate PI for each project, then rank them",
-                    "level_2": "PI: A=0.75, B=0.80, C=0.80. Start with highest PI projects",
-                    "level_3": "B+C costs $40M and gives NPV of $32M. A doesn't fit in remaining $10M"
-                }
-            },
-            {
-                "id": "capbudget_006",
-                "topic": "IRR Calculation",
-                "difficulty": "medium",
-                "problem_text": "A project has the following cash flows: invest $4,000 today, receive $1,500 at the end of each of the next 3 years. The IRR of this project is approximately 6.1%. If your opportunity cost of capital is 5%, what is the NPV of this project (to the nearest dollar)?",
-                "given": {
-                    "initial_investment": 4000,
-                    "annual_cash_flow": 1500,
-                    "years": 3,
-                    "discount_rate": 0.05
-                },
-                "formula": "NPV = -C₀ + C₁/(1+r) + C₂/(1+r)² + C₃/(1+r)³",
-                "solution_steps": [
-                    "Step 1: Cash flows: C₀ = -$4,000, C₁ = C₂ = C₃ = $1,500",
-                    "Step 2: Discount rate = 5%",
-                    "Step 3: PV of Year 1: 1500/1.05 = $1,428.57",
-                    "Step 4: PV of Year 2: 1500/1.05² = $1,360.54",
-                    "Step 5: PV of Year 3: 1500/1.05³ = $1,295.76",
-                    "Step 6: NPV = -4000 + 1428.57 + 1360.54 + 1295.76 = $84.87",
-                    "Step 7: Final answer: NPV ≈ $85"
-                ],
-                "correct_answer": 85,
-                "hints": {
-                    "level_1": "Since IRR (6.1%) > cost of capital (5%), NPV should be positive",
-                    "level_2": "Discount each $1,500 payment at 5%",
-                    "level_3": "NPV = -4000 + 1500/1.05 + 1500/1.05² + 1500/1.05³"
-                }
-            },
-            {
-                "id": "capbudget_007",
-                "topic": "IRR Decision Rule",
-                "difficulty": "easy",
-                "problem_text": "A project has an IRR of 18%. Your company's hurdle rate (opportunity cost of capital) is 12%. Based on the IRR rule, should you accept this project? Enter 1 for Yes, 0 for No.",
-                "given": {
-                    "irr": 0.18,
-                    "hurdle_rate": 0.12
-                },
-                "formula": "Accept if IRR > Hurdle Rate",
-                "solution_steps": [
-                    "Step 1: IRR = 18%",
-                    "Step 2: Hurdle Rate = 12%",
-                    "Step 3: Compare: 18% > 12%",
-                    "Step 4: Since IRR exceeds the hurdle rate, accept the project",
-                    "Step 5: Final answer: Yes (1)"
-                ],
-                "correct_answer": 1,
-                "hints": {
-                    "level_1": "The IRR rule says to accept if IRR exceeds the opportunity cost of capital",
-                    "level_2": "Compare 18% to 12%",
-                    "level_3": "18% > 12%, so accept"
-                }
-            },
-            {
-                "id": "capbudget_008",
-                "topic": "Payback Period",
-                "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $80 million and generates $20 million per year in free cash flow. What is the payback period in years?",
-                "given": {
-                    "initial_investment": 80,
-                    "annual_cash_flow": 20
-                },
-                "formula": "Payback Period = Initial Investment / Annual Cash Flow",
-                "solution_steps": [
-                    "Step 1: Initial Investment = $80 million",
-                    "Step 2: Annual Cash Flow = $20 million",
-                    "Step 3: Payback Period = Investment / Annual Cash Flow",
-                    "Step 4: Payback = 80 / 20 = 4 years",
-                    "Step 5: Final answer: 4 years"
-                ],
-                "correct_answer": 4,
-                "hints": {
-                    "level_1": "Payback period is how long it takes to recover your initial investment",
-                    "level_2": "Divide initial investment by annual cash flow",
-                    "level_3": "80 / 20 = 4 years"
-                }
-            },
-            {
-                "id": "capbudget_009",
-                "topic": "NPV vs Payback",
-                "difficulty": "medium",
-                "problem_text": "A project requires $60 million today and generates $12 million per year for 8 years. Your company has a 5-year payback rule and uses an 8% discount rate. What is the NPV of this project (in millions)?",
-                "given": {
-                    "initial_investment": 60,
-                    "annual_cash_flow": 12,
-                    "years": 8,
-                    "discount_rate": 0.08
-                },
-                "formula": "NPV = -C₀ + C × [1 - 1/(1+r)^n] / r",
-                "solution_steps": [
-                    "Step 1: This is an annuity: $12M per year for 8 years",
-                    "Step 2: PV of annuity = 12 × [1 - 1/(1.08)^8] / 0.08",
-                    "Step 3: = 12 × [1 - 0.5403] / 0.08",
-                    "Step 4: = 12 × 5.7466 = $68.96M",
-                    "Step 5: NPV = -60 + 68.96 = $8.96M",
-                    "Step 6: Final answer: NPV ≈ $9 million"
-                ],
-                "correct_answer": 9,
-                "hints": {
-                    "level_1": "Use the annuity formula to find PV of the 8 years of cash flows",
-                    "level_2": "PV = 12 × annuity factor for 8 years at 8%",
-                    "level_3": "Annuity factor = 5.7466, so PV = $68.96M, NPV = -60 + 68.96"
-                }
-            },
-            {
-                "id": "capbudget_010",
-                "topic": "Free Cash Flow",
-                "difficulty": "hard",
-                "problem_text": "A project has revenues of $500,000, costs of $300,000, and depreciation of $50,000. The tax rate is 25%. There is no change in NWC and no CapEx this year. What is the Free Cash Flow?",
-                "given": {
-                    "revenues": 500000,
-                    "costs": 300000,
-                    "depreciation": 50000,
+                    "equity": 200,
+                    "debt": 600,
+                    "cost_of_equity": 0.12,
+                    "cost_of_debt": 0.05,
                     "tax_rate": 0.25
                 },
-                "formula": "FCF = (Rev - Costs - Dep)(1 - τ) + Dep - CapEx - ΔNWC",
+                "formula": "\\(WACC = (E/V) \\times r_E + (D/V) \\times r_D \\times (1 - T_c)\\)",
                 "solution_steps": [
-                    "Step 1: Calculate EBIT = Revenue - Costs - Depreciation",
-                    "Step 2: EBIT = 500,000 - 300,000 - 50,000 = $150,000",
-                    "Step 3: Taxes = EBIT × tax rate = 150,000 × 0.25 = $37,500",
-                    "Step 4: Unlevered Net Income = EBIT - Taxes = 150,000 - 37,500 = $112,500",
-                    "Step 5: FCF = UNI + Depreciation - CapEx - ΔNWC",
-                    "Step 6: FCF = 112,500 + 50,000 - 0 - 0 = $162,500"
+                    "Step 1: Identify: \\(E = \\$200M\\), \\(D = \\$600M\\), \\(r_E = 12\\%\\), \\(r_D = 5\\%\\), \\(T_c = 25\\%\\)",
+                    "Step 2: Calculate \\(V = 200 + 600 = \\$800M\\)",
+                    "Step 3: Weights: \\(E/V = 200/800 = 0.25\\), \\(D/V = 600/800 = 0.75\\)",
+                    "Step 4: Apply WACC formula: \\(WACC = 0.25 \\times 12\\% + 0.75 \\times 5\\% \\times (1 - 0.25)\\)",
+                    "Step 5: Calculate: \\(WACC = 3.00\\% + 0.75 \\times 5\\% \\times 0.75\\)",
+                    "Step 6: \\(WACC = 3.00\\% + 2.8125\\% = 5.81\\%\\)"
                 ],
-                "correct_answer": 162500,
+                "correct_answer": 5.81,
+                "tolerance": 0.1,
+                "unit": "percent",
                 "hints": {
-                    "level_1": "FCF = Unlevered Net Income + Depreciation (add back non-cash expense)",
-                    "level_2": "First calculate EBIT, then taxes, then add back depreciation",
-                    "level_3": "EBIT = $150K, Taxes = $37.5K, UNI = $112.5K, FCF = $112.5K + $50K"
+                    "level_1": "WACC is like the unlevered cost of capital, but the debt term gets multiplied by \\((1 - \\text{tax rate})\\) to account for the interest tax shield",
+                    "level_2": "\\(WACC = (E/V) \\times r_E + (D/V) \\times r_D \\times (1 - T_c)\\). Remember \\((1 - 0.25) = 0.75\\) only applies to the debt cost term",
+                    "level_3": "\\(WACC = (200/800) \\times 12\\% + (600/800) \\times 5\\% \\times 0.75 = 3.00\\% + 2.8125\\%\\)"
+                }
+            },
+            {
+                "id": "coc_004",
+                "topic": "CAPM - Cost of Equity",
+                "difficulty": "medium",
+                "problem_text": "Using CAPM: risk-free rate=2%, equity beta=0.6, market risk premium=6%. What is the cost of equity capital (as a percentage)?",
+                "given": {
+                    "risk_free_rate": 0.02,
+                    "beta": 0.6,
+                    "market_risk_premium": 0.06
+                },
+                "formula": "\\(r_E = r_f + \\beta_E \\times (\\text{Market Risk Premium})\\)",
+                "solution_steps": [
+                    "Step 1: Identify: \\(r_f = 2\\%\\), \\(\\beta_E = 0.6\\), \\(MRP = 6\\%\\)",
+                    "Step 2: Apply CAPM: \\(r_E = r_f + \\beta_E \\times MRP\\)",
+                    "Step 3: Plug in: \\(r_E = 2\\% + 0.6 \\times 6\\%\\)",
+                    "Step 4: Calculate: \\(r_E = 2\\% + 3.6\\% = 5.6\\%\\)"
+                ],
+                "correct_answer": 5.6,
+                "tolerance": 0.1,
+                "unit": "percent",
+                "hints": {
+                    "level_1": "CAPM says the cost of equity equals the risk-free rate plus a risk premium based on the firm's beta",
+                    "level_2": "\\(r_E = r_f + \\beta \\times (\\text{Market Risk Premium})\\). Just plug in the three given values",
+                    "level_3": "\\(r_E = 2\\% + 0.6 \\times 6\\% = 2\\% + 3.6\\% = 5.6\\%\\)"
+                }
+            },
+            {
+                "id": "coc_005",
+                "topic": "Cost of Debt - Credit Spreads",
+                "difficulty": "medium",
+                "problem_text": "Cost of debt using credit spreads: risk-free rate=2%, bond spread for A-rated 5-year debt=150bps. What is the cost of debt capital (as a percentage)?",
+                "given": {
+                    "risk_free_rate": 0.02,
+                    "credit_spread_bps": 150
+                },
+                "formula": "\\(r_D = r_f + \\text{credit spread}\\)",
+                "solution_steps": [
+                    "Step 1: Identify: \\(r_f = 2\\%\\), \\(\\text{credit spread} = 150 \\text{ bps}\\)",
+                    "Step 2: Convert basis points to percentage: \\(150 \\text{ bps} = 1.5\\%\\)",
+                    "Step 3: Apply formula: \\(r_D = r_f + \\text{credit spread}\\)",
+                    "Step 4: Calculate: \\(r_D = 2\\% + 1.5\\% = 3.5\\%\\)"
+                ],
+                "correct_answer": 3.5,
+                "tolerance": 0.1,
+                "unit": "percent",
+                "hints": {
+                    "level_1": "The cost of debt is estimated by adding the credit spread to the risk-free rate. Remember: \\(100 \\text{ bps} = 1\\%\\)",
+                    "level_2": "\\(r_D = r_f + \\text{credit spread}\\). Convert \\(150 \\text{ bps}\\) to \\(1.5\\%\\) first",
+                    "level_3": "\\(r_D = 2\\% + 1.5\\% = 3.5\\%\\)"
+                }
+            },
+            {
+                "id": "coc_006",
+                "topic": "WACC Calculation",
+                "difficulty": "hard",
+                "problem_text": "Beacon Corp: equity=$150M, debt=$350M, r_E=5.6%, r_D=3.5%, tax rate=20%. Calculate the WACC (as a percentage).",
+                "given": {
+                    "equity": 150,
+                    "debt": 350,
+                    "cost_of_equity": 0.056,
+                    "cost_of_debt": 0.035,
+                    "tax_rate": 0.20
+                },
+                "formula": "\\(WACC = (E/V) \\times r_E + (D/V) \\times r_D \\times (1 - T_c)\\)",
+                "solution_steps": [
+                    "Step 1: Identify: \\(E = \\$150M\\), \\(D = \\$350M\\), \\(r_E = 5.6\\%\\), \\(r_D = 3.5\\%\\), \\(T_c = 20\\%\\)",
+                    "Step 2: Calculate \\(V = 150 + 350 = \\$500M\\)",
+                    "Step 3: Weights: \\(E/V = 150/500 = 0.30\\), \\(D/V = 350/500 = 0.70\\)",
+                    "Step 4: Apply WACC: \\(WACC = 0.30 \\times 5.6\\% + 0.70 \\times 3.5\\% \\times (1 - 0.20)\\)",
+                    "Step 5: Calculate: \\(WACC = 1.68\\% + 0.70 \\times 3.5\\% \\times 0.80\\)",
+                    "Step 6: \\(WACC = 1.68\\% + 1.96\\% = 3.64\\%\\)"
+                ],
+                "correct_answer": 3.64,
+                "tolerance": 0.1,
+                "unit": "percent",
+                "hints": {
+                    "level_1": "Use the WACC formula with tax adjustment on the debt cost component",
+                    "level_2": "\\(WACC = (E/V) \\times r_E + (D/V) \\times r_D \\times (1 - T_c)\\). \\(V = E + D = \\$500M\\)",
+                    "level_3": "\\(WACC = (150/500) \\times 5.6\\% + (350/500) \\times 3.5\\% \\times 0.80 = 1.68\\% + 1.96\\%\\)"
+                }
+            },
+            {
+                "id": "coc_007",
+                "topic": "Unlevered Beta",
+                "difficulty": "hard",
+                "problem_text": "A firm has equity beta of 2.00 and debt-to-value ratio D/V=0.50. Debt beta=0.20. What is the unlevered (asset) beta? (Enter as a decimal, e.g. 1.10)",
+                "given": {
+                    "equity_beta": 2.00,
+                    "d_over_v": 0.50,
+                    "debt_beta": 0.20
+                },
+                "formula": "\\(\\beta_U = (E/V) \\times \\beta_E + (D/V) \\times \\beta_D\\)",
+                "solution_steps": [
+                    "Step 1: Identify: \\(\\beta_E = 2.00\\), \\(D/V = 0.50\\), \\(\\beta_D = 0.20\\)",
+                    "Step 2: Calculate \\(E/V = 1 - D/V = 1 - 0.50 = 0.50\\)",
+                    "Step 3: Apply unlevered beta formula: \\(\\beta_U = (E/V) \\times \\beta_E + (D/V) \\times \\beta_D\\)",
+                    "Step 4: Plug in: \\(\\beta_U = 0.50 \\times 2.00 + 0.50 \\times 0.20\\)",
+                    "Step 5: Calculate: \\(\\beta_U = 1.00 + 0.10 = 1.10\\)"
+                ],
+                "correct_answer": 1.10,
+                "tolerance": 0.05,
+                "unit": "decimal",
+                "hints": {
+                    "level_1": "The unlevered beta is a weighted average of equity beta and debt beta, using value weights",
+                    "level_2": "First find \\(E/V = 1 - D/V = 1 - 0.50 = 0.50\\). Then \\(\\beta_U = (E/V) \\times \\beta_E + (D/V) \\times \\beta_D\\)",
+                    "level_3": "\\(\\beta_U = 0.50 \\times 2.00 + 0.50 \\times 0.20 = 1.00 + 0.10 = 1.10\\)"
+                }
+            },
+            {
+                "id": "coc_008",
+                "topic": "Unlevered Beta",
+                "difficulty": "medium",
+                "problem_text": "A firm has equity beta=1.50, D/V=0.40, debt beta=0.10. Calculate the unlevered beta. (Enter as a decimal, e.g. 0.94)",
+                "given": {
+                    "equity_beta": 1.50,
+                    "d_over_v": 0.40,
+                    "debt_beta": 0.10
+                },
+                "formula": "\\(\\beta_U = (E/V) \\times \\beta_E + (D/V) \\times \\beta_D\\)",
+                "solution_steps": [
+                    "Step 1: Identify: \\(\\beta_E = 1.50\\), \\(D/V = 0.40\\), \\(\\beta_D = 0.10\\)",
+                    "Step 2: Calculate \\(E/V = 1 - D/V = 1 - 0.40 = 0.60\\)",
+                    "Step 3: Apply formula: \\(\\beta_U = (E/V) \\times \\beta_E + (D/V) \\times \\beta_D\\)",
+                    "Step 4: Plug in: \\(\\beta_U = 0.60 \\times 1.50 + 0.40 \\times 0.10\\)",
+                    "Step 5: Calculate: \\(\\beta_U = 0.90 + 0.04 = 0.94\\)"
+                ],
+                "correct_answer": 0.94,
+                "tolerance": 0.05,
+                "unit": "decimal",
+                "hints": {
+                    "level_1": "Use the same unlevered beta formula: \\(\\beta_U = (E/V) \\times \\beta_E + (D/V) \\times \\beta_D\\)",
+                    "level_2": "\\(E/V = 1 - 0.40 = 0.60\\). Then calculate the weighted average of the two betas",
+                    "level_3": "\\(\\beta_U = 0.60 \\times 1.50 + 0.40 \\times 0.10 = 0.90 + 0.04 = 0.94\\)"
+                }
+            },
+            {
+                "id": "coc_009",
+                "topic": "Company-Wide Discount Rate",
+                "difficulty": "medium",
+                "type": "choice",
+                "problem_text": "When should you NOT use a single company-wide discount rate to evaluate projects?",
+                "choices": [
+                    "When all projects have the same risk",
+                    "When the firm has multiple divisions with different risk profiles",
+                    "When the firm only has equity financing",
+                    "When the risk-free rate is very low"
+                ],
+                "formula": "Different projects/divisions may have different risk, requiring different discount rates",
+                "solution_steps": [
+                    "Step 1: A single company-wide WACC assumes all projects have similar risk to the firm as a whole",
+                    "Step 2: If the firm has multiple divisions with different risk profiles, using one rate leads to errors",
+                    "Step 3: Low-risk divisions would have too high a hurdle rate (rejecting good projects)",
+                    "Step 4: High-risk divisions would have too low a hurdle rate (accepting bad projects)",
+                    "Step 5: Answer: When the firm has multiple divisions with different risk profiles"
+                ],
+                "correct_answer": 2,
+                "tolerance": 0,
+                "unit": "choice",
+                "hints": {
+                    "level_1": "Think about what happens when different parts of a company face very different levels of risk",
+                    "level_2": "If a conglomerate uses one discount rate, what happens to projects in its safe division vs. its risky division?",
+                    "level_3": "A single rate overpenalizes safe projects and underpenalizes risky ones when divisions differ"
+                }
+            },
+            {
+                "id": "coc_010",
+                "topic": "Comparable Firms",
+                "difficulty": "medium",
+                "type": "choice",
+                "problem_text": "Why do firms use comparable firms to estimate cost of capital?",
+                "choices": [
+                    "Comparable firms always have the same stock price",
+                    "It's legally required by the SEC",
+                    "The firm may be private or the project may differ from the firm's overall business, making direct estimation impossible",
+                    "Comparable firms have lower costs of capital"
+                ],
+                "formula": "Comparable firms provide observable betas and capital structure data for estimation",
+                "solution_steps": [
+                    "Step 1: Private firms do not have publicly traded equity, so their beta cannot be directly observed",
+                    "Step 2: Even for public firms, a new project may have very different risk than the firm's existing operations",
+                    "Step 3: Comparable firms in the same industry provide observable betas and market data",
+                    "Step 4: The process: find comps, unlever their betas, then relever for the target capital structure",
+                    "Step 5: Answer: The firm may be private or the project may differ from the firm's overall business"
+                ],
+                "correct_answer": 3,
+                "tolerance": 0,
+                "unit": "choice",
+                "hints": {
+                    "level_1": "Think about what data you need to estimate cost of capital and when that data might not be available",
+                    "level_2": "How would a private company estimate its equity beta if it has no publicly traded stock?",
+                    "level_3": "Comparable firms provide market-based data (betas, capital structure) when direct observation is impossible"
                 }
             }
         ];
@@ -1172,12 +1307,14 @@
         let currentProblemIndex = 0;
         let attemptCount = 0;
         let completedProblems = new Set();
+        let selectedChoice = null;
 
         // Spaced repetition tracking
-        const TOPIC_KEY = 'capbudget';
-        const MISSED_PROBLEMS_KEY = 'finance_missed_' + TOPIC_KEY;
-        const MASTERED_PROBLEMS_KEY = 'finance_mastered_' + TOPIC_KEY;
+        const TOPIC_KEY = 'costofcapital'; // Unique key for this topic
+        const MISSED_PROBLEMS_KEY = 'finance_missed_costofcapital';
+        const MASTERED_PROBLEMS_KEY = 'finance_mastered_costofcapital';
 
+        // Check if we're in review mode (URL parameter)
         const urlParams = new URLSearchParams(window.location.search);
         const reviewMode = urlParams.get('review') === 'true';
 
@@ -1193,28 +1330,43 @@
 
         function saveMissedProblem(problemId) {
             const missed = getMissedProblems();
-            missed[problemId] = { count: (missed[problemId]?.count || 0) + 1, lastMissed: new Date().toISOString() };
+            missed[problemId] = {
+                count: (missed[problemId]?.count || 0) + 1,
+                lastMissed: new Date().toISOString()
+            };
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
         }
 
         function markProblemMastered(problemId) {
+            // Remove from missed
             const missed = getMissedProblems();
             delete missed[problemId];
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+
+            // Add to mastered
             const mastered = getMasteredProblems();
-            mastered[problemId] = { masteredOn: new Date().toISOString() };
+            mastered[problemId] = {
+                masteredOn: new Date().toISOString()
+            };
             localStorage.setItem(MASTERED_PROBLEMS_KEY, JSON.stringify(mastered));
         }
 
         function filterProblemsForReview() {
             if (!reviewMode) return problems;
+
             const missed = getMissedProblems();
             const missedIds = Object.keys(missed);
-            return missedIds.length === 0 ? [] : problems.filter(p => missedIds.includes(p.id));
+
+            if (missedIds.length === 0) {
+                return []; // No problems to review
+            }
+
+            return problems.filter(p => missedIds.includes(p.id));
         }
 
         // Load problems on page load
         function loadProblems() {
+            // Filter problems if in review mode
             if (reviewMode) {
                 const reviewProblems = filterProblemsForReview();
                 if (reviewProblems.length === 0) {
@@ -1222,20 +1374,24 @@
                     return;
                 }
                 problems = reviewProblems;
-                document.querySelector('h1').textContent = 'Capital Budgeting - Review';
+                // Update header to show review mode
+                document.querySelector('h1').textContent = 'The Cost of Capital - Review';
                 document.querySelector('.subtitle').textContent = 'Reviewing missed problems';
             }
             displayProblem();
         }
 
         function showNoProblemsToReview() {
-            document.getElementById('problemCard').innerHTML = `
+            const problemCard = document.getElementById('problemCard');
+            problemCard.innerHTML = `
                 <div style="text-align: center; padding: 3rem;">
                     <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
                     <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #2D3748;">No Problems to Review!</h2>
-                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">You've mastered all the problems you previously missed.</p>
+                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">
+                        You've mastered all the problems you previously missed. Great work!
+                    </p>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="week2-capbudget.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
+                        <a href="week8-costofcapital.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Back to Topics</a>
                     </div>
                 </div>
@@ -1256,6 +1412,7 @@
             const container = document.getElementById('workedExampleContent');
             const toggle = document.getElementById('workedExampleToggle');
 
+            // Reset to collapsed state
             toggle.classList.remove('expanded');
             document.getElementById('toggleText').textContent = 'Show';
 
@@ -1297,6 +1454,7 @@
 
             const problem = problems[currentProblemIndex];
             attemptCount = 0;
+            selectedChoice = null;
 
             // Update progress
             const progress = ((currentProblemIndex) / problems.length) * 100;
@@ -1322,10 +1480,41 @@
             document.getElementById('formulaText').textContent = problem.formula;
             document.getElementById('formulaBox').classList.add('hidden');
 
-            // Clear answer input and feedback
-            document.getElementById('answerInput').value = '';
+            // Handle answer section based on problem type
+            const answerSection = document.getElementById('answerSection');
+            if (problem.type === 'choice') {
+                // Render multiple choice
+                let choicesHtml = '<div class="choices-container">';
+                problem.choices.forEach((choice, index) => {
+                    choicesHtml += `
+                        <button class="choice-btn" onclick="selectChoice(${index + 1})" id="choice-${index + 1}">
+                            <span class="choice-number">${index + 1}</span>
+                            <span>${choice}</span>
+                        </button>
+                    `;
+                });
+                choicesHtml += '</div>';
+                choicesHtml += '<button class="btn-primary" id="submitBtn" onclick="checkAnswer()" style="margin-top: 1rem;">Submit</button>';
+                answerSection.innerHTML = choicesHtml;
+            } else {
+                // Render numerical input
+                answerSection.innerHTML = `
+                    <div class="input-group">
+                        <label for="answerInput">Your Answer:</label>
+                        <input type="number" id="answerInput" step="0.01" placeholder="Enter your answer">
+                        <button class="btn-primary" id="submitBtn" onclick="checkAnswer()">Submit</button>
+                    </div>
+                `;
+                // Re-attach enter key listener
+                document.getElementById('answerInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !document.getElementById('submitBtn').disabled) {
+                        checkAnswer();
+                    }
+                });
+            }
+
+            // Clear feedback
             document.getElementById('feedbackBox').className = 'hidden';
-            document.getElementById('submitBtn').disabled = false;
 
             // Render LaTeX
             renderMath();
@@ -1336,26 +1525,38 @@
                 currentProblemIndex === problems.length - 1 ? 'Finish' : 'Next Problem';
         }
 
+        function selectChoice(choiceNumber) {
+            selectedChoice = choiceNumber;
+            // Update visual selection
+            document.querySelectorAll('.choice-btn').forEach(btn => btn.classList.remove('selected'));
+            document.getElementById('choice-' + choiceNumber).classList.add('selected');
+        }
+
         function checkAnswer() {
             const problem = problems[currentProblemIndex];
-            const userAnswer = parseFloat(document.getElementById('answerInput').value);
+            let userAnswer;
 
-            if (isNaN(userAnswer)) {
-                showFeedback('Please enter a valid number', 'incorrect');
-                return;
-            }
-
-            // Smart tolerance: 0.5% of correct answer OR $1 (or appropriate minimum), whichever is larger
-            const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
-            let minTolerance;
-            if (problem.correct_answer >= 1000) {
-                minTolerance = Math.max(1, problem.correct_answer * 0.01); // 1% for large numbers
-            } else if (problem.correct_answer < 10) {
-                minTolerance = 0.05; // Small tolerance for small numbers like PI
+            if (problem.type === 'choice') {
+                if (selectedChoice === null) {
+                    showFeedback('Please select an answer', 'incorrect');
+                    return;
+                }
+                userAnswer = selectedChoice;
             } else {
-                minTolerance = 1;
+                userAnswer = parseFloat(document.getElementById('answerInput').value);
+                if (isNaN(userAnswer)) {
+                    showFeedback('Please enter a valid number', 'incorrect');
+                    return;
+                }
             }
-            const tolerance = Math.max(percentTolerance, minTolerance);
+
+            // Smart tolerance: allow for rounding errors from intermediate calculations
+            const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
+            const minTolerance = problem.unit === 'percent' ? 0.05 : (problem.unit === 'choice' ? 0 : 1);
+            const calculatedTolerance = Math.max(percentTolerance, minTolerance);
+
+            // Use problem-specific tolerance if provided, otherwise use calculated tolerance
+            const tolerance = problem.tolerance !== undefined ? problem.tolerance : calculatedTolerance;
 
             const isCorrect = Math.abs(userAnswer - problem.correct_answer) <= tolerance;
 
@@ -1363,24 +1564,22 @@
 
             if (isCorrect) {
                 completedProblems.add(currentProblemIndex);
-                if (attemptCount === 1) markProblemMastered(problem.id);
+                // If correct on first attempt, mark as mastered
+                if (attemptCount === 1) {
+                    markProblemMastered(problem.id);
+                }
                 showCorrectFeedback();
             } else {
+                // Track this as a missed problem
                 saveMissedProblem(problem.id);
                 showIncorrectFeedback();
             }
         }
 
-        function formatAnswer(problem) {
-            if (problem.correct_answer >= 1000000) {
-                return '$' + (problem.correct_answer / 1000000).toFixed(2) + ' million';
-            } else if (problem.correct_answer >= 1000) {
-                return '$' + problem.correct_answer.toLocaleString();
-            } else if (problem.correct_answer < 10 && problem.correct_answer > 0) {
-                return problem.correct_answer.toFixed(2);
-            } else {
-                return '$' + problem.correct_answer.toLocaleString();
-            }
+        function showFeedback(message, type) {
+            const feedbackBox = document.getElementById('feedbackBox');
+            feedbackBox.className = 'feedback-box feedback-' + type;
+            feedbackBox.innerHTML = `<div class="feedback-title">${message}</div>`;
         }
 
         function showCorrectFeedback() {
@@ -1392,7 +1591,7 @@
                     Correct!
                 </div>
                 <div class="feedback-content">
-                    Great job! The correct answer is ${formatAnswer(problem)}.
+                    Great job! The correct answer is ${formatAnswer(problem.correct_answer, problem.unit || 'dollars')}.
                 </div>
             `;
 
@@ -1464,7 +1663,7 @@
             problem.solution_steps.forEach((step, index) => {
                 html += `
                     <div class="solution-step">
-                        ${step}
+                        <span class="step-number">Step ${index + 1}:</span> ${step}
                     </div>
                 `;
             });
@@ -1472,7 +1671,7 @@
             html += `
                 </div>
                 <div class="feedback-content" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #E2E8F0;">
-                    <strong>Final Answer:</strong> ${formatAnswer(problem)}
+                    <strong>Final Answer:</strong> ${formatAnswer(problem.correct_answer, problem.unit || 'dollars')}
                 </div>
             `;
 
@@ -1505,15 +1704,26 @@
             const total = problems.length;
             const percentage = Math.round((completed / total) * 100);
 
+            // Check how many problems are in the missed queue
             const missed = getMissedProblems();
             const missedCount = Object.keys(missed).length;
+
             let reviewButton = '';
             if (missedCount > 0 && !reviewMode) {
-                reviewButton = `<a href="week2-capbudget.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}</a>`;
+                reviewButton = `
+                    <a href="week8-costofcapital.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">
+                        Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}
+                    </a>
+                `;
             }
+
             let celebrationMessage = '';
             if (reviewMode && completed === total) {
-                celebrationMessage = `<div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;"><strong>Excellent!</strong> You've mastered these previously missed problems!</div>`;
+                celebrationMessage = `
+                    <div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <strong>Excellent!</strong> You've mastered these previously missed problems!
+                    </div>
+                `;
             }
 
             problemCard.innerHTML = `
@@ -1528,7 +1738,7 @@
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                         ${reviewButton}
-                        <button class="btn-primary" onclick="location.href='week2-capbudget.html'">Practice All</button>
+                        <button class="btn-primary" onclick="location.href='week8-costofcapital.html'">Practice All</button>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
                     </div>
                 </div>
@@ -1536,23 +1746,29 @@
         }
 
         function renderMath() {
-            // Simple rendering - for more complex math, we'd use KaTeX's auto-render
             setTimeout(() => {
-                const elements = document.querySelectorAll('.problem-text, .formula-box, .solution-step, .hint-box');
-                elements.forEach(element => {
-                    // Replace common LaTeX patterns with rendered math
-                    // This is a simplified version - full KaTeX auto-render would be more robust
-                });
+                if (typeof renderMathInElement === 'function') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: '$$', right: '$$', display: true},
+                            {left: '\\(', right: '\\)', display: false}
+                        ],
+                        throwOnError: false
+                    });
+                }
             }, 100);
         }
 
         // Allow Enter key to submit
         document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('answerInput').addEventListener('keypress', (e) => {
-                if (e.key === 'Enter' && !document.getElementById('submitBtn').disabled) {
-                    checkAnswer();
-                }
-            });
+            const answerInput = document.getElementById('answerInput');
+            if (answerInput) {
+                answerInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !document.getElementById('submitBtn').disabled) {
+                        checkAnswer();
+                    }
+                });
+            }
             loadProblems();
         });
     </script>

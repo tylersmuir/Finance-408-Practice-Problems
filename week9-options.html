@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finance Practice Tool - Capital Budgeting</title>
+    <title>Finance Practice Tool - Options</title>
 
     <!-- KaTeX for LaTeX rendering -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
@@ -465,8 +465,15 @@
             color: #2C5282;
         }
 
-        .worked-example-title .icon { font-size: 1.25rem; }
-        .worked-example-subtitle { font-size: 0.85rem; color: #4A5568; font-weight: 400; }
+        .worked-example-title .icon {
+            font-size: 1.25rem;
+        }
+
+        .worked-example-subtitle {
+            font-size: 0.85rem;
+            color: #4A5568;
+            font-weight: 400;
+        }
 
         .toggle-indicator {
             display: flex;
@@ -477,8 +484,14 @@
             font-weight: 500;
         }
 
-        .toggle-arrow { transition: transform 0.3s ease; font-size: 1.25rem; }
-        .worked-example-toggle.expanded .toggle-arrow { transform: rotate(180deg); }
+        .toggle-arrow {
+            transition: transform 0.3s ease;
+            font-size: 1.25rem;
+        }
+
+        .worked-example-toggle.expanded .toggle-arrow {
+            transform: rotate(180deg);
+        }
 
         .worked-example-content {
             max-height: 0;
@@ -510,8 +523,17 @@
             margin-bottom: 0.5rem;
         }
 
-        .example-text { color: #2D3748; font-size: 0.95rem; line-height: 1.6; }
-        .example-solution { background: white; border-radius: 6px; padding: 1.25rem; }
+        .example-text {
+            color: #2D3748;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .example-solution {
+            background: white;
+            border-radius: 6px;
+            padding: 1.25rem;
+        }
 
         .example-step {
             display: flex;
@@ -520,7 +542,9 @@
             border-bottom: 1px solid #E2E8F0;
         }
 
-        .example-step:last-child { border-bottom: none; }
+        .example-step:last-child {
+            border-bottom: none;
+        }
 
         .example-step-number {
             background-color: #3182CE;
@@ -536,8 +560,15 @@
             flex-shrink: 0;
         }
 
-        .example-step-content { flex: 1; }
-        .example-step-explanation { color: #4A5568; font-size: 0.9rem; margin-bottom: 0.25rem; }
+        .example-step-content {
+            flex: 1;
+        }
+
+        .example-step-explanation {
+            color: #4A5568;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
 
         .example-step-calculation {
             font-family: 'SF Mono', Monaco, 'Courier New', monospace;
@@ -557,8 +588,17 @@
             text-align: center;
         }
 
-        .example-final-answer-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.9; }
-        .example-final-answer-value { font-size: 1.5rem; font-weight: 700; }
+        .example-final-answer-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            opacity: 0.9;
+        }
+
+        .example-final-answer-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
 
         .now-try-badge {
             background-color: #48BB78;
@@ -604,8 +644,8 @@
             <div class="header-nav">
                 <a href="index.html" class="back-link">← Back to Topics</a>
             </div>
-            <h1>Capital Budgeting</h1>
-            <div class="subtitle">Week 2 - MGMT 408</div>
+            <h1>Options</h1>
+            <div class="subtitle">Week 9 - MGMT 408</div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar" style="width: 0%"></div>
             </div>
@@ -635,7 +675,9 @@
                         <span class="toggle-arrow">▼</span>
                     </div>
                 </div>
-                <div class="worked-example-content" id="workedExampleContent"></div>
+                <div class="worked-example-content" id="workedExampleContent">
+                    <!-- Content populated by JavaScript -->
+                </div>
             </div>
 
             <div class="now-try-badge">✏️ Now You Try</div>
@@ -810,361 +852,365 @@
             }
         });
 
+        // Format answer based on unit type
+        function formatAnswer(value, unit) {
+            if (unit === 'dollars') return '$' + value.toLocaleString();
+            if (unit === 'percent') return value + '%';
+            if (unit === 'choice') return 'Option ' + value;
+            return value.toString();
+        }
+
         // Worked examples for each problem type
         const workedExamples = {
-            "capbudget_001": {
-                problem: "A project requires an initial investment of $100,000 today and will generate a single cash flow of $120,000 in one year. If the opportunity cost of capital is 10%, what is the NPV?",
+            "opt_001": {
+                problem: "You hold a call option with strike price \\(K = \\$30\\). At expiration, the stock price is \\(\\$38\\). What is your payoff?",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$100,000 (outflow today), C₁ = $120,000 (inflow in 1 year)" },
-                    { explanation: "Calculate PV of future cash flow:", calculation: "PV = $120,000 / (1 + 0.10) = $120,000 / 1.10 = $109,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$100,000 + $109,091 = $9,091" }
+                    { explanation: "Identify the variables:", calculation: "Strike price \\(K = \\$30\\), Stock price at expiration \\(S_T = \\$38\\)" },
+                    { explanation: "Write the call option payoff formula:", calculation: "\\(\\text{Call Payoff} = \\max(S_T - K, 0)\\)" },
+                    { explanation: "Plug in our values:", calculation: "\\(\\text{Call Payoff} = \\max(38 - 30, 0)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\text{Call Payoff} = \\max(8, 0) = \\$8\\)" }
                 ],
-                answer: "$9,091"
+                answer: "$8"
             },
-            "capbudget_002": {
-                problem: "A project costs $100,000 to start plus $25,000 of your time (in PV). It pays $180,000 in one year. At 15% discount rate, what is the NPV?",
+            "opt_002": {
+                problem: "You hold a call option with strike price \\(K = \\$50\\). At expiration, the stock price is \\(\\$42\\). What is your payoff?",
                 steps: [
-                    { explanation: "Calculate total costs:", calculation: "Total Cost = $100,000 + $25,000 = $125,000" },
-                    { explanation: "Calculate PV of benefits:", calculation: "PV = $180,000 / 1.15 = $156,522" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$125,000 + $156,522 = $31,522" }
+                    { explanation: "Identify the variables:", calculation: "Strike price \\(K = \\$50\\), Stock price at expiration \\(S_T = \\$42\\)" },
+                    { explanation: "Write the call option payoff formula:", calculation: "\\(\\text{Call Payoff} = \\max(S_T - K, 0)\\)" },
+                    { explanation: "Plug in our values:", calculation: "\\(\\text{Call Payoff} = \\max(42 - 50, 0)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\text{Call Payoff} = \\max(-8, 0) = \\$0\\)" },
+                    { explanation: "The option expires worthless because the stock price is below the strike.", calculation: "You would not exercise the right to buy at \\(\\$50\\) when the stock is only \\(\\$42\\)." }
                 ],
-                answer: "$31,522"
+                answer: "$0"
             },
-            "capbudget_003": {
-                problem: "Project X costs $50,000 today and pays $65,000 in one year. At 10% discount rate, what is the NPV?",
+            "opt_003": {
+                problem: "You hold a put option with strike price \\(K = \\$45\\). At expiration, the stock price is \\(\\$37\\). What is your payoff?",
                 steps: [
-                    { explanation: "Identify cash flows:", calculation: "C₀ = -$50,000, C₁ = $65,000" },
-                    { explanation: "Calculate PV of Year 1 cash flow:", calculation: "PV = $65,000 / 1.10 = $59,091" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$50,000 + $59,091 = $9,091" }
+                    { explanation: "Identify the variables:", calculation: "Strike price \\(K = \\$45\\), Stock price at expiration \\(S_T = \\$37\\)" },
+                    { explanation: "Write the put option payoff formula:", calculation: "\\(\\text{Put Payoff} = \\max(K - S_T, 0)\\)" },
+                    { explanation: "Plug in our values:", calculation: "\\(\\text{Put Payoff} = \\max(45 - 37, 0)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\text{Put Payoff} = \\max(8, 0) = \\$8\\)" }
                 ],
-                answer: "$9,091"
+                answer: "$8"
             },
-            "capbudget_004": {
-                problem: "A project has NPV of $15 million and requires an investment of $10 million. What is the profitability index?",
+            "opt_004": {
+                problem: "You hold a put option with strike price \\(K = \\$35\\). At expiration, the stock price is \\(\\$40\\). What is your payoff?",
                 steps: [
-                    { explanation: "Identify the values:", calculation: "NPV = $15M, Investment = $10M" },
-                    { explanation: "Apply the PI formula:", calculation: "PI = NPV / Investment" },
-                    { explanation: "Calculate:", calculation: "PI = $15M / $10M = 1.50" }
+                    { explanation: "Identify the variables:", calculation: "Strike price \\(K = \\$35\\), Stock price at expiration \\(S_T = \\$40\\)" },
+                    { explanation: "Write the put option payoff formula:", calculation: "\\(\\text{Put Payoff} = \\max(K - S_T, 0)\\)" },
+                    { explanation: "Plug in our values:", calculation: "\\(\\text{Put Payoff} = \\max(35 - 40, 0)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\text{Put Payoff} = \\max(-5, 0) = \\$0\\)" },
+                    { explanation: "The put expires worthless because the stock is above the strike.", calculation: "You would not exercise the right to sell at \\(\\$35\\) when the stock is worth \\(\\$40\\)." }
                 ],
-                answer: "1.50"
+                answer: "$0"
             },
-            "capbudget_005": {
-                problem: "Budget: $30M. Project A: NPV=$8M, Cost=$10M. Project B: NPV=$10M, Cost=$20M. Using PI, what's the max total NPV?",
+            "opt_005": {
+                problem: "You wrote (sold) a call option with strike price \\(K = \\$30\\). At expiration, the stock price is \\(\\$38\\). What is your payoff?",
                 steps: [
-                    { explanation: "Calculate PI for each:", calculation: "PI(A) = 8/10 = 0.80, PI(B) = 10/20 = 0.50" },
-                    { explanation: "Rank by PI:", calculation: "A (0.80) > B (0.50)" },
-                    { explanation: "Select A first ($10M), then B ($20M):", calculation: "Total cost = $30M (fits budget)" },
-                    { explanation: "Total NPV:", calculation: "$8M + $10M = $18M" }
+                    { explanation: "Identify the variables:", calculation: "Strike price \\(K = \\$30\\), Stock price at expiration \\(S_T = \\$38\\)" },
+                    { explanation: "As the writer of a call, your payoff is the negative of the holder's payoff:", calculation: "\\(\\text{Writer Payoff} = -\\max(S_T - K, 0)\\)" },
+                    { explanation: "Plug in our values:", calculation: "\\(\\text{Writer Payoff} = -\\max(38 - 30, 0)\\)" },
+                    { explanation: "Calculate:", calculation: "\\(\\text{Writer Payoff} = -\\max(8, 0) = -\\$8\\)" },
+                    { explanation: "You lose \\(\\$8\\) because you must sell the stock at \\(\\$30\\) when it's worth \\(\\$38\\).", calculation: "The option holder exercises against you." }
                 ],
-                answer: "$18 million"
+                answer: "-$8"
             },
-            "capbudget_006": {
-                problem: "Invest $3,000 today, receive $1,200/year for 3 years. At 8% discount rate, what is the NPV?",
+            "opt_006": {
+                problem: "You bought a call option with strike \\(K = \\$30\\) for \\(\\$3.00\\), financing by borrowing at 3% annual rate. The option expires in 90 days. If the stock price at expiration is \\(\\$38\\), what is your profit?",
                 steps: [
-                    { explanation: "Calculate PV of Year 1:", calculation: "$1,200 / 1.08 = $1,111" },
-                    { explanation: "Calculate PV of Year 2:", calculation: "$1,200 / 1.08² = $1,029" },
-                    { explanation: "Calculate PV of Year 3:", calculation: "$1,200 / 1.08³ = $953" },
-                    { explanation: "Sum and subtract initial investment:", calculation: "NPV = -$3,000 + $1,111 + $1,029 + $953 = $93" }
+                    { explanation: "Identify the variables:", calculation: "\\(K = \\$30\\), \\(\\text{Premium} = \\$3.00\\), \\(r = 3\\%\\), \\(T = 90/365\\) years, \\(S_T = \\$38\\)" },
+                    { explanation: "Calculate the future value of the premium (cost of financing):", calculation: "\\(FV(\\text{Premium}) = 3.00 \\times (1.03)^{90/365}\\)" },
+                    { explanation: "Compute the exponent:", calculation: "\\((1.03)^{90/365} = (1.03)^{0.24658} = 1.00730\\)" },
+                    { explanation: "Calculate FV of premium:", calculation: "\\(FV(\\text{Premium}) = 3.00 \\times 1.00730 = \\$3.0219\\)" },
+                    { explanation: "Calculate option payoff at expiration:", calculation: "\\(\\text{Payoff} = \\max(38 - 30, 0) = \\$8.00\\)" },
+                    { explanation: "Calculate profit:", calculation: "\\(\\text{Profit} = \\text{Payoff} - FV(\\text{Premium}) = 8.00 - 3.0219 = \\$4.98\\)" }
                 ],
-                answer: "$93"
+                answer: "$4.98"
             },
-            "capbudget_007": {
-                problem: "A project has IRR of 15%. The hurdle rate is 18%. Should you accept? (1=Yes, 0=No)",
+            "opt_007": {
+                problem: "Stock price \\(S = \\$150.00\\), call price \\(C = \\$12.50\\) with strike \\(K = \\$160\\), risk-free rate 3% per year, expiration in 60 days. Using put-call parity \\(P = PV(K) + C - S\\), what is the put price?",
                 steps: [
-                    { explanation: "Compare IRR to hurdle rate:", calculation: "IRR = 15%, Hurdle = 18%" },
-                    { explanation: "Apply decision rule:", calculation: "Accept if IRR > Hurdle Rate" },
-                    { explanation: "15% < 18%, so reject:", calculation: "Answer: No (0)" }
+                    { explanation: "Identify the variables:", calculation: "\\(S = \\$150.00\\), \\(C = \\$12.50\\), \\(K = \\$160\\), \\(r = 3\\%\\), \\(T = 60/365\\) years" },
+                    { explanation: "Write the put-call parity formula:", calculation: "\\(P = PV(K) + C - S\\)" },
+                    { explanation: "Calculate PV(K):", calculation: "\\(PV(K) = \\frac{160}{(1.03)^{60/365}} = \\frac{160}{(1.03)^{0.16438}}\\)" },
+                    { explanation: "Compute the denominator:", calculation: "\\((1.03)^{0.16438} = 1.004878 \\Rightarrow PV(K) = \\frac{160}{1.004878} = \\$159.22\\)" },
+                    { explanation: "Plug into the formula:", calculation: "\\(P = 159.22 + 12.50 - 150.00 = \\$21.72\\)" }
                 ],
-                answer: "0 (No - Reject)"
+                answer: "$21.72"
             },
-            "capbudget_008": {
-                problem: "A project costs $60 million and generates $15 million per year. What is the payback period?",
+            "opt_008": {
+                problem: "Binomial model: Stock price \\(= \\$40\\), strike \\(= \\$40\\). In one period, stock goes to \\(\\$52\\) (up) or \\(\\$32\\) (down). Risk-free rate \\(= 5\\%\\). Find the replicating portfolio delta (shares of stock per option).",
                 steps: [
-                    { explanation: "Identify values:", calculation: "Investment = $60M, Annual CF = $15M" },
-                    { explanation: "Apply payback formula:", calculation: "Payback = Investment / Annual CF" },
-                    { explanation: "Calculate:", calculation: "Payback = $60M / $15M = 4 years" }
+                    { explanation: "Identify the variables:", calculation: "\\(S = \\$40\\), \\(K = \\$40\\), \\(S_u = \\$52\\), \\(S_d = \\$32\\), \\(r_f = 5\\%\\)" },
+                    { explanation: "Calculate the call payoffs in each state:", calculation: "\\(C_u = \\max(52 - 40, 0) = \\$12\\), \\(C_d = \\max(32 - 40, 0) = \\$0\\)" },
+                    { explanation: "Write the delta formula:", calculation: "\\(\\Delta = \\frac{C_u - C_d}{S_u - S_d}\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(\\Delta = \\frac{12 - 0}{52 - 32} = \\frac{12}{20} = 0.6\\)" }
                 ],
-                answer: "4 years"
+                answer: "0.6"
             },
-            "capbudget_009": {
-                problem: "Invest $40M, receive $10M/year for 6 years at 10% discount rate. What is the NPV?",
+            "opt_009": {
+                problem: "Using the binomial model (\\(S = \\$40\\), \\(K = \\$40\\), \\(S_u = \\$52\\), \\(S_d = \\$32\\), \\(r_f = 5\\%\\), \\(\\Delta = 0.6\\)), what is the call option price?",
                 steps: [
-                    { explanation: "Use annuity formula:", calculation: "PV = $10M × [1 - 1/(1.10)⁶] / 0.10" },
-                    { explanation: "Calculate annuity factor:", calculation: "[1 - 0.5645] / 0.10 = 4.355" },
-                    { explanation: "Calculate PV of cash flows:", calculation: "$10M × 4.355 = $43.55M" },
-                    { explanation: "Calculate NPV:", calculation: "NPV = -$40M + $43.55M = $3.55M" }
+                    { explanation: "We already know \\(\\Delta = 0.6\\). Now find B (borrowing amount):", calculation: "\\(B = \\frac{C_d - S_d \\times \\Delta}{1 + r_f}\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(B = \\frac{0 - 32 \\times 0.6}{1.05} = \\frac{-19.2}{1.05} = -\\$18.2857\\)" },
+                    { explanation: "Calculate the option price using the replicating portfolio:", calculation: "\\(C = \\Delta \\times S + B\\)" },
+                    { explanation: "Plug in values:", calculation: "\\(C = 0.6 \\times 40 + (-18.2857) = 24 - 18.2857 = \\$5.71\\)" }
                 ],
-                answer: "$3.55 million"
+                answer: "$5.71"
             },
-            "capbudget_010": {
-                problem: "Revenue $400K, Costs $250K, Depreciation $40K, Tax rate 30%, no CapEx or NWC change. What is FCF?",
+            "opt_010": {
+                problem: "Which of the following best explains why a call option on a non-dividend-paying stock has a European value equal to its American value? (1) Call options are always in the money (2) The insurance value (put + discount on strike) makes holding more valuable than exercising early (3) American options cannot be exercised early (4) Stock prices are always increasing",
                 steps: [
-                    { explanation: "Calculate EBIT:", calculation: "$400K - $250K - $40K = $110K" },
-                    { explanation: "Calculate Taxes:", calculation: "$110K × 0.30 = $33K" },
-                    { explanation: "Calculate Unlevered Net Income:", calculation: "$110K - $33K = $77K" },
-                    { explanation: "Add back depreciation:", calculation: "FCF = $77K + $40K = $117K" }
+                    { explanation: "Consider what happens if you exercise a call early:", calculation: "You pay \\(K\\) today and receive the stock." },
+                    { explanation: "Compare to holding the option:", calculation: "By holding, you keep \\(PV(K)\\) invested at the risk-free rate, saving \\(K - PV(K)\\) in interest." },
+                    { explanation: "Apply put-call parity:", calculation: "\\(C = P + [S - PV(K)]\\). Both \\(P > 0\\) and \\(S - PV(K) > 0\\) (since \\(PV(K) < K\\))." },
+                    { explanation: "The time value = P + discount on strike is always positive:", calculation: "So the option alive is always worth more than exercising immediately." },
+                    { explanation: "Correct answer:", calculation: "Option 2: The insurance value (put + discount on strike) makes holding more valuable." }
                 ],
-                answer: "$117,000"
+                answer: "Option 2"
             }
         };
 
-        // Capital Budgeting Problems based on Week 2 slides (with variations)
+        // Problems data embedded directly to avoid CORS issues
         let problems = [
             {
-                "id": "capbudget_001",
-                "topic": "NPV Calculation",
+                "id": "opt_001",
+                "topic": "Call Option Payoff",
                 "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $200,000 today and will generate a single cash flow of $250,000 in one year. If the opportunity cost of capital is 15%, what is the NPV of this project?",
-                "given": {
-                    "initial_investment": 200000,
-                    "future_cash_flow": 250000,
-                    "discount_rate": 0.15
-                },
-                "formula": "NPV = -Initial Investment + Future Cash Flow / (1 + r)",
+                "problem_text": "You hold a call option with strike price \\(K = \\$25\\). At expiration, the stock price is \\(\\$32\\). What is your payoff?",
+                "given": {"strike_price": 25, "stock_price": 32},
+                "formula": "\\(\\text{Call Payoff} = \\max(S_T - K, 0)\\)",
                 "solution_steps": [
-                    "Step 1: Identify cash flows: C₀ = -$200,000, C₁ = $250,000",
-                    "Step 2: Discount rate r = 15%",
-                    "Step 3: Calculate PV of future cash flow: $250,000 / 1.15 = $217,391",
-                    "Step 4: NPV = -$200,000 + $217,391",
-                    "Step 5: Final answer: NPV = $17,391"
+                    "Step 1: Identify variables: \\(K = \\$25\\), \\(S_T = \\$32\\)",
+                    "Step 2: Apply the call payoff formula: \\(\\text{Payoff} = \\max(S_T - K, 0)\\)",
+                    "Step 3: \\(\\text{Payoff} = \\max(32 - 25, 0)\\)",
+                    "Step 4: \\(\\text{Payoff} = \\max(7, 0)\\)",
+                    "Step 5: Final answer: \\(\\text{Payoff} = \\$7\\)"
                 ],
-                "correct_answer": 17391,
+                "correct_answer": 7,
+                "tolerance": 0.01,
+                "unit": "dollars",
                 "hints": {
-                    "level_1": "NPV = Present Value of Benefits - Present Value of Costs",
-                    "level_2": "Discount the $250,000 back one year at 15%, then subtract the initial investment",
-                    "level_3": "NPV = -200,000 + 250,000/1.15"
+                    "level_1": "A call option gives you the right to BUY at the strike price. You profit when the stock price exceeds the strike.",
+                    "level_2": "The formula is: \\(\\text{Call Payoff} = \\max(S_T - K, 0)\\). Plug in \\(S_T = \\$32\\) and \\(K = \\$25\\).",
+                    "level_3": "\\(\\max(32-25, 0) = \\max(7, 0) = \\$7\\)"
                 }
             },
             {
-                "id": "capbudget_002",
-                "topic": "NPV with Multiple Cash Flows",
-                "difficulty": "medium",
-                "problem_text": "A project requires an investment of $150,000 today and the opportunity cost of your time worth $50,000 in present value. The project will pay $300,000 in one year. If the discount rate is 20%, what is the NPV?",
-                "given": {
-                    "initial_investment": 150000,
-                    "opportunity_cost": 50000,
-                    "future_cash_flow": 300000,
-                    "discount_rate": 0.20
-                },
-                "formula": "NPV = -Initial Investment - Opportunity Cost + PV(Future Cash Flow)",
-                "solution_steps": [
-                    "Step 1: Total costs today = $150,000 + $50,000 = $200,000",
-                    "Step 2: PV of benefits = $300,000 / 1.20 = $250,000",
-                    "Step 3: NPV = -$200,000 + $250,000",
-                    "Step 4: Final answer: NPV = $50,000"
-                ],
-                "correct_answer": 50000,
-                "hints": {
-                    "level_1": "Don't forget to include the opportunity cost of time as a cost",
-                    "level_2": "Total cost = investment + opportunity cost = $200,000",
-                    "level_3": "NPV = -200,000 + 300,000/1.20"
-                }
-            },
-            {
-                "id": "capbudget_003",
-                "topic": "Comparing Projects by NPV",
-                "difficulty": "medium",
-                "problem_text": "You have two mutually exclusive projects. Project A costs $100,000 today and pays $140,000 in one year. Project B costs $200,000 today and pays $270,000 in one year. If the discount rate is 12%, what is the NPV of Project B?",
-                "given": {
-                    "project_b_cost": 200000,
-                    "project_b_payoff": 270000,
-                    "discount_rate": 0.12
-                },
-                "formula": "NPV = -Cost + Payoff / (1 + r)",
-                "solution_steps": [
-                    "Step 1: Project B cash flows: C₀ = -$200,000, C₁ = $270,000",
-                    "Step 2: PV of Year 1 cash flow: $270,000 / 1.12 = $241,071",
-                    "Step 3: NPV = -$200,000 + $241,071",
-                    "Step 4: Final answer: NPV of Project B = $41,071"
-                ],
-                "correct_answer": 41071,
-                "hints": {
-                    "level_1": "Calculate NPV for Project B using the standard formula",
-                    "level_2": "Discount $270,000 by one year at 12%",
-                    "level_3": "NPV = -200,000 + 270,000/1.12"
-                }
-            },
-            {
-                "id": "capbudget_004",
-                "topic": "Profitability Index",
+                "id": "opt_002",
+                "topic": "Call Option Payoff (Out of the Money)",
                 "difficulty": "easy",
-                "problem_text": "A project has an NPV of $25 million and requires an initial investment of $20 million. What is the profitability index?",
-                "given": {
-                    "npv": 25,
-                    "initial_investment": 20
-                },
-                "formula": "Profitability Index = NPV / Resource Consumed",
+                "problem_text": "You hold a call option with strike price \\(K = \\$25\\). At expiration, the stock price is \\(\\$18\\). What is your payoff?",
+                "given": {"strike_price": 25, "stock_price": 18},
+                "formula": "\\(\\text{Call Payoff} = \\max(S_T - K, 0)\\)",
                 "solution_steps": [
-                    "Step 1: NPV = $25 million",
-                    "Step 2: Initial Investment = $20 million",
-                    "Step 3: Profitability Index = NPV / Initial Investment",
-                    "Step 4: PI = 25 / 20 = 1.25",
-                    "Step 5: Final answer: Profitability Index = 1.25"
+                    "Step 1: Identify variables: \\(K = \\$25\\), \\(S_T = \\$18\\)",
+                    "Step 2: Apply the call payoff formula: \\(\\text{Payoff} = \\max(S_T - K, 0)\\)",
+                    "Step 3: \\(\\text{Payoff} = \\max(18 - 25, 0)\\)",
+                    "Step 4: \\(\\text{Payoff} = \\max(-7, 0)\\)",
+                    "Step 5: Final answer: \\(\\text{Payoff} = \\$0\\) (the option expires worthless)"
                 ],
-                "correct_answer": 1.25,
+                "correct_answer": 0,
+                "tolerance": 0.01,
+                "unit": "dollars",
                 "hints": {
-                    "level_1": "Profitability Index measures value created per dollar invested",
-                    "level_2": "PI = NPV / Investment",
-                    "level_3": "PI = 25 / 20"
+                    "level_1": "Would you exercise the right to buy a stock at \\(\\$25\\) when it's only worth \\(\\$18\\)?",
+                    "level_2": "\\(\\text{Call Payoff} = \\max(S_T - K, 0)\\). Since \\(S_T < K\\), the max function returns 0.",
+                    "level_3": "\\(\\max(18-25, 0) = \\max(-7, 0) = \\$0\\)"
                 }
             },
             {
-                "id": "capbudget_005",
-                "topic": "Profitability Index - Project Selection",
-                "difficulty": "medium",
-                "problem_text": "You have $50 million to invest. Project A has NPV of $15M and costs $20M. Project B has NPV of $12M and costs $15M. Project C has NPV of $20M and costs $25M. Using the profitability index, what is the maximum total NPV you can achieve?",
-                "given": {
-                    "budget": 50,
-                    "project_a": {"npv": 15, "cost": 20, "pi": 0.75},
-                    "project_b": {"npv": 12, "cost": 15, "pi": 0.80},
-                    "project_c": {"npv": 20, "cost": 25, "pi": 0.80}
-                },
-                "formula": "Rank by PI = NPV/Cost, then select projects until budget exhausted",
-                "solution_steps": [
-                    "Step 1: Calculate PI for each project:",
-                    "  - Project A: 15/20 = 0.75",
-                    "  - Project B: 12/15 = 0.80",
-                    "  - Project C: 20/25 = 0.80",
-                    "Step 2: Rank by PI: B and C tied at 0.80, then A at 0.75",
-                    "Step 3: Select B ($15M) + C ($25M) = $40M invested, leaves $10M",
-                    "Step 4: Can't fit A ($20M) in remaining $10M",
-                    "Step 5: Total NPV = $12M + $20M = $32M"
-                ],
-                "correct_answer": 32,
-                "hints": {
-                    "level_1": "Calculate PI for each project, then rank them",
-                    "level_2": "PI: A=0.75, B=0.80, C=0.80. Start with highest PI projects",
-                    "level_3": "B+C costs $40M and gives NPV of $32M. A doesn't fit in remaining $10M"
-                }
-            },
-            {
-                "id": "capbudget_006",
-                "topic": "IRR Calculation",
-                "difficulty": "medium",
-                "problem_text": "A project has the following cash flows: invest $4,000 today, receive $1,500 at the end of each of the next 3 years. The IRR of this project is approximately 6.1%. If your opportunity cost of capital is 5%, what is the NPV of this project (to the nearest dollar)?",
-                "given": {
-                    "initial_investment": 4000,
-                    "annual_cash_flow": 1500,
-                    "years": 3,
-                    "discount_rate": 0.05
-                },
-                "formula": "NPV = -C₀ + C₁/(1+r) + C₂/(1+r)² + C₃/(1+r)³",
-                "solution_steps": [
-                    "Step 1: Cash flows: C₀ = -$4,000, C₁ = C₂ = C₃ = $1,500",
-                    "Step 2: Discount rate = 5%",
-                    "Step 3: PV of Year 1: 1500/1.05 = $1,428.57",
-                    "Step 4: PV of Year 2: 1500/1.05² = $1,360.54",
-                    "Step 5: PV of Year 3: 1500/1.05³ = $1,295.76",
-                    "Step 6: NPV = -4000 + 1428.57 + 1360.54 + 1295.76 = $84.87",
-                    "Step 7: Final answer: NPV ≈ $85"
-                ],
-                "correct_answer": 85,
-                "hints": {
-                    "level_1": "Since IRR (6.1%) > cost of capital (5%), NPV should be positive",
-                    "level_2": "Discount each $1,500 payment at 5%",
-                    "level_3": "NPV = -4000 + 1500/1.05 + 1500/1.05² + 1500/1.05³"
-                }
-            },
-            {
-                "id": "capbudget_007",
-                "topic": "IRR Decision Rule",
+                "id": "opt_003",
+                "topic": "Put Option Payoff",
                 "difficulty": "easy",
-                "problem_text": "A project has an IRR of 18%. Your company's hurdle rate (opportunity cost of capital) is 12%. Based on the IRR rule, should you accept this project? Enter 1 for Yes, 0 for No.",
-                "given": {
-                    "irr": 0.18,
-                    "hurdle_rate": 0.12
-                },
-                "formula": "Accept if IRR > Hurdle Rate",
+                "problem_text": "You hold a put option with strike price \\(K = \\$25\\). At expiration, the stock price is \\(\\$18\\). What is your payoff?",
+                "given": {"strike_price": 25, "stock_price": 18},
+                "formula": "\\(\\text{Put Payoff} = \\max(K - S_T, 0)\\)",
                 "solution_steps": [
-                    "Step 1: IRR = 18%",
-                    "Step 2: Hurdle Rate = 12%",
-                    "Step 3: Compare: 18% > 12%",
-                    "Step 4: Since IRR exceeds the hurdle rate, accept the project",
-                    "Step 5: Final answer: Yes (1)"
+                    "Step 1: Identify variables: \\(K = \\$25\\), \\(S_T = \\$18\\)",
+                    "Step 2: Apply the put payoff formula: \\(\\text{Payoff} = \\max(K - S_T, 0)\\)",
+                    "Step 3: \\(\\text{Payoff} = \\max(25 - 18, 0)\\)",
+                    "Step 4: \\(\\text{Payoff} = \\max(7, 0)\\)",
+                    "Step 5: Final answer: \\(\\text{Payoff} = \\$7\\)"
                 ],
-                "correct_answer": 1,
+                "correct_answer": 7,
+                "tolerance": 0.01,
+                "unit": "dollars",
                 "hints": {
-                    "level_1": "The IRR rule says to accept if IRR exceeds the opportunity cost of capital",
-                    "level_2": "Compare 18% to 12%",
-                    "level_3": "18% > 12%, so accept"
+                    "level_1": "A put option gives you the right to SELL at the strike price. You profit when the stock price is below the strike.",
+                    "level_2": "The formula is: \\(\\text{Put Payoff} = \\max(K - S_T, 0)\\). Plug in \\(K = \\$25\\) and \\(S_T = \\$18\\).",
+                    "level_3": "\\(\\max(25-18, 0) = \\max(7, 0) = \\$7\\)"
                 }
             },
             {
-                "id": "capbudget_008",
-                "topic": "Payback Period",
-                "difficulty": "easy",
-                "problem_text": "A project requires an initial investment of $80 million and generates $20 million per year in free cash flow. What is the payback period in years?",
-                "given": {
-                    "initial_investment": 80,
-                    "annual_cash_flow": 20
-                },
-                "formula": "Payback Period = Initial Investment / Annual Cash Flow",
-                "solution_steps": [
-                    "Step 1: Initial Investment = $80 million",
-                    "Step 2: Annual Cash Flow = $20 million",
-                    "Step 3: Payback Period = Investment / Annual Cash Flow",
-                    "Step 4: Payback = 80 / 20 = 4 years",
-                    "Step 5: Final answer: 4 years"
-                ],
-                "correct_answer": 4,
-                "hints": {
-                    "level_1": "Payback period is how long it takes to recover your initial investment",
-                    "level_2": "Divide initial investment by annual cash flow",
-                    "level_3": "80 / 20 = 4 years"
-                }
-            },
-            {
-                "id": "capbudget_009",
-                "topic": "NPV vs Payback",
+                "id": "opt_004",
+                "topic": "Put Option Payoff (Out of the Money)",
                 "difficulty": "medium",
-                "problem_text": "A project requires $60 million today and generates $12 million per year for 8 years. Your company has a 5-year payback rule and uses an 8% discount rate. What is the NPV of this project (in millions)?",
-                "given": {
-                    "initial_investment": 60,
-                    "annual_cash_flow": 12,
-                    "years": 8,
-                    "discount_rate": 0.08
-                },
-                "formula": "NPV = -C₀ + C × [1 - 1/(1+r)^n] / r",
+                "problem_text": "You hold a put option with strike price \\(K = \\$25\\). At expiration, the stock price is \\(\\$30\\). What is your payoff?",
+                "given": {"strike_price": 25, "stock_price": 30},
+                "formula": "\\(\\text{Put Payoff} = \\max(K - S_T, 0)\\)",
                 "solution_steps": [
-                    "Step 1: This is an annuity: $12M per year for 8 years",
-                    "Step 2: PV of annuity = 12 × [1 - 1/(1.08)^8] / 0.08",
-                    "Step 3: = 12 × [1 - 0.5403] / 0.08",
-                    "Step 4: = 12 × 5.7466 = $68.96M",
-                    "Step 5: NPV = -60 + 68.96 = $8.96M",
-                    "Step 6: Final answer: NPV ≈ $9 million"
+                    "Step 1: Identify variables: \\(K = \\$25\\), \\(S_T = \\$30\\)",
+                    "Step 2: Apply the put payoff formula: \\(\\text{Payoff} = \\max(K - S_T, 0)\\)",
+                    "Step 3: \\(\\text{Payoff} = \\max(25 - 30, 0)\\)",
+                    "Step 4: \\(\\text{Payoff} = \\max(-5, 0)\\)",
+                    "Step 5: Final answer: \\(\\text{Payoff} = \\$0\\) (the put expires worthless)"
                 ],
-                "correct_answer": 9,
+                "correct_answer": 0,
+                "tolerance": 0.01,
+                "unit": "dollars",
                 "hints": {
-                    "level_1": "Use the annuity formula to find PV of the 8 years of cash flows",
-                    "level_2": "PV = 12 × annuity factor for 8 years at 8%",
-                    "level_3": "Annuity factor = 5.7466, so PV = $68.96M, NPV = -60 + 68.96"
+                    "level_1": "Would you exercise the right to sell a stock at \\(\\$25\\) when it's worth \\(\\$30\\) in the market?",
+                    "level_2": "\\(\\text{Put Payoff} = \\max(K - S_T, 0)\\). Since \\(K < S_T\\), the max function returns 0.",
+                    "level_3": "\\(\\max(25-30, 0) = \\max(-5, 0) = \\$0\\)"
                 }
             },
             {
-                "id": "capbudget_010",
-                "topic": "Free Cash Flow",
+                "id": "opt_005",
+                "topic": "Short Call Payoff",
+                "difficulty": "medium",
+                "problem_text": "You wrote (sold) a call option with strike price \\(K = \\$25\\). At expiration, the stock price is \\(\\$32\\). What is your payoff?",
+                "given": {"strike_price": 25, "stock_price": 32},
+                "formula": "\\(\\text{Short Call Payoff} = -\\max(S_T - K, 0)\\)",
+                "solution_steps": [
+                    "Step 1: Identify variables: \\(K = \\$25\\), \\(S_T = \\$32\\)",
+                    "Step 2: As the writer, your payoff is the negative of the buyer's payoff",
+                    "Step 3: Buyer's payoff \\(= \\max(32 - 25, 0) = \\max(7, 0) = \\$7\\)",
+                    "Step 4: Your payoff \\(= -\\$7\\)",
+                    "Step 5: Final answer: \\(\\text{Payoff} = -\\$7\\) (you lose \\(\\$7\\))"
+                ],
+                "correct_answer": -7,
+                "tolerance": 0.01,
+                "unit": "dollars",
+                "hints": {
+                    "level_1": "When you WRITE (sell) an option, your payoff is the exact opposite of the holder's payoff.",
+                    "level_2": "\\(\\text{Short Call Payoff} = -\\max(S_T - K, 0)\\). The holder gains \\(\\$7\\), so you lose \\(\\$7\\).",
+                    "level_3": "\\(-\\max(32-25, 0) = -\\max(7, 0) = -\\$7\\)"
+                }
+            },
+            {
+                "id": "opt_006",
+                "topic": "Call Option Profit with Financing",
                 "difficulty": "hard",
-                "problem_text": "A project has revenues of $500,000, costs of $300,000, and depreciation of $50,000. The tax rate is 25%. There is no change in NWC and no CapEx this year. What is the Free Cash Flow?",
-                "given": {
-                    "revenues": 500000,
-                    "costs": 300000,
-                    "depreciation": 50000,
-                    "tax_rate": 0.25
-                },
-                "formula": "FCF = (Rev - Costs - Dep)(1 - τ) + Dep - CapEx - ΔNWC",
+                "problem_text": "You bought a call option with strike \\(K = \\$25\\) for \\(\\$3.00\\), financing by borrowing at 3% annual rate. The option expires in 90 days. If the stock price at expiration is \\(\\$32\\), what is your profit?",
+                "given": {"strike_price": 25, "premium": 3.00, "rate": 0.03, "days": 90, "stock_price": 32},
+                "formula": "\\(\\text{Profit} = \\max(S_T - K, 0) - \\text{Premium} \\times (1+r)^{T/365}\\)",
                 "solution_steps": [
-                    "Step 1: Calculate EBIT = Revenue - Costs - Depreciation",
-                    "Step 2: EBIT = 500,000 - 300,000 - 50,000 = $150,000",
-                    "Step 3: Taxes = EBIT × tax rate = 150,000 × 0.25 = $37,500",
-                    "Step 4: Unlevered Net Income = EBIT - Taxes = 150,000 - 37,500 = $112,500",
-                    "Step 5: FCF = UNI + Depreciation - CapEx - ΔNWC",
-                    "Step 6: FCF = 112,500 + 50,000 - 0 - 0 = $162,500"
+                    "Step 1: Identify variables: \\(K = \\$25\\), \\(\\text{Premium} = \\$3.00\\), \\(r = 3\\%\\), \\(T = 90\\) days, \\(S_T = \\$32\\)",
+                    "Step 2: Calculate the future value of the premium (cost of financing):",
+                    "\\(FV(\\text{Premium}) = 3.00 \\times (1.03)^{90/365} = 3.00 \\times (1.03)^{0.24658}\\)",
+                    "Step 3: \\((1.03)^{0.24658} = 1.00731\\)",
+                    "Step 4: \\(FV(\\text{Premium}) = 3.00 \\times 1.00731 = \\$3.0219\\)",
+                    "Step 5: Option payoff \\(= \\max(32 - 25, 0) = \\$7.00\\)",
+                    "Step 6: \\(\\text{Profit} = 7.00 - 3.0219 = \\$3.98\\)"
                 ],
-                "correct_answer": 162500,
+                "correct_answer": 3.98,
+                "tolerance": 0.05,
+                "unit": "dollars",
                 "hints": {
-                    "level_1": "FCF = Unlevered Net Income + Depreciation (add back non-cash expense)",
-                    "level_2": "First calculate EBIT, then taxes, then add back depreciation",
-                    "level_3": "EBIT = $150K, Taxes = $37.5K, UNI = $112.5K, FCF = $112.5K + $50K"
+                    "level_1": "Profit = Option payoff at expiration minus the future value of the premium you paid.",
+                    "level_2": "\\(FV(\\text{Premium}) = 3.00 \\times (1.03)^{90/365}\\). Then \\(\\text{Profit} = \\max(32-25, 0) - FV(\\text{Premium})\\).",
+                    "level_3": "\\(FV(\\text{Premium}) = 3.00 \\times 1.00731 = \\$3.022\\). \\(\\text{Profit} = 7.00 - 3.022 = \\$3.98\\)"
+                }
+            },
+            {
+                "id": "opt_007",
+                "topic": "Put-Call Parity",
+                "difficulty": "hard",
+                "problem_text": "Stock price \\(S = \\$100\\), call price \\(C = \\$8.00\\) with strike \\(K = \\$105\\), risk-free rate 3% per year, expiration in 90 days. Using put-call parity \\(P = PV(K) + C - S\\), what is the put price?",
+                "given": {"stock_price": 100, "call_price": 8.00, "strike_price": 105, "rate": 0.03, "days": 90},
+                "formula": "\\(P = PV(K) + C - S\\), where \\(PV(K) = \\frac{K}{(1+r)^{T/365}}\\)",
+                "solution_steps": [
+                    "Step 1: Identify variables: \\(S = \\$100\\), \\(C = \\$8.00\\), \\(K = \\$105\\), \\(r = 3\\%\\), \\(T = 90\\) days",
+                    "Step 2: Calculate \\(PV(K) = \\frac{105}{(1.03)^{90/365}}\\)",
+                    "Step 3: \\((1.03)^{90/365} = (1.03)^{0.24658} = 1.00731\\)",
+                    "Step 4: \\(PV(K) = \\frac{105}{1.00731} = \\$104.24\\)",
+                    "Step 5: Apply put-call parity: \\(P = PV(K) + C - S\\)",
+                    "Step 6: \\(P = 104.24 + 8.00 - 100\\)",
+                    "Step 7: Final answer: \\(P = \\$12.24\\)"
+                ],
+                "correct_answer": 12.24,
+                "tolerance": 0.5,
+                "unit": "dollars",
+                "hints": {
+                    "level_1": "Put-call parity: \\(P = PV(K) + C - S\\). First find the present value of the strike.",
+                    "level_2": "\\(PV(K) = \\frac{105}{(1.03)^{90/365}}\\). Then \\(P = PV(K) + 8.00 - 100\\).",
+                    "level_3": "\\(PV(K) = \\frac{105}{1.00731} = \\$104.24\\). \\(P = 104.24 + 8.00 - 100 = \\$12.24\\)"
+                }
+            },
+            {
+                "id": "opt_008",
+                "topic": "Binomial Model - Delta",
+                "difficulty": "hard",
+                "problem_text": "Binomial model: Stock price \\(= \\$40\\), strike \\(= \\$40\\). In one period, stock goes to \\(\\$50\\) (up) or \\(\\$30\\) (down). Risk-free rate \\(= 5\\%\\). Find the replicating portfolio delta (shares of stock to hold per call option).",
+                "given": {"stock_price": 40, "strike_price": 40, "stock_up": 50, "stock_down": 30, "rate": 0.05},
+                "formula": "\\(\\Delta = \\frac{C_u - C_d}{S_u - S_d}\\)",
+                "solution_steps": [
+                    "Step 1: Identify variables: \\(S = \\$40\\), \\(K = \\$40\\), \\(S_u = \\$50\\), \\(S_d = \\$30\\), \\(r_f = 5\\%\\)",
+                    "Step 2: Calculate call payoffs in each state:",
+                    "\\(C_u = \\max(50 - 40, 0) = \\$10\\)",
+                    "\\(C_d = \\max(30 - 40, 0) = \\$0\\)",
+                    "Step 3: Apply the delta formula: \\(\\Delta = \\frac{C_u - C_d}{S_u - S_d}\\)",
+                    "Step 4: \\(\\Delta = \\frac{10 - 0}{50 - 30} = \\frac{10}{20}\\)",
+                    "Step 5: Final answer: \\(\\Delta = 0.5\\)"
+                ],
+                "correct_answer": 0.5,
+                "tolerance": 0.01,
+                "unit": "decimal",
+                "hints": {
+                    "level_1": "Delta tells you how many shares to hold to replicate the option. It uses the spread in option values divided by the spread in stock prices.",
+                    "level_2": "First find \\(C_u = \\max(50-40,0)\\) and \\(C_d = \\max(30-40,0)\\). Then \\(\\Delta = \\frac{C_u - C_d}{S_u - S_d}\\).",
+                    "level_3": "\\(C_u = \\$10\\), \\(C_d = \\$0\\). \\(\\Delta = \\frac{10 - 0}{50 - 30} = \\frac{10}{20} = 0.5\\)"
+                }
+            },
+            {
+                "id": "opt_009",
+                "topic": "Binomial Model - Option Price",
+                "difficulty": "hard",
+                "problem_text": "Using the binomial model (\\(S = \\$40\\), \\(K = \\$40\\), \\(S_u = \\$50\\), \\(S_d = \\$30\\), \\(r_f = 5\\%\\), \\(\\Delta = 0.5\\)), what is the call option price?",
+                "given": {"stock_price": 40, "strike_price": 40, "stock_up": 50, "stock_down": 30, "rate": 0.05, "delta": 0.5},
+                "formula": "\\(C = \\Delta \\times S + B\\), where \\(B = \\frac{C_d - S_d \\times \\Delta}{1 + r_f}\\)",
+                "solution_steps": [
+                    "Step 1: Identify variables: \\(S = \\$40\\), \\(K = \\$40\\), \\(S_u = \\$50\\), \\(S_d = \\$30\\), \\(r_f = 5\\%\\), \\(\\Delta = 0.5\\)",
+                    "Step 2: \\(C_u = \\max(50-40,0) = \\$10\\), \\(C_d = \\max(30-40,0) = \\$0\\)",
+                    "Step 3: Calculate B (borrowing): \\(B = \\frac{C_d - S_d \\times \\Delta}{1 + r_f}\\)",
+                    "Step 4: \\(B = \\frac{0 - 30 \\times 0.5}{1.05} = \\frac{-15}{1.05} = -\\$14.2857\\)",
+                    "Step 5: Calculate option price: \\(C = \\Delta \\times S + B\\)",
+                    "Step 6: \\(C = 0.5 \\times 40 + (-14.2857) = 20 - 14.2857\\)",
+                    "Step 7: Final answer: \\(C = \\$5.71\\)"
+                ],
+                "correct_answer": 5.71,
+                "tolerance": 0.1,
+                "unit": "dollars",
+                "hints": {
+                    "level_1": "The option price equals the cost of the replicating portfolio: \\(\\Delta\\) shares of stock plus borrowing \\(B\\).",
+                    "level_2": "\\(B = \\frac{C_d - S_d \\times \\Delta}{1 + r_f} = \\frac{0 - 30 \\times 0.5}{1.05}\\). Then \\(C = \\Delta \\times S + B\\).",
+                    "level_3": "\\(B = \\frac{-15}{1.05} = -\\$14.29\\). \\(C = 0.5 \\times 40 + (-14.29) = 20 - 14.29 = \\$5.71\\)"
+                }
+            },
+            {
+                "id": "opt_010",
+                "topic": "Early Exercise and Put-Call Parity",
+                "difficulty": "medium",
+                "problem_text": "According to put-call parity, it is never optimal to exercise early a call option on a non-dividend-paying stock because:\n\n(1) Call options always expire worthless\n(2) The time value (put price + discount on strike) is always positive\n(3) Early exercise is illegal for American options\n(4) The stock price always goes up",
+                "given": {},
+                "formula": "\\(C = P + S - PV(K)\\). Time value \\(= P + (K - PV(K)) > 0\\)",
+                "solution_steps": [
+                    "Step 1: From put-call parity: \\(C = P + S - PV(K)\\)",
+                    "Step 2: The intrinsic value of a call is \\(\\max(S - K, 0)\\)",
+                    "Step 3: The time value \\(= C - \\text{intrinsic value} = P + (K - PV(K))\\)",
+                    "Step 4: \\(P \\geq 0\\) always (options can't have negative value)",
+                    "Step 5: \\(K - PV(K) > 0\\) because \\(PV(K) < K\\) when \\(r > 0\\) (money has time value)",
+                    "Step 6: Therefore the time value is always positive - the option alive is worth more than exercising",
+                    "Step 7: Correct answer: Option 2"
+                ],
+                "correct_answer": 2,
+                "tolerance": 0.01,
+                "unit": "choice",
+                "hints": {
+                    "level_1": "Think about what you give up by exercising early. Consider put-call parity: \\(C = P + S - PV(K)\\).",
+                    "level_2": "The time value of a call \\(= P + (K - PV(K))\\). Since puts have non-negative value and \\(PV(K) < K\\)...",
+                    "level_3": "Both \\(P \\geq 0\\) and \\(K - PV(K) > 0\\), so the time value is always positive. You always lose value by exercising early. Answer: 2"
                 }
             }
         ];
@@ -1174,10 +1220,11 @@
         let completedProblems = new Set();
 
         // Spaced repetition tracking
-        const TOPIC_KEY = 'capbudget';
-        const MISSED_PROBLEMS_KEY = 'finance_missed_' + TOPIC_KEY;
-        const MASTERED_PROBLEMS_KEY = 'finance_mastered_' + TOPIC_KEY;
+        const TOPIC_KEY = 'options'; // Unique key for this topic
+        const MISSED_PROBLEMS_KEY = 'finance_missed_options';
+        const MASTERED_PROBLEMS_KEY = 'finance_mastered_options';
 
+        // Check if we're in review mode (URL parameter)
         const urlParams = new URLSearchParams(window.location.search);
         const reviewMode = urlParams.get('review') === 'true';
 
@@ -1193,28 +1240,43 @@
 
         function saveMissedProblem(problemId) {
             const missed = getMissedProblems();
-            missed[problemId] = { count: (missed[problemId]?.count || 0) + 1, lastMissed: new Date().toISOString() };
+            missed[problemId] = {
+                count: (missed[problemId]?.count || 0) + 1,
+                lastMissed: new Date().toISOString()
+            };
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
         }
 
         function markProblemMastered(problemId) {
+            // Remove from missed
             const missed = getMissedProblems();
             delete missed[problemId];
             localStorage.setItem(MISSED_PROBLEMS_KEY, JSON.stringify(missed));
+
+            // Add to mastered
             const mastered = getMasteredProblems();
-            mastered[problemId] = { masteredOn: new Date().toISOString() };
+            mastered[problemId] = {
+                masteredOn: new Date().toISOString()
+            };
             localStorage.setItem(MASTERED_PROBLEMS_KEY, JSON.stringify(mastered));
         }
 
         function filterProblemsForReview() {
             if (!reviewMode) return problems;
+
             const missed = getMissedProblems();
             const missedIds = Object.keys(missed);
-            return missedIds.length === 0 ? [] : problems.filter(p => missedIds.includes(p.id));
+
+            if (missedIds.length === 0) {
+                return []; // No problems to review
+            }
+
+            return problems.filter(p => missedIds.includes(p.id));
         }
 
         // Load problems on page load
         function loadProblems() {
+            // Filter problems if in review mode
             if (reviewMode) {
                 const reviewProblems = filterProblemsForReview();
                 if (reviewProblems.length === 0) {
@@ -1222,20 +1284,24 @@
                     return;
                 }
                 problems = reviewProblems;
-                document.querySelector('h1').textContent = 'Capital Budgeting - Review';
+                // Update header to show review mode
+                document.querySelector('h1').textContent = 'Options - Review';
                 document.querySelector('.subtitle').textContent = 'Reviewing missed problems';
             }
             displayProblem();
         }
 
         function showNoProblemsToReview() {
-            document.getElementById('problemCard').innerHTML = `
+            const problemCard = document.getElementById('problemCard');
+            problemCard.innerHTML = `
                 <div style="text-align: center; padding: 3rem;">
                     <div style="font-size: 4rem; margin-bottom: 1rem;">🎉</div>
                     <h2 style="font-size: 1.75rem; margin-bottom: 1rem; color: #2D3748;">No Problems to Review!</h2>
-                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">You've mastered all the problems you previously missed.</p>
+                    <p style="font-size: 1.1rem; color: #4A5568; margin-bottom: 2rem;">
+                        You've mastered all the problems you previously missed. Great work!
+                    </p>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                        <a href="week2-capbudget.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
+                        <a href="week9-options.html" class="btn-primary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Practice All Problems</a>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block; padding: 0.75rem 2rem;">Back to Topics</a>
                     </div>
                 </div>
@@ -1256,6 +1322,7 @@
             const container = document.getElementById('workedExampleContent');
             const toggle = document.getElementById('workedExampleToggle');
 
+            // Reset to collapsed state
             toggle.classList.remove('expanded');
             document.getElementById('toggleText').textContent = 'Show';
 
@@ -1345,17 +1412,15 @@
                 return;
             }
 
-            // Smart tolerance: 0.5% of correct answer OR $1 (or appropriate minimum), whichever is larger
+            // Smart tolerance: allow for rounding errors from intermediate calculations
+            // Use 0.5% of the correct answer or $1, whichever is larger
+            // This handles cases where students round intermediate steps
             const percentTolerance = Math.abs(problem.correct_answer) * 0.005; // 0.5%
-            let minTolerance;
-            if (problem.correct_answer >= 1000) {
-                minTolerance = Math.max(1, problem.correct_answer * 0.01); // 1% for large numbers
-            } else if (problem.correct_answer < 10) {
-                minTolerance = 0.05; // Small tolerance for small numbers like PI
-            } else {
-                minTolerance = 1;
-            }
-            const tolerance = Math.max(percentTolerance, minTolerance);
+            const minTolerance = problem.unit === 'percent' ? 0.05 : 1; // For percentages, use 0.05
+            const calculatedTolerance = Math.max(percentTolerance, minTolerance);
+
+            // Use problem-specific tolerance if provided, otherwise use calculated tolerance
+            const tolerance = problem.tolerance !== undefined ? problem.tolerance : calculatedTolerance;
 
             const isCorrect = Math.abs(userAnswer - problem.correct_answer) <= tolerance;
 
@@ -1363,23 +1428,15 @@
 
             if (isCorrect) {
                 completedProblems.add(currentProblemIndex);
-                if (attemptCount === 1) markProblemMastered(problem.id);
+                // If correct on first attempt, mark as mastered
+                if (attemptCount === 1) {
+                    markProblemMastered(problem.id);
+                }
                 showCorrectFeedback();
             } else {
+                // Track this as a missed problem
                 saveMissedProblem(problem.id);
                 showIncorrectFeedback();
-            }
-        }
-
-        function formatAnswer(problem) {
-            if (problem.correct_answer >= 1000000) {
-                return '$' + (problem.correct_answer / 1000000).toFixed(2) + ' million';
-            } else if (problem.correct_answer >= 1000) {
-                return '$' + problem.correct_answer.toLocaleString();
-            } else if (problem.correct_answer < 10 && problem.correct_answer > 0) {
-                return problem.correct_answer.toFixed(2);
-            } else {
-                return '$' + problem.correct_answer.toLocaleString();
             }
         }
 
@@ -1392,7 +1449,7 @@
                     Correct!
                 </div>
                 <div class="feedback-content">
-                    Great job! The correct answer is ${formatAnswer(problem)}.
+                    Great job! The correct answer is ${formatAnswer(problem.correct_answer, problem.unit || 'dollars')}.
                 </div>
             `;
 
@@ -1464,7 +1521,7 @@
             problem.solution_steps.forEach((step, index) => {
                 html += `
                     <div class="solution-step">
-                        ${step}
+                        <span class="step-number">Step ${index + 1}:</span> ${step}
                     </div>
                 `;
             });
@@ -1472,7 +1529,7 @@
             html += `
                 </div>
                 <div class="feedback-content" style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #E2E8F0;">
-                    <strong>Final Answer:</strong> ${formatAnswer(problem)}
+                    <strong>Final Answer:</strong> ${formatAnswer(problem.correct_answer, problem.unit || 'dollars')}
                 </div>
             `;
 
@@ -1505,15 +1562,26 @@
             const total = problems.length;
             const percentage = Math.round((completed / total) * 100);
 
+            // Check how many problems are in the missed queue
             const missed = getMissedProblems();
             const missedCount = Object.keys(missed).length;
+
             let reviewButton = '';
             if (missedCount > 0 && !reviewMode) {
-                reviewButton = `<a href="week2-capbudget.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}</a>`;
+                reviewButton = `
+                    <a href="week9-options.html?review=true" class="btn-primary" style="text-decoration: none; display: inline-block; background-color: #DD6B20;">
+                        Review ${missedCount} Missed Problem${missedCount > 1 ? 's' : ''}
+                    </a>
+                `;
             }
+
             let celebrationMessage = '';
             if (reviewMode && completed === total) {
-                celebrationMessage = `<div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;"><strong>Excellent!</strong> You've mastered these previously missed problems!</div>`;
+                celebrationMessage = `
+                    <div style="background-color: #C6F6D5; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+                        <strong>Excellent!</strong> You've mastered these previously missed problems!
+                    </div>
+                `;
             }
 
             problemCard.innerHTML = `
@@ -1528,7 +1596,7 @@
                     </div>
                     <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                         ${reviewButton}
-                        <button class="btn-primary" onclick="location.href='week2-capbudget.html'">Practice All</button>
+                        <button class="btn-primary" onclick="location.href='week9-options.html'">Practice All</button>
                         <a href="index.html" class="btn-secondary" style="text-decoration: none; display: inline-block;">Back to Topics</a>
                     </div>
                 </div>
@@ -1536,13 +1604,16 @@
         }
 
         function renderMath() {
-            // Simple rendering - for more complex math, we'd use KaTeX's auto-render
             setTimeout(() => {
-                const elements = document.querySelectorAll('.problem-text, .formula-box, .solution-step, .hint-box');
-                elements.forEach(element => {
-                    // Replace common LaTeX patterns with rendered math
-                    // This is a simplified version - full KaTeX auto-render would be more robust
-                });
+                if (typeof renderMathInElement === 'function') {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: '$$', right: '$$', display: true},
+                            {left: '\\(', right: '\\)', display: false}
+                        ],
+                        throwOnError: false
+                    });
+                }
             }, 100);
         }
 

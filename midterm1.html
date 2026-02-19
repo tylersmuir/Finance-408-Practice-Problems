@@ -421,6 +421,13 @@
                     <div class="breakdown-label">Incorrect</div>
                 </div>
             </div>
+
+            <!-- Topic Breakdown Section -->
+            <div id="topic-breakdown" style="margin: 2rem 0; padding: 1.5rem; background-color: #F7FAFC; border-radius: 8px; text-align: left;"></div>
+
+            <!-- Focus Recommendation -->
+            <div id="focus-recommendation" style="margin-bottom: 1.5rem; padding: 1rem; border-radius: 8px; display: none;"></div>
+
             <button class="retry-btn" onclick="location.reload()">Try Again</button>
             <a href="midterm.html" class="retry-btn" style="text-decoration: none; display: inline-block;">Back to Midterms</a>
         </div>
@@ -444,7 +451,9 @@
                 ],
                 correctAnswer: "c",
                 solution: "PV = FV / (1 + r)^n = $5,000 / (1.07)^5 = $3,564.93",
-                formula: "PV = 5,000 / (1.07)^5 = 3,564.93"
+                formula: "PV = 5,000 / (1.07)^5 = 3,564.93",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 2,
@@ -458,7 +467,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "PV = FV / (1 + r)^n = $5,033.83 / (1.08)^21 = $1,000.00",
-                formula: "PV = 5,033.83 / (1.08)^21 = 1,000.00"
+                formula: "PV = 5,033.83 / (1.08)^21 = 1,000.00",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 3,
@@ -472,7 +483,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "FV = 500(1.07)^3 + 500(1.07)^2 + 500(1.07)^1 = $1,717.97",
-                formula: "FV = 500(1.07)^3 + 500(1.07)^2 + 500(1.07)^1 = 1,717.97"
+                formula: "FV = 500(1.07)^3 + 500(1.07)^2 + 500(1.07)^1 = 1,717.97",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 4,
@@ -486,7 +499,9 @@
                 ],
                 correctAnswer: "b",
                 solution: "The correct formula for PV of a perpetuity is PV = C/r, not r/C. Option (b) has the formula inverted.",
-                formula: "Correct formula: PV = C/r"
+                formula: "Correct formula: PV = C/r",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 5,
@@ -500,7 +515,9 @@
                 ],
                 correctAnswer: "c",
                 solution: "First calculate PV of annuity, then find FV:\nPV = (1000/0.08)[1 - 1/(1.08)^20] = $9,818.15\nFV = $9,818.15 × (1.08)^20 = $45,761.96",
-                formula: "FV = [1000/0.08 × (1 - 1/1.08^20)] × (1.08)^20 = 45,761.96"
+                formula: "FV = [1000/0.08 × (1 - 1/1.08^20)] × (1.08)^20 = 45,761.96",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 6,
@@ -514,7 +531,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "This is a growing annuity. Using the growing annuity formula:\nPV = [12,000 / (0.07 - 0.06)] × [1 - (1.06/1.07)^13] = $137,892.72",
-                formula: "PV = [12,000 / (0.07 - 0.06)] × [1 - (1.06/1.07)^13] = 137,892.72"
+                formula: "PV = [12,000 / (0.07 - 0.06)] × [1 - (1.06/1.07)^13] = 137,892.72",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 7,
@@ -528,7 +547,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "This is an annuity due (payments at the beginning). PV = 500 + (500/0.08)[1 - 1/(1.08)^39] = $6,439.29",
-                formula: "PV = 500 + (500/0.08)[1 - 1/(1.08)^39] = 6,439.29"
+                formula: "PV = 500 + (500/0.08)[1 - 1/(1.08)^39] = 6,439.29",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 8,
@@ -542,7 +563,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "This is a growing annuity:\nPV = [10 / (0.12 - 0.04)] × [1 - (1.04/1.12)^17] = $89.54 million ≈ $90 million",
-                formula: "PV = [10 / (0.12 - 0.04)] × [1 - (1.04/1.12)^17] = 89.54 million"
+                formula: "PV = [10 / (0.12 - 0.04)] × [1 - (1.04/1.12)^17] = 89.54 million",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 9,
@@ -556,7 +579,9 @@
                 ],
                 correctAnswer: "b",
                 solution: "First find PV of $2.5M: PV = 2.5M / (1.05)^35 = $0.45M\nThen solve for PMT in annuity due: x + (x/0.05)[1 - 1/(1.05)^35] = 0.45M\nx = $26,086 ≈ $26,100",
-                formula: "PV of goal = 2.5M / (1.05)^35 = 0.45M\nPMT = 26,086"
+                formula: "PV of goal = 2.5M / (1.05)^35 = 0.45M\nPMT = 26,086",
+                week: 1,
+                topic: "Time Value of Money"
             },
             {
                 id: 10,
@@ -570,7 +595,9 @@
                 ],
                 correctAnswer: "c",
                 solution: "PV of opportunity cost = (5/0.10)[1 - 1/(1.10)^3] = $12.4 million\nNPV = $14M - $12.4M = $1.6 million",
-                formula: "PV of foregone = (5/0.10)[1 - 1/(1.10)^3] = 12.4M\nNPV = 14 - 12.4 = 1.6 million"
+                formula: "PV of foregone = (5/0.10)[1 - 1/(1.10)^3] = 12.4M\nNPV = 14 - 12.4 = 1.6 million",
+                week: 2,
+                topic: "Capital Budgeting"
             },
             {
                 id: 11,
@@ -584,7 +611,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "NPV = -100,000 + 500,000/(1.20)^7 = -100,000 + 139,541 = $39,541 ≈ $39,500",
-                formula: "NPV = -100,000 + 500,000/(1.20)^7 = 39,541"
+                formula: "NPV = -100,000 + 500,000/(1.20)^7 = 39,541",
+                week: 2,
+                topic: "Capital Budgeting"
             },
             {
                 id: 12,
@@ -599,7 +628,9 @@
                 ],
                 correctAnswer: "c",
                 solution: "I is FALSE - P/E ratio depends on both discount rate and growth rate, so its inverse is not always an accurate measure of expected return.\nII is TRUE - Stock value = No-growth value + PVGO\nIII is TRUE - This is the dividend discount model.",
-                formula: "Statements II and III are correct"
+                formula: "Statements II and III are correct",
+                week: 3,
+                topic: "Stock Valuation"
             },
             {
                 id: 13,
@@ -614,7 +645,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "Year 1 CF = 7, Year 2 CF = 7(1.40) = 9.8, Year 3 CF = 7(1.40)^2 = 13.72\nTerminal value at Year 3 = 13.72(1.04)/(0.09-0.04) = 285.57\nPV = 7/1.09 + 9.8/1.09^2 + 13.72/1.09^3 + 285.57/1.09^3 = $245.63 million",
-                formula: "PV = 7/1.09 + 9.8/1.09^2 + (13.72 + 285.57)/1.09^3 = 245.63M"
+                formula: "PV = 7/1.09 + 9.8/1.09^2 + (13.72 + 285.57)/1.09^3 = 245.63M",
+                week: 3,
+                topic: "Stock Valuation"
             },
             {
                 id: 14,
@@ -629,7 +662,9 @@
                 ],
                 correctAnswer: "c",
                 solution: "YTM = (Face Value / Price) - 1 = (100 / 90.9) - 1 = 0.1001 ≈ 10%",
-                formula: "YTM = (100 / 90.9) - 1 = 0.10 or 10%"
+                formula: "YTM = (100 / 90.9) - 1 = 0.10 or 10%",
+                week: 4,
+                topic: "Bond Valuation"
             },
             {
                 id: 15,
@@ -643,7 +678,9 @@
                 ],
                 correctAnswer: "b",
                 solution: "PV of inflows = 200/1.16 + 225/1.16^2 + 275/1.16^3 + 200/1.16^4 = $626,000\nPI = (626,000 - 450,000) / 450,000 = 0.392 ≈ 0.39",
-                formula: "PV = 200/1.16 + 225/1.16^2 + 275/1.16^3 + 200/1.16^4 = 626\nPI = (626 - 450)/450 = 0.39"
+                formula: "PV = 200/1.16 + 225/1.16^2 + 275/1.16^3 + 200/1.16^4 = 626\nPI = (626 - 450)/450 = 0.39",
+                week: 2,
+                topic: "Capital Budgeting"
             },
             {
                 id: 16,
@@ -657,7 +694,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "Value at Year 1 = D2/(r-g) = 0.56/(0.12-0.04) = $7.00\nValue today = 7.00/1.12 = $6.25",
-                formula: "P1 = 0.56/(0.12-0.04) = 7.00\nP0 = 7.00/1.12 = 6.25"
+                formula: "P1 = 0.56/(0.12-0.04) = 7.00\nP0 = 7.00/1.12 = 6.25",
+                week: 3,
+                topic: "Stock Valuation"
             },
             {
                 id: 17,
@@ -671,7 +710,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "Dividend Yield = D1/P0 = 0.75/25 = 3.0%\nCapital Gains Yield = (P1-P0)/P0 = (26.75-25)/25 = 7.0%\nEquity Cost of Capital = 3.0% + 7.0% = 10.0%",
-                formula: "Div Yield = 0.75/25 = 3.0%\nTotal Return = (26.75 + 0.75 - 25)/25 = 10.0%"
+                formula: "Div Yield = 0.75/25 = 3.0%\nTotal Return = (26.75 + 0.75 - 25)/25 = 10.0%",
+                week: 3,
+                topic: "Stock Valuation"
             },
             {
                 id: 18,
@@ -685,7 +726,9 @@
                 ],
                 correctAnswer: "c",
                 solution: "P0 = D1/(1+r) + (D2 + P2)/(1+r)^2\nP0 = 1.40/1.10 + (1.50 + 25.00)/1.10^2 = 1.27 + 21.90 = $23.17",
-                formula: "P0 = 1.40/1.10 + (1.50 + 25.00)/1.10^2 = 23.17"
+                formula: "P0 = 1.40/1.10 + (1.50 + 25.00)/1.10^2 = 23.17",
+                week: 3,
+                topic: "Stock Valuation"
             },
             {
                 id: 19,
@@ -699,7 +742,9 @@
                 ],
                 correctAnswer: "d",
                 solution: "Free Cash Flow is the appropriate measure of incremental costs and benefits for NPV calculation. Net Income includes non-cash expenses, and EBIT overstates FCF because it includes taxes.",
-                formula: "Free Cash Flow = EBIT(1-t) + Depreciation - CapEx - Change in NWC"
+                formula: "Free Cash Flow = EBIT(1-t) + Depreciation - CapEx - Change in NWC",
+                week: 2,
+                topic: "Capital Budgeting"
             },
             {
                 id: 20,
@@ -713,9 +758,19 @@
                 ],
                 correctAnswer: "a",
                 solution: "NPV(A) = -100 + 40/1.15 + 50/1.15^2 + 60/1.15^3\nNPV(A) = -100 + 34.78 + 37.81 + 39.45 = $12.04 ≈ 12.0",
-                formula: "NPV = -100 + 40/1.15 + 50/1.15^2 + 60/1.15^3 = 12.0"
+                formula: "NPV = -100 + 40/1.15 + 50/1.15^2 + 60/1.15^3 = 12.0",
+                week: 2,
+                topic: "Capital Budgeting"
             }
         ];
+
+        // Topic configuration for analysis
+        const topicConfig = {
+            1: { name: "Time Value of Money", shortName: "TVM", url: "week1-tvm.html", color: "#3182CE" },
+            2: { name: "Capital Budgeting", shortName: "Cap Budget", url: "week2-capbudget.html", color: "#38A169" },
+            3: { name: "Stock Valuation", shortName: "Stocks", url: "week3-stocks.html", color: "#D69E2E" },
+            4: { name: "Bond Valuation", shortName: "Bonds", url: "week4-bonds.html", color: "#E53E3E" }
+        };
 
         let userAnswers = {};
         let examSubmitted = false;
@@ -744,10 +799,14 @@
                     </li>
                 `).join('');
 
+                const topicInfo = topicConfig[q.week];
                 card.innerHTML = `
                     <div class="question-header">
                         <span class="question-number">Question ${q.id}</span>
-                        <span class="question-status status-unanswered" id="status-${q.id}">Unanswered</span>
+                        <div style="display: flex; gap: 0.5rem; align-items: center;">
+                            <span style="font-size: 0.7rem; padding: 0.2rem 0.6rem; border-radius: 10px; background-color: ${topicInfo.color}20; color: ${topicInfo.color}; font-weight: 500;">Week ${q.week}: ${topicInfo.shortName}</span>
+                            <span class="question-status status-unanswered" id="status-${q.id}">Unanswered</span>
+                        </div>
                     </div>
                     ${contextHTML}
                     <div class="question-text">${q.question.replace(/\n/g, '<br>')}</div>
@@ -795,11 +854,27 @@
             examSubmitted = true;
             let correctCount = 0;
 
+            // Track performance by topic
+            const topicStats = {
+                1: { correct: 0, total: 0, missed: [] },
+                2: { correct: 0, total: 0, missed: [] },
+                3: { correct: 0, total: 0, missed: [] },
+                4: { correct: 0, total: 0, missed: [] }
+            };
+
             questions.forEach(q => {
                 const userAnswer = userAnswers[q.id];
                 const isCorrect = userAnswer === q.correctAnswer;
 
                 if (isCorrect) correctCount++;
+
+                // Track by topic
+                topicStats[q.week].total++;
+                if (isCorrect) {
+                    topicStats[q.week].correct++;
+                } else {
+                    topicStats[q.week].missed.push(q.id);
+                }
 
                 // Show correct/incorrect styling
                 q.options.forEach(opt => {
@@ -823,6 +898,83 @@
             document.getElementById('results-text').textContent = `You got ${correctCount} out of ${questions.length} correct`;
             document.getElementById('correct-count').textContent = correctCount;
             document.getElementById('incorrect-count').textContent = questions.length - correctCount;
+
+            // Generate topic breakdown
+            let breakdownHTML = '<h3 style="margin-bottom: 1rem; font-size: 1.1rem; color: #2D3748;">Performance by Topic</h3>';
+            breakdownHTML += '<div style="display: grid; gap: 0.75rem;">';
+
+            for (let week = 1; week <= 4; week++) {
+                const stats = topicStats[week];
+                if (stats.total === 0) continue;
+
+                const topicInfo = topicConfig[week];
+                const pct = Math.round((stats.correct / stats.total) * 100);
+                const missed = stats.total - stats.correct;
+
+                breakdownHTML += `
+                    <div style="display: flex; align-items: center; gap: 1rem; padding: 0.75rem; background: white; border-radius: 6px; border-left: 4px solid ${topicInfo.color};">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: #2D3748;">Week ${week}: ${topicInfo.name}</div>
+                            <div style="font-size: 0.875rem; color: #718096;">${stats.correct}/${stats.total} correct (${pct}%)</div>
+                        </div>
+                        <div style="width: 80px; height: 8px; background: #E2E8F0; border-radius: 4px; overflow: hidden;">
+                            <div style="width: ${pct}%; height: 100%; background: ${pct >= 70 ? '#48BB78' : pct >= 50 ? '#D69E2E' : '#E53E3E'};"></div>
+                        </div>
+                    </div>
+                `;
+            }
+            breakdownHTML += '</div>';
+            document.getElementById('topic-breakdown').innerHTML = breakdownHTML;
+
+            // Find the topic that needs the most work
+            let weakestTopic = null;
+            let worstScore = 101;
+
+            for (let week = 1; week <= 4; week++) {
+                const stats = topicStats[week];
+                if (stats.total > 0) {
+                    const pct = (stats.correct / stats.total) * 100;
+                    if (stats.missed.length > 0 && pct < worstScore) {
+                        worstScore = pct;
+                        weakestTopic = week;
+                    }
+                }
+            }
+
+            // Show focus recommendation if there's a weak area
+            if (weakestTopic !== null) {
+                const topicInfo = topicConfig[weakestTopic];
+                const stats = topicStats[weakestTopic];
+                const focusDiv = document.getElementById('focus-recommendation');
+                focusDiv.style.display = 'block';
+                focusDiv.style.backgroundColor = '#FFF5F5';
+                focusDiv.style.border = '2px solid #FC8181';
+                focusDiv.innerHTML = `
+                    <div style="text-align: center;">
+                        <div style="font-weight: 600; color: #C53030; margin-bottom: 0.5rem;">
+                            Focus Area: Week ${weakestTopic} - ${topicInfo.name}
+                        </div>
+                        <div style="font-size: 0.9rem; color: #742A2A; margin-bottom: 1rem;">
+                            You missed ${stats.missed.length} of ${stats.total} question${stats.missed.length > 1 ? 's' : ''} in this topic.
+                        </div>
+                        <a href="${topicInfo.url}" style="display: inline-block; padding: 0.5rem 1.5rem; background-color: #C53030; color: white; text-decoration: none; border-radius: 6px; font-weight: 600;">
+                            Practice ${topicInfo.name}
+                        </a>
+                    </div>
+                `;
+            } else if (correctCount === questions.length) {
+                const focusDiv = document.getElementById('focus-recommendation');
+                focusDiv.style.display = 'block';
+                focusDiv.style.backgroundColor = '#F0FFF4';
+                focusDiv.style.border = '2px solid #48BB78';
+                focusDiv.innerHTML = `
+                    <div style="text-align: center; color: #276749;">
+                        <div style="font-weight: 600; font-size: 1.1rem;">Perfect Score!</div>
+                        <div style="font-size: 0.9rem;">Excellent work on all topics!</div>
+                    </div>
+                `;
+            }
+
             document.getElementById('results-box').classList.add('show');
             document.getElementById('submit-section').style.display = 'none';
 
