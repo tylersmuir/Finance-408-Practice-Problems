@@ -833,7 +833,7 @@
                     </ul>
                     <div class="solution-box" id="solution-${q.id}">
                         <div class="solution-title">Solution</div>
-                        <div class="solution-content">${q.solution}</div>
+                        <div class="solution-content">${q.solution.replace(/\\n/g, '<br>').replace(/\n/g, '<br>')}</div>
                         <div class="solution-formula">${q.formula}</div>
                     </div>
                 `;
